@@ -1032,16 +1032,17 @@ h2 {
 .quick-booking-actions {
   display: flex;
   align-items: center;
+  justify-content: center;
   flex-wrap: wrap;
   gap: 0.65rem;
   margin-top: 0.9rem;
 }
 
 .quick-booking-note {
-  margin: 0;
+  margin: 0 auto;
   font-size: 0.78rem;
   color: #b6c0cf;
-  flex: 0 0 100%;
+  display: block;
   width: 100%;
   text-align: center;
 }

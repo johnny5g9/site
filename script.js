@@ -104,7 +104,8 @@ if (quickBookingForm) {
       return;
     }
 
-    const isSingleGame = packageSelect.value === 'Single Game';
+    const selectedPackage = String(packageSelect.value || '').trim().toLowerCase();
+    const isSingleGame = selectedPackage === 'single game';
 
     if (isSingleGame) {
       endDateField.classList.add('is-hidden');
