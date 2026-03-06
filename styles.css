@@ -719,7 +719,7 @@ h2 {
     grid-template-columns: 1fr;
   }
   .logo-crop {
-    width: clamp(78px, 24vw, 96px);
+    width: clamp(60px, 17vw, 72px);
   }
 
   .hero-logo-crop {
