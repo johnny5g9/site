@@ -8,6 +8,8 @@ const lightbox = document.querySelector('#lightbox');
 const lightboxImage = document.querySelector('.lightbox-image');
 const lightboxClose = document.querySelector('.lightbox-close');
 const bookingCards = document.querySelectorAll('.booking-option[data-scroll-target]');
+const quickBookingForm = document.querySelector('#quick-booking-form');
+const quickBookingStatus = document.querySelector('.quick-booking-status');
 
 const revealObserver = new IntersectionObserver(
   (entries) => {
@@ -70,6 +72,41 @@ if (mosaicItems.length > 0) {
 if (filterButtons.length > 0) {
   filterButtons.forEach((button) => {
     button.classList.toggle('active', button.dataset.filter === 'all');
+  });
+}
+if (quickBookingForm) {
+  quickBookingForm.addEventListener('submit', (event) => {
+    event.preventDefault();
+
+    if (!quickBookingForm.checkValidity()) {
+      quickBookingForm.reportValidity();
+      return;
+    }
+
+    const formData = new FormData(quickBookingForm);
+    const packageName = String(formData.get('package') || 'General Inquiry').trim();
+    const subject = `Booking Inquiry - ${packageName}`;
+
+    const lines = [
+      `Name: ${String(formData.get('full_name') || '').trim()}`,
+      `Email: ${String(formData.get('email') || '').trim()}`,
+      `Team: ${String(formData.get('team') || '').trim() || 'N/A'}`,
+      `Package: ${packageName}`,
+      `Preferred Date: ${String(formData.get('game_date') || '').trim() || 'N/A'}`,
+      `Rink/Location: ${String(formData.get('rink') || '').trim() || 'N/A'}`,
+      '',
+      'Notes:',
+      String(formData.get('notes') || '').trim()
+    ];
+
+    const body = lines.join('\n');
+    const mailto = `mailto:Booking@groisslhockeyphotography.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+    if (quickBookingStatus) {
+      quickBookingStatus.textContent = 'Opening your email app with your pre-filled inquiry...';
+    }
+
+    window.location.href = mailto;
   });
 }
 const scrollToBookingTarget = (selector) => {

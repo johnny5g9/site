@@ -984,3 +984,78 @@ h2 {
     transform: none;
   }
 }
+
+.quick-booking-form {
+  margin: 1.35rem auto 0;
+  width: min(900px, 100%);
+  text-align: left;
+  padding: 1rem;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: #0b1018c4;
+}
+
+.quick-booking-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.quick-booking-form label {
+  display: grid;
+  gap: 0.4rem;
+  font-size: 0.84rem;
+  color: var(--muted);
+}
+
+.quick-booking-form input,
+.quick-booking-form select,
+.quick-booking-form textarea {
+  width: 100%;
+  border-radius: 10px;
+  border: 1px solid #ffffff2a;
+  background: #070d16;
+  color: var(--ink);
+  padding: 0.62rem 0.7rem;
+  font: inherit;
+}
+
+.quick-booking-form textarea {
+  min-height: 108px;
+  resize: vertical;
+}
+
+.quick-booking-message {
+  margin-top: 0.75rem;
+}
+
+.quick-booking-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  margin-top: 0.9rem;
+}
+
+.quick-booking-note {
+  margin: 0;
+  font-size: 0.78rem;
+  color: #b6c0cf;
+}
+
+.quick-booking-status {
+  margin: 0.65rem 0 0;
+  font-size: 0.82rem;
+  color: #d8af6f;
+}
+
+@media (max-width: 640px) {
+  .quick-booking-form {
+    padding: 0.8rem;
+  }
+
+  .quick-booking-grid {
+    grid-template-columns: 1fr;
+    gap: 0.55rem;
+  }
+}

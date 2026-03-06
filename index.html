@@ -249,6 +249,47 @@
       <h2>Need photography for your next game or tournament?</h2>
       <p class="eyebrow">Choose your booking method</p>
       <p>Reach out by Instagram DM or email at <a class="booking-email-inline" href="mailto:Booking@groisslhockeyphotography.com">Booking@groisslhockeyphotography.com</a> with your date, rink, and team details.</p>
+      <form id="quick-booking-form" class="quick-booking-form" novalidate>
+        <div class="quick-booking-grid">
+          <label>
+            Full Name
+            <input type="text" name="full_name" autocomplete="name" required />
+          </label>
+          <label>
+            Email
+            <input type="email" name="email" autocomplete="email" required />
+          </label>
+          <label>
+            Team / Organization
+            <input type="text" name="team" autocomplete="organization" />
+          </label>
+          <label>
+            Package
+            <select name="package" required>
+              <option value="Single Game">Single Game</option>
+              <option value="Tournament Package">Tournament Package</option>
+              <option value="Custom Coverage">Custom Coverage</option>
+            </select>
+          </label>
+          <label>
+            Preferred Game Date
+            <input type="date" name="game_date" />
+          </label>
+          <label>
+            Rink / Location
+            <input type="text" name="rink" />
+          </label>
+        </div>
+        <label class="quick-booking-message">
+          Notes
+          <textarea name="notes" rows="4" placeholder="Share game details, number of games, and anything important." required></textarea>
+        </label>
+        <div class="quick-booking-actions">
+          <button class="btn btn-primary" type="submit">Send Quick Inquiry</button>
+          <p class="quick-booking-note">Submits via your email app.</p>
+        </div>
+        <p class="quick-booking-status" aria-live="polite"></p>
+      </form>
       <div class="hero-actions">
         <a class="btn btn-primary" href="https://www.instagram.com/groisslhockeyphotography/" target="_blank" rel="noopener noreferrer">DM on Instagram</a>
         <a class="btn btn-ghost" href="mailto:Booking@groisslhockeyphotography.com">Email Booking</a>
