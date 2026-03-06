@@ -565,7 +565,7 @@ h2 {
   margin-top: 0.75rem;
   padding: 0.7rem 0.95rem;
   max-width: 760px;
-  color: #f7ddb0;
+  color: #ffe7bf;
   font-weight: 600;
   letter-spacing: 0.01em;
   background: linear-gradient(180deg, #d8af6f1f 0%, #d8af6f12 100%);
@@ -1083,3 +1083,4 @@ h2 {
 #end-date-field.is-hidden {
   display: none !important;
 }
+
