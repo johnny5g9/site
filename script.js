@@ -7,6 +7,7 @@ const lightboxTargets = document.querySelectorAll('.lightboxable');
 const lightbox = document.querySelector('#lightbox');
 const lightboxImage = document.querySelector('.lightbox-image');
 const lightboxClose = document.querySelector('.lightbox-close');
+const bookingCards = document.querySelectorAll('.booking-option[data-scroll-target]');
 
 const revealObserver = new IntersectionObserver(
   (entries) => {
@@ -71,6 +72,33 @@ if (filterButtons.length > 0) {
     button.classList.toggle('active', button.dataset.filter === 'all');
   });
 }
+const scrollToBookingTarget = (selector) => {
+  if (!selector) {
+    return;
+  }
+
+  const target = document.querySelector(selector);
+  if (!target) {
+    return;
+  }
+
+  target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+};
+
+bookingCards.forEach((card) => {
+  card.addEventListener('click', () => {
+    scrollToBookingTarget(card.dataset.scrollTarget);
+  });
+
+  card.addEventListener('keydown', (event) => {
+    if (event.key !== 'Enter' && event.key !== ' ') {
+      return;
+    }
+
+    event.preventDefault();
+    scrollToBookingTarget(card.dataset.scrollTarget);
+  });
+});
 
 const openLightbox = (src, alt) => {
   if (!lightbox || !lightboxImage) {
