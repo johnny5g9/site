@@ -469,7 +469,6 @@ h2 {
 }
 
 .service-area-grid,
-  .testimonial-grid,
   .trusted-by-strip,
   .booking-trust-row {
   display: grid;
@@ -541,26 +540,6 @@ h2 {
   background: #14191fd9;
 }
 
-.featured-proof {
-  margin-top: 1rem;
-  padding: 1rem 1.1rem;
-  border: 1px solid #d8af6f5a;
-  border-radius: 12px;
-  background: linear-gradient(180deg, #d8af6f1b 0%, #d8af6f0f 100%);
-}
-
-.featured-proof p {
-  margin: 0;
-  color: #f1ddb8;
-}
-
-.featured-proof span {
-  display: block;
-  margin-top: 0.55rem;
-  color: #d0d9e6;
-  font-size: 0.84rem;
-}
-
 .process-list {
   list-style: none;
   padding: 0;
@@ -585,36 +564,6 @@ h2 {
   display: block;
   margin-top: 0.9rem;
   font-size: 0.9rem;
-}
-
-.testimonials-proof {
-  text-align: left;
-}
-
-.testimonial-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 0.9rem;
-}
-
-.testimonial-grid article {
-  padding: 1rem;
-  border: 1px solid var(--line);
-  border-radius: 12px;
-  background: var(--card);
-}
-
-.testimonial-grid p {
-  margin: 0;
-  font-size: 1.02rem;
-  line-height: 1.35;
-}
-
-.testimonial-grid span {
-  margin-top: 0.7rem;
-  display: block;
-  color: #d0d9e6;
-  font-size: 0.84rem;
 }
 
 .faq-grid {
@@ -772,7 +721,6 @@ h2 {
   .services-grid,
   .packages-grid,
   .service-area-grid,
-  .testimonial-grid,
   .trusted-by-strip,
   .booking-trust-row {
     grid-template-columns: 1fr 1fr;
@@ -831,7 +779,6 @@ h2 {
   .services-grid,
   .packages-grid,
   .service-area-grid,
-  .testimonial-grid,
   .trusted-by-strip,
   .booking-trust-row,
   .process-list,
