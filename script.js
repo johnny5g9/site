@@ -2,7 +2,6 @@ const reveals = document.querySelectorAll('.reveal');
 const bgShots = document.querySelectorAll('.scroll-shot');
 const filterButtons = document.querySelectorAll('.chip');
 const mosaicItems = document.querySelectorAll('.mosaic-item');
-const mosaicGrid = document.querySelector('.mosaic-grid');
 const lightboxTargets = document.querySelectorAll('.lightboxable');
 const lightbox = document.querySelector('#lightbox');
 const lightboxImage = document.querySelector('.lightbox-image');

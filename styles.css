@@ -146,19 +146,6 @@ body {
   object-fit: contain;
 }
 
-.hero-logo-crop {
-  width: clamp(150px, 16vw, 220px);
-  max-width: 55%;
-  margin: 0 0 1rem;
-}
-
-.hero-logo {
-  width: 100%;
-  height: auto;
-  object-fit: contain;
-  opacity: 0.94;
-  filter: drop-shadow(0 8px 24px #00000075);
-}
 
 .nav-links {
   list-style: none;
@@ -228,7 +215,6 @@ h2 {
 .hero-copy,
 .about-copy,
 .services-grid p,
-.quote span,
 .cta p,
 .site-footer,
 .packages-grid p,
@@ -469,8 +455,7 @@ h2 {
 }
 
 .service-area-grid,
-  .trusted-by-strip,
-  .booking-trust-row {
+.trusted-by-strip {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 1rem;
@@ -545,25 +530,6 @@ h2 {
   padding: 0;
   margin: 0;
   grid-template-columns: repeat(4, 1fr);
-}
-
-.quote {
-  border-top: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
-  text-align: center;
-}
-
-.quote p {
-  margin: 0;
-  font-family: "Instrument Serif", serif;
-  font-size: clamp(1.6rem, 3vw, 2.5rem);
-  line-height: 1.2;
-}
-
-.quote span {
-  display: block;
-  margin-top: 0.9rem;
-  font-size: 0.9rem;
 }
 
 .faq-grid {
@@ -721,8 +687,7 @@ h2 {
   .services-grid,
   .packages-grid,
   .service-area-grid,
-  .trusted-by-strip,
-  .booking-trust-row {
+.trusted-by-strip {
     grid-template-columns: 1fr 1fr;
   }
 
@@ -779,8 +744,7 @@ h2 {
   .services-grid,
   .packages-grid,
   .service-area-grid,
-  .trusted-by-strip,
-  .booking-trust-row,
+.trusted-by-strip,
   .process-list,
   .stats {
     grid-template-columns: 1fr;
@@ -817,11 +781,6 @@ h2 {
   }
   .logo-crop {
     width: clamp(60px, 17vw, 72px);
-  }
-
-  .hero-logo-crop {
-    width: clamp(130px, 42vw, 180px);
-    max-width: 64%;
   }
   .nav-links {
     gap: 0.7rem;
@@ -1149,14 +1108,6 @@ h2 {
   margin-top: 0.9rem;
 }
 
-.quick-booking-note {
-  margin: 0 auto;
-  font-size: 0.78rem;
-  color: #b6c0cf;
-  display: block;
-  width: 100%;
-  text-align: center;
-}
 
 .quick-booking-status {
   margin: 0.65rem 0 0;
