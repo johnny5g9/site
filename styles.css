@@ -1059,3 +1059,7 @@ h2 {
     gap: 0.55rem;
   }
 }
+
+#contact .hero-actions {
+  justify-content: center;
+}
