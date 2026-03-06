@@ -922,6 +922,13 @@ h2 {
 
 @media (max-width: 640px) {
   .full-gallery-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.6rem;
+  }
+}
+
+@media (max-width: 420px) {
+  .full-gallery-grid {
     grid-template-columns: 1fr;
   }
 }
