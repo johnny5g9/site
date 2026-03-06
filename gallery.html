@@ -1,0 +1,68 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Groissl Hockey Photography | Full Gallery</title>
+  <meta name="description" content="Full gallery of hockey photography by Groissl Hockey Photography." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;700;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <div class="page-bg" aria-hidden="true"></div>
+
+  <header class="site-header reveal">
+    <a class="logo" href="./index.html" aria-label="Groissl Hockey Photography home">
+      <span class="logo-crop">
+        <img src="./Logo.png" alt="Groissl Hockey Photography" />
+      </span>
+    </a>
+    <nav aria-label="Primary">
+      <ul class="nav-links">
+        <li><a href="./index.html">Home</a></li>
+        <li><a href="./index.html#work">Work</a></li>
+        <li><a href="./index.html#contact">Book</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section class="section reveal gallery-only" id="full-gallery">
+      <div class="section-head gallery-head">
+        <div>
+          <p class="eyebrow">Full Gallery</p>
+          <h1>Expanded Hockey Gallery</h1>
+          <p class="hero-copy">Click any image to view it larger.</p>
+        </div>
+        <div class="hero-actions">
+          <a class="btn btn-ghost" href="./index.html#gallery">Back to Homepage Gallery</a>
+          <a class="btn btn-primary" href="./index.html#contact">Book: DM or Email</a>
+        </div>
+      </div>
+
+      <div class="mosaic-grid full-gallery-grid">
+        <article class="mosaic-item"><img class="lightboxable" src="./SEAHAWK-047.jpg" alt="Two players battling for puck during live action" loading="lazy" /></article>
+        <article class="mosaic-item tall"><img class="lightboxable" src="./SEAHAWK-106.jpg" alt="Player portrait at bench during game" loading="lazy" /></article>
+        <article class="mosaic-item"><img class="lightboxable" src="./house-42.jpg" alt="Player on ice with teammates in the background" loading="lazy" /></article>
+        <article class="mosaic-item wide"><img class="lightboxable" src="./SEAHAWK-124.jpg" alt="Game action with goalie and defenders in frame" loading="lazy" /></article>
+        <article class="mosaic-item"><img class="lightboxable" src="./house-90.jpg" alt="Player waiting at bench with focused expression" loading="lazy" /></article>
+        <article class="mosaic-item"><img class="lightboxable" src="./SEAHAWK-078.jpg" alt="Close rink-side hockey detail shot" loading="lazy" /></article>
+        <article class="mosaic-item"><img class="lightboxable" src="./SEAHAWK-017.jpg" alt="Goalie making a save in live game action" loading="lazy" /></article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; 2026 Groissl Hockey Photography</p>
+  </footer>
+
+  <div class="lightbox" id="lightbox" aria-hidden="true">
+    <button class="lightbox-close" type="button" aria-label="Close image">Close</button>
+    <img class="lightbox-image" src="" alt="Expanded gallery image" />
+  </div>
+
+  <script src="./script.js"></script>
+</body>
+</html>
