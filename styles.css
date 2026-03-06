@@ -1041,7 +1041,8 @@ h2 {
   margin: 0;
   font-size: 0.78rem;
   color: #b6c0cf;
-  flex-basis: 100%;
+  flex: 0 0 100%;
+  width: 100%;
   text-align: center;
 }
 
@@ -1064,4 +1065,8 @@ h2 {
 
 #contact .hero-actions {
   justify-content: center;
+}
+
+#end-date-field.is-hidden {
+  display: none !important;
 }

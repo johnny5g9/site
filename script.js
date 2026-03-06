@@ -107,13 +107,13 @@ if (quickBookingForm) {
     const isSingleGame = packageSelect.value === 'Single Game';
 
     if (isSingleGame) {
-      endDateField.hidden = true;
+      endDateField.classList.add('is-hidden');
       endDateInput.value = '';
       endDateInput.disabled = true;
       return;
     }
 
-    endDateField.hidden = false;
+    endDateField.classList.remove('is-hidden');
     endDateInput.disabled = false;
   };
 
