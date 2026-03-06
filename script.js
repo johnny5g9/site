@@ -18,11 +18,11 @@ const revealObserver = new IntersectionObserver(
       }
     }
   },
-  { threshold: 0.15 }
+  { threshold: 0.08, rootMargin: '0px 0px -8% 0px' }
 );
 
 reveals.forEach((el, idx) => {
-  el.style.transitionDelay = `${idx * 80}ms`;
+  el.style.transitionDelay = `${idx * 35}ms`;
   revealObserver.observe(el);
 });
 
@@ -48,8 +48,8 @@ const updateParallax = () => {
   const y = window.scrollY;
 
   bgShots.forEach((shot) => {
-    const speed = Number(shot.dataset.speed || 0.05);
-    const offset = Math.round(y * speed);
+    const speed = Number(shot.dataset.speed || 0.05) * 1.35;
+    const offset = y * speed;
     shot.style.setProperty('--scroll', `${offset}px`);
   });
 
@@ -61,7 +61,7 @@ window.addEventListener('scroll', () => {
     window.requestAnimationFrame(updateParallax);
     ticking = true;
   }
-});
+}, { passive: true });
 
 if (mosaicItems.length > 0) {
   mosaicItems.forEach((item) => item.classList.remove('is-hidden'));

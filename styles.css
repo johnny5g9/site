@@ -56,7 +56,7 @@ body {
   border: 1px solid #ffffff17;
   opacity: 0;
   transform: translate3d(var(--x), calc(var(--y) + var(--scroll, 0px)), 0);
-  transition: opacity 700ms ease;
+  transition: opacity 380ms ease;
   box-shadow: 0 28px 70px #00000080;
   will-change: transform, opacity;
 }
@@ -621,7 +621,7 @@ h2 {
 .reveal {
   opacity: 0;
   transform: translateY(20px);
-  transition: opacity 700ms ease, transform 700ms ease;
+  transition: opacity 440ms ease, transform 440ms ease;
 }
 
 .reveal.visible {
