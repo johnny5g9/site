@@ -123,9 +123,50 @@ if (quickBookingForm) {
     updateQuickBookingDateUI();
   }
 
-  quickBookingForm.addEventListener('submit', () => {
+  quickBookingForm.addEventListener('submit', async (event) => {
+    event.preventDefault();
+
+    const submitButton = quickBookingForm.querySelector('button[type="submit"]');
+
     if (quickBookingStatus) {
       quickBookingStatus.textContent = 'Submitting inquiry...';
+      quickBookingStatus.style.color = '#d8af6f';
+    }
+
+    if (submitButton) {
+      submitButton.disabled = true;
+    }
+
+    try {
+      const formData = new FormData(quickBookingForm);
+      const response = await fetch(quickBookingForm.action, {
+        method: 'POST',
+        body: formData,
+        headers: {
+          Accept: 'application/json'
+        }
+      });
+
+      if (!response.ok) {
+        throw new Error(`Form submission failed with status ${response.status}`);
+      }
+
+      if (quickBookingStatus) {
+        quickBookingStatus.textContent = 'Inquiry sent successfully. I will get back to you soon.';
+        quickBookingStatus.style.color = '#a8e6b0';
+      }
+
+      quickBookingForm.reset();
+      updateQuickBookingDateUI();
+    } catch (error) {
+      if (quickBookingStatus) {
+        quickBookingStatus.textContent = 'Could not send right now. Please try again or email Booking@groisslhockeyphotography.com.';
+        quickBookingStatus.style.color = '#ffb4b4';
+      }
+    } finally {
+      if (submitButton) {
+        submitButton.disabled = false;
+      }
     }
   });
 }
@@ -289,6 +330,4 @@ faqItems.forEach((item) => {
     }
   });
 });
-
-
 
