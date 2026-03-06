@@ -561,6 +561,18 @@ h2 {
   margin-inline: auto;
 }
 
+.booking-method-highlight {
+  margin-top: 0.75rem;
+  padding: 0.7rem 0.95rem;
+  max-width: 760px;
+  color: #f7ddb0;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  background: linear-gradient(180deg, #d8af6f1f 0%, #d8af6f12 100%);
+  border: 1px solid #d8af6f52;
+  border-radius: 10px;
+}
+
 .site-footer {
   padding: 2rem 0 3rem;
   font-size: 0.9rem;
