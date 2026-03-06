@@ -778,6 +778,14 @@ h2 {
   #gallery .mosaic-item.tall {
     aspect-ratio: 4 / 3;
   }
+
+  #work .card {
+    min-height: 280px;
+  }
+
+  #work .card.wide {
+    min-height: 405px;
+  }
 }
 
 /* Phone-specific density tuning: keeps desktop/tablet unchanged */
