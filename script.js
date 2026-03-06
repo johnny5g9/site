@@ -14,6 +14,7 @@ const packageSelect = document.querySelector('#quick-booking-form select[name="p
 const endDateField = document.querySelector('#end-date-field');
 const endDateInput = document.querySelector('#end-date-input');
 const dateInputs = document.querySelectorAll('#quick-booking-form input[type="date"]');
+const hasBgShots = bgShots.length > 0;
 
 const revealObserver = new IntersectionObserver(
   (entries) => {
@@ -44,30 +45,42 @@ const bgObserver = new IntersectionObserver(
   { threshold: 0.01 }
 );
 
-bgShots.forEach((shot) => {
-  bgObserver.observe(shot);
-});
+if (hasBgShots) {
+  bgShots.forEach((shot) => {
+    bgObserver.observe(shot);
+  });
+}
 
 let ticking = false;
+let lastScrollY = -1;
+const bgShotSpeeds = hasBgShots
+  ? Array.from(bgShots, (shot) => Number(shot.dataset.speed || 0.05) * 1.35)
+  : [];
 
 const updateParallax = () => {
   const y = window.scrollY;
+  if (y === lastScrollY) {
+    ticking = false;
+    return;
+  }
+  lastScrollY = y;
 
-  bgShots.forEach((shot) => {
-    const speed = Number(shot.dataset.speed || 0.05) * 1.35;
-    const offset = y * speed;
+  bgShots.forEach((shot, idx) => {
+    const offset = y * bgShotSpeeds[idx];
     shot.style.setProperty('--scroll', `${offset}px`);
   });
 
   ticking = false;
 };
 
-window.addEventListener('scroll', () => {
-  if (!ticking) {
-    window.requestAnimationFrame(updateParallax);
-    ticking = true;
-  }
-}, { passive: true });
+if (hasBgShots) {
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      window.requestAnimationFrame(updateParallax);
+      ticking = true;
+    }
+  }, { passive: true });
+}
 
 if (mosaicItems.length > 0) {
   mosaicItems.forEach((item) => item.classList.remove('is-hidden'));
@@ -245,7 +258,9 @@ window.addEventListener('keydown', (event) => {
   }
 });
 
-updateParallax();
+if (hasBgShots) {
+  updateParallax();
+}
 
 const faqItems = Array.from(document.querySelectorAll('#faq details'));
 
