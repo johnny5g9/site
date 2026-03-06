@@ -391,7 +391,7 @@ h2 {
 .mosaic-grid {
   display: grid;
   gap: 0.65rem;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   transition: opacity 260ms ease, transform 260ms ease;
 }
 
@@ -406,14 +406,14 @@ h2 {
   border: 1px solid var(--line);
   background: #05080f52;
   transition: transform 220ms ease, opacity 220ms ease;
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 3 / 2;
 }
 
 .mosaic-item.wide,
 .mosaic-item.tall {
   grid-column: auto;
   grid-row: auto;
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 3 / 2;
 }
 
 .mosaic-item.is-hidden {
@@ -766,3 +766,9 @@ h2 {
 
 
 
+
+@media (min-width: 1400px) {
+  .mosaic-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
