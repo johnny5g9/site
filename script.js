@@ -10,6 +10,11 @@ const lightboxClose = document.querySelector('.lightbox-close');
 const bookingCards = document.querySelectorAll('.booking-option[data-scroll-target]');
 const quickBookingForm = document.querySelector('#quick-booking-form');
 const quickBookingStatus = document.querySelector('.quick-booking-status');
+const packageSelect = document.querySelector('#quick-booking-form select[name="package"]');
+const endDateField = document.querySelector('#end-date-field');
+const endDateInput = document.querySelector('#end-date-input');
+const singleDayToggle = document.querySelector('#single-day-toggle');
+const singleDayToggleLabel = document.querySelector('.quick-booking-checkbox');
 
 const revealObserver = new IntersectionObserver(
   (entries) => {
@@ -75,6 +80,38 @@ if (filterButtons.length > 0) {
   });
 }
 if (quickBookingForm) {
+  const updateQuickBookingDateUI = () => {
+    if (!packageSelect || !endDateField || !endDateInput || !singleDayToggle || !singleDayToggleLabel) {
+      return;
+    }
+
+    const isSingleGame = packageSelect.value === 'Single Game';
+    const singleDayChecked = singleDayToggle.checked;
+
+    if (isSingleGame) {
+      singleDayToggle.checked = true;
+      singleDayToggleLabel.hidden = true;
+      endDateField.hidden = true;
+      endDateInput.value = '';
+      endDateInput.disabled = true;
+      return;
+    }
+
+    singleDayToggleLabel.hidden = false;
+    endDateInput.disabled = false;
+    endDateField.hidden = singleDayChecked;
+
+    if (singleDayChecked) {
+      endDateInput.value = '';
+    }
+  };
+
+  if (packageSelect && singleDayToggle) {
+    packageSelect.addEventListener('change', updateQuickBookingDateUI);
+    singleDayToggle.addEventListener('change', updateQuickBookingDateUI);
+    updateQuickBookingDateUI();
+  }
+
   quickBookingForm.addEventListener('submit', (event) => {
     event.preventDefault();
 
@@ -92,7 +129,15 @@ if (quickBookingForm) {
       `Email: ${String(formData.get('email') || '').trim()}`,
       `Team: ${String(formData.get('team') || '').trim() || 'N/A'}`,
       `Package: ${packageName}`,
-      `Preferred Date: ${String(formData.get('game_date') || '').trim() || 'N/A'}`,
+      (() => {
+        const startDate = String(formData.get('start_date') || '').trim();
+        const endDate = String(formData.get('end_date') || '').trim();
+        const singleDayEvent = packageName === 'Single Game' || Boolean(formData.get('single_day'));
+        const dateRange = singleDayEvent
+          ? (startDate || 'N/A')
+          : (startDate && endDate ? `${startDate} to ${endDate}` : (startDate || endDate || 'N/A'));
+        return `Game Date(s): ${dateRange}`;
+      })(),
       `Rink/Location: ${String(formData.get('rink') || '').trim() || 'N/A'}`,
       '',
       'Notes:',
