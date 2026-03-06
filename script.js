@@ -8,6 +8,7 @@ const lightbox = document.querySelector('#lightbox');
 const lightboxImage = document.querySelector('.lightbox-image');
 const lightboxClose = document.querySelector('.lightbox-close');
 const bookingCards = document.querySelectorAll('.booking-option[data-scroll-target]');
+const typewriterHeading = document.querySelector('[data-typewriter]');
 
 const revealObserver = new IntersectionObserver(
   (entries) => {
@@ -72,6 +73,39 @@ if (filterButtons.length > 0) {
     button.classList.toggle('active', button.dataset.filter === 'all');
   });
 }
+
+const runTypewriterHeading = () => {
+  if (!typewriterHeading) {
+    return;
+  }
+
+  const fullText = (typewriterHeading.dataset.typewriter || typewriterHeading.textContent || '').trim();
+  if (!fullText) {
+    return;
+  }
+
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    typewriterHeading.textContent = fullText;
+    return;
+  }
+
+  typewriterHeading.setAttribute('aria-label', fullText);
+  typewriterHeading.textContent = '';
+
+  let idx = 0;
+  const step = () => {
+    idx += 1;
+    typewriterHeading.textContent = fullText.slice(0, idx);
+
+    if (idx < fullText.length) {
+      window.setTimeout(step, 34);
+    }
+  };
+
+  window.setTimeout(step, 220);
+};
+
+runTypewriterHeading();
 const scrollToBookingTarget = (selector) => {
   if (!selector) {
     return;
