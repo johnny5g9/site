@@ -927,11 +927,6 @@ h2 {
   }
 }
 
-@media (max-width: 420px) {
-  .full-gallery-grid {
-    grid-template-columns: 1fr;
-  }
-}
 
 .booking-email-inline:link,
 .booking-email-inline:visited {
