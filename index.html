@@ -249,7 +249,10 @@
       <h2>Need photography for your next game or tournament?</h2>
       <p class="eyebrow">Choose your booking method</p>
       <p>Reach out by Instagram DM or email at <a class="booking-email-inline" href="mailto:Booking@groisslhockeyphotography.com">Booking@groisslhockeyphotography.com</a> with your date, rink, and team details.</p>
-      <form id="quick-booking-form" class="quick-booking-form" novalidate>
+      <form id="quick-booking-form" class="quick-booking-form" action="https://formsubmit.co/Booking@groisslhockeyphotography.com" method="POST">
+        <input type="hidden" name="_subject" value="New Booking Inquiry" />
+        <input type="hidden" name="_template" value="table" />
+        <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off" />
         <div class="quick-booking-grid">
           <label>
             Full Name
@@ -297,7 +300,7 @@
         </label>
         <div class="quick-booking-actions">
           <button class="btn btn-primary" type="submit">Send Quick Inquiry</button>
-          <p class="quick-booking-note">Submits via your email app.</p>
+          <p class="quick-booking-note">Submits directly to your inbox (no user email app needed).</p>
         </div>
         <p class="quick-booking-status" aria-live="polite"></p>
       </form>

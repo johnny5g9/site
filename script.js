@@ -123,45 +123,10 @@ if (quickBookingForm) {
     updateQuickBookingDateUI();
   }
 
-  quickBookingForm.addEventListener('submit', (event) => {
-    event.preventDefault();
-
-    if (!quickBookingForm.checkValidity()) {
-      quickBookingForm.reportValidity();
-      return;
-    }
-
-    const formData = new FormData(quickBookingForm);
-    const packageName = String(formData.get('package') || 'General Inquiry').trim();
-    const subject = `Booking Inquiry - ${packageName}`;
-
-    const lines = [
-      `Name: ${String(formData.get('full_name') || '').trim()}`,
-      `Email: ${String(formData.get('email') || '').trim()}`,
-      `Team: ${String(formData.get('team') || '').trim() || 'N/A'}`,
-      `Package: ${packageName}`,
-      (() => {
-        const startDate = String(formData.get('start_date') || '').trim();
-        const endDate = String(formData.get('end_date') || '').trim();
-        const dateRange = packageName === 'Single Game'
-          ? (startDate || 'N/A')
-          : (startDate && endDate ? `${startDate} to ${endDate}` : (startDate || endDate || 'N/A'));
-        return `Game Date(s): ${dateRange}`;
-      })(),
-      `Rink/Location: ${String(formData.get('rink') || '').trim() || 'N/A'}`,
-      '',
-      'Notes:',
-      String(formData.get('notes') || '').trim()
-    ];
-
-    const body = lines.join('\n');
-    const mailto = `mailto:Booking@groisslhockeyphotography.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-
+  quickBookingForm.addEventListener('submit', () => {
     if (quickBookingStatus) {
-      quickBookingStatus.textContent = 'Opening your email app with your pre-filled inquiry...';
+      quickBookingStatus.textContent = 'Submitting inquiry...';
     }
-
-    window.location.href = mailto;
   });
 }
 const scrollToBookingTarget = (selector) => {
