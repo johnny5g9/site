@@ -915,3 +915,17 @@ h2 {
     grid-template-columns: 1fr;
   }
 }
+
+.booking-email-inline {
+  color: #f1c785;
+  text-decoration: none;
+  font-weight: 700;
+  border-bottom: 1px solid #d8af6f73;
+  padding-bottom: 1px;
+  transition: color 180ms ease, border-color 180ms ease;
+}
+
+.booking-email-inline:hover {
+  color: #ffe3b3;
+  border-color: #f1c785;
+}
