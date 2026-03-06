@@ -916,7 +916,8 @@ h2 {
   }
 }
 
-.booking-email-inline {
+.booking-email-inline:link,
+.booking-email-inline:visited {
   color: #f1c785;
   text-decoration: none;
   font-weight: 700;
@@ -925,7 +926,10 @@ h2 {
   transition: color 180ms ease, border-color 180ms ease;
 }
 
-.booking-email-inline:hover {
+.booking-email-inline:hover,
+.booking-email-inline:focus-visible,
+.booking-email-inline:active {
   color: #ffe3b3;
   border-color: #f1c785;
+  text-decoration: none;
 }
