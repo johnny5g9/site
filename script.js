@@ -13,8 +13,6 @@ const quickBookingStatus = document.querySelector('.quick-booking-status');
 const packageSelect = document.querySelector('#quick-booking-form select[name="package"]');
 const endDateField = document.querySelector('#end-date-field');
 const endDateInput = document.querySelector('#end-date-input');
-const singleDayToggle = document.querySelector('#single-day-toggle');
-const singleDayToggleLabel = document.querySelector('.quick-booking-checkbox');
 
 const revealObserver = new IntersectionObserver(
   (entries) => {
@@ -81,34 +79,25 @@ if (filterButtons.length > 0) {
 }
 if (quickBookingForm) {
   const updateQuickBookingDateUI = () => {
-    if (!packageSelect || !endDateField || !endDateInput || !singleDayToggle || !singleDayToggleLabel) {
+    if (!packageSelect || !endDateField || !endDateInput) {
       return;
     }
 
     const isSingleGame = packageSelect.value === 'Single Game';
-    const singleDayChecked = singleDayToggle.checked;
 
     if (isSingleGame) {
-      singleDayToggle.checked = true;
-      singleDayToggleLabel.hidden = true;
       endDateField.hidden = true;
       endDateInput.value = '';
       endDateInput.disabled = true;
       return;
     }
 
-    singleDayToggleLabel.hidden = false;
+    endDateField.hidden = false;
     endDateInput.disabled = false;
-    endDateField.hidden = singleDayChecked;
-
-    if (singleDayChecked) {
-      endDateInput.value = '';
-    }
   };
 
-  if (packageSelect && singleDayToggle) {
+  if (packageSelect) {
     packageSelect.addEventListener('change', updateQuickBookingDateUI);
-    singleDayToggle.addEventListener('change', updateQuickBookingDateUI);
     updateQuickBookingDateUI();
   }
 
@@ -132,8 +121,7 @@ if (quickBookingForm) {
       (() => {
         const startDate = String(formData.get('start_date') || '').trim();
         const endDate = String(formData.get('end_date') || '').trim();
-        const singleDayEvent = packageName === 'Single Game' || Boolean(formData.get('single_day'));
-        const dateRange = singleDayEvent
+        const dateRange = packageName === 'Single Game'
           ? (startDate || 'N/A')
           : (startDate && endDate ? `${startDate} to ${endDate}` : (startDate || endDate || 'N/A'));
         return `Game Date(s): ${dateRange}`;

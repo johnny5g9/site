@@ -1059,15 +1059,3 @@ h2 {
     gap: 0.55rem;
   }
 }
-
-.quick-booking-checkbox {
-  display: flex;
-  align-items: center;
-  gap: 0.55rem;
-  margin-top: 0.15rem;
-}
-
-.quick-booking-checkbox input[type="checkbox"] {
-  width: auto;
-  margin: 0;
-}
