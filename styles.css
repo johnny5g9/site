@@ -262,7 +262,8 @@ h2 {
   background: var(--accent);
   border-color: #e2ba7d;
   color: #1a140a;
-  font-weight: 700;
+  font-weight: 600;
+  font-size: 0.95em;
 }
 
 .btn-ghost {
@@ -385,7 +386,8 @@ h2 {
   color: #1a140a;
   background: var(--accent);
   border-color: #e2ba7d;
-  font-weight: 700;
+  font-weight: 600;
+  font-size: 0.95em;
 }
 
 .mosaic-grid {
@@ -527,6 +529,7 @@ h2 {
 .faq-grid summary {
   cursor: pointer;
   font-weight: 600;
+  font-size: 0.95em;
 }
 
 .faq-grid summary::-webkit-details-marker {
@@ -920,9 +923,10 @@ h2 {
 .booking-email-inline:visited {
   color: #f1c785;
   text-decoration: none;
-  font-weight: 700;
-  border-bottom: 1px solid #d8af6f73;
-  padding-bottom: 1px;
+  font-weight: 600;
+  font-size: 0.95em;
+  border-bottom: 1px solid #d8af6f55;
+  padding-bottom: 0px;
   transition: color 180ms ease, border-color 180ms ease;
 }
 
