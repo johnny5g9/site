@@ -330,13 +330,13 @@ h2 {
   object-fit: cover;
   display: block;
   cursor: zoom-in;
-  opacity: 0.9;
-  filter: saturate(0.8) contrast(1.08) brightness(0.78);
+  opacity: 1;
+  filter: none;
 }
 
 .card img.goalie-save {
-  opacity: 0.92;
-  filter: saturate(0.84) contrast(1.05) brightness(0.86);
+  opacity: 1;
+  filter: none;
 }
 
 .card-meta {
@@ -429,8 +429,8 @@ h2 {
   object-fit: cover;
   display: block;
   cursor: zoom-in;
-  opacity: 0.9;
-  filter: saturate(0.82) contrast(1.05) brightness(0.8);
+  opacity: 1;
+  filter: none;
 }
 
 .split {
