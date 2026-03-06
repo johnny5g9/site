@@ -14,7 +14,20 @@ const packageSelect = document.querySelector('#quick-booking-form select[name="p
 const endDateField = document.querySelector('#end-date-field');
 const endDateInput = document.querySelector('#end-date-input');
 const dateInputs = document.querySelectorAll('#quick-booking-form input[type="date"]');
+
 const hasBgShots = bgShots.length > 0;
+const isMobileViewport = window.matchMedia('(max-width: 900px)').matches;
+const slowLoadTimeoutMs = 2500;
+
+let nonCriticalInitialized = false;
+let lightboxBound = false;
+let parallaxBound = false;
+let ticking = false;
+let lastScrollY = -1;
+
+const bgShotSpeeds = hasBgShots
+  ? Array.from(bgShots, (shot) => Number(shot.dataset.speed || 0.05) * 1.35)
+  : [];
 
 const revealObserver = new IntersectionObserver(
   (entries) => {
@@ -28,11 +41,6 @@ const revealObserver = new IntersectionObserver(
   { threshold: 0.08, rootMargin: '0px 0px -8% 0px' }
 );
 
-reveals.forEach((el, idx) => {
-  el.style.transitionDelay = `${idx * 35}ms`;
-  revealObserver.observe(el);
-});
-
 const bgObserver = new IntersectionObserver(
   (entries) => {
     for (const entry of entries) {
@@ -45,24 +53,13 @@ const bgObserver = new IntersectionObserver(
   { threshold: 0.01 }
 );
 
-if (hasBgShots) {
-  bgShots.forEach((shot) => {
-    bgObserver.observe(shot);
-  });
-}
-
-let ticking = false;
-let lastScrollY = -1;
-const bgShotSpeeds = hasBgShots
-  ? Array.from(bgShots, (shot) => Number(shot.dataset.speed || 0.05) * 1.35)
-  : [];
-
 const updateParallax = () => {
   const y = window.scrollY;
   if (y === lastScrollY) {
     ticking = false;
     return;
   }
+
   lastScrollY = y;
 
   bgShots.forEach((shot, idx) => {
@@ -73,13 +70,145 @@ const updateParallax = () => {
   ticking = false;
 };
 
-if (hasBgShots) {
-  window.addEventListener('scroll', () => {
-    if (!ticking) {
-      window.requestAnimationFrame(updateParallax);
-      ticking = true;
+const bindParallax = () => {
+  if (!hasBgShots || parallaxBound) {
+    return;
+  }
+
+  parallaxBound = true;
+
+  bgShots.forEach((shot) => {
+    bgObserver.observe(shot);
+  });
+
+  window.addEventListener(
+    'scroll',
+    () => {
+      if (!ticking) {
+        window.requestAnimationFrame(updateParallax);
+        ticking = true;
+      }
+    },
+    { passive: true }
+  );
+
+  updateParallax();
+};
+
+const openLightbox = (src, alt) => {
+  if (!lightbox || !lightboxImage) {
+    return;
+  }
+
+  lightboxImage.src = src;
+  lightboxImage.alt = alt || 'Expanded gallery image';
+  lightbox.classList.add('open');
+  lightbox.setAttribute('aria-hidden', 'false');
+  document.body.style.overflow = 'hidden';
+};
+
+const closeLightbox = () => {
+  if (!lightbox || !lightboxImage) {
+    return;
+  }
+
+  lightbox.classList.remove('open');
+  lightbox.setAttribute('aria-hidden', 'true');
+  lightboxImage.src = '';
+  document.body.style.overflow = '';
+};
+
+const bindLightbox = () => {
+  if (lightboxBound) {
+    return;
+  }
+
+  lightboxBound = true;
+
+  lightboxTargets.forEach((img) => {
+    img.addEventListener('click', () => {
+      openLightbox(img.currentSrc || img.src, img.alt);
+    });
+  });
+
+  if (lightboxClose) {
+    lightboxClose.addEventListener('click', closeLightbox);
+  }
+
+  if (lightbox) {
+    lightbox.addEventListener('click', (event) => {
+      if (event.target === lightbox) {
+        closeLightbox();
+      }
+    });
+  }
+
+  window.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') {
+      closeLightbox();
     }
-  }, { passive: true });
+  });
+};
+
+const initNonCritical = () => {
+  if (nonCriticalInitialized) {
+    return;
+  }
+
+  nonCriticalInitialized = true;
+
+  reveals.forEach((el, idx) => {
+    el.style.transitionDelay = `${idx * 35}ms`;
+    revealObserver.observe(el);
+  });
+
+  bindParallax();
+  bindLightbox();
+};
+
+const runWhenIdle = (fn) => {
+  if (typeof window.requestIdleCallback === 'function') {
+    window.requestIdleCallback(() => fn(), { timeout: 2200 });
+    return;
+  }
+
+  window.setTimeout(fn, 250);
+};
+
+if (isMobileViewport) {
+  let slowModeTriggered = false;
+
+  const slowModeTimer = window.setTimeout(() => {
+    if (document.readyState !== 'complete') {
+      slowModeTriggered = true;
+      document.documentElement.classList.add('perf-defer');
+    }
+  }, slowLoadTimeoutMs);
+
+  window.addEventListener(
+    'load',
+    () => {
+      window.clearTimeout(slowModeTimer);
+
+      if (slowModeTriggered) {
+        runWhenIdle(() => {
+          document.documentElement.classList.remove('perf-defer');
+          initNonCritical();
+        });
+        return;
+      }
+
+      initNonCritical();
+    },
+    { once: true }
+  );
+
+  if (document.readyState === 'complete') {
+    window.clearTimeout(slowModeTimer);
+    initNonCritical();
+  }
+} else {
+  initNonCritical();
 }
 
 if (mosaicItems.length > 0) {
@@ -91,6 +220,7 @@ if (filterButtons.length > 0) {
     button.classList.toggle('active', button.dataset.filter === 'all');
   });
 }
+
 if (quickBookingForm) {
   dateInputs.forEach((input) => {
     input.setAttribute('inputmode', 'none');
@@ -112,6 +242,7 @@ if (quickBookingForm) {
     input.addEventListener('focus', openNativePicker);
     input.addEventListener('click', openNativePicker);
   });
+
   const updateQuickBookingDateUI = () => {
     if (!packageSelect || !endDateField || !endDateInput) {
       return;
@@ -183,6 +314,7 @@ if (quickBookingForm) {
     }
   });
 }
+
 const scrollToBookingTarget = (selector) => {
   if (!selector) {
     return;
@@ -210,57 +342,6 @@ bookingCards.forEach((card) => {
     scrollToBookingTarget(card.dataset.scrollTarget);
   });
 });
-
-const openLightbox = (src, alt) => {
-  if (!lightbox || !lightboxImage) {
-    return;
-  }
-
-  lightboxImage.src = src;
-  lightboxImage.alt = alt || 'Expanded gallery image';
-  lightbox.classList.add('open');
-  lightbox.setAttribute('aria-hidden', 'false');
-  document.body.style.overflow = 'hidden';
-};
-
-const closeLightbox = () => {
-  if (!lightbox || !lightboxImage) {
-    return;
-  }
-
-  lightbox.classList.remove('open');
-  lightbox.setAttribute('aria-hidden', 'true');
-  lightboxImage.src = '';
-  document.body.style.overflow = '';
-};
-
-lightboxTargets.forEach((img) => {
-  img.addEventListener('click', () => {
-    openLightbox(img.currentSrc || img.src, img.alt);
-  });
-});
-
-if (lightboxClose) {
-  lightboxClose.addEventListener('click', closeLightbox);
-}
-
-if (lightbox) {
-  lightbox.addEventListener('click', (event) => {
-    if (event.target === lightbox) {
-      closeLightbox();
-    }
-  });
-}
-
-window.addEventListener('keydown', (event) => {
-  if (event.key === 'Escape') {
-    closeLightbox();
-  }
-});
-
-if (hasBgShots) {
-  updateParallax();
-}
 
 const faqItems = Array.from(document.querySelectorAll('#faq details'));
 
@@ -345,4 +426,3 @@ faqItems.forEach((item) => {
     }
   });
 });
-

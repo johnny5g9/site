@@ -1043,6 +1043,23 @@ h2 {
   }
 }
 
+@media (max-width: 900px) {
+  html.perf-defer .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
+  html.perf-defer .full-gallery-grid .mosaic-item {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  html.perf-defer .scroll-shot {
+    opacity: 0 !important;
+  }
+}
 @media (prefers-reduced-motion: reduce) {
   .full-gallery-grid .mosaic-item {
     animation: none;
