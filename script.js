@@ -13,6 +13,7 @@ const quickBookingStatus = document.querySelector('.quick-booking-status');
 const packageSelect = document.querySelector('#quick-booking-form select[name="package"]');
 const endDateField = document.querySelector('#end-date-field');
 const endDateInput = document.querySelector('#end-date-input');
+const dateInputs = document.querySelectorAll('#quick-booking-form input[type="date"]');
 
 const revealObserver = new IntersectionObserver(
   (entries) => {
@@ -78,6 +79,26 @@ if (filterButtons.length > 0) {
   });
 }
 if (quickBookingForm) {
+  dateInputs.forEach((input) => {
+    input.setAttribute('inputmode', 'none');
+
+    input.addEventListener('keydown', (event) => {
+      if (event.key === 'Tab' || event.key === 'Shift' || event.key === 'Escape') {
+        return;
+      }
+
+      event.preventDefault();
+    });
+
+    const openNativePicker = () => {
+      if (typeof input.showPicker === 'function') {
+        input.showPicker();
+      }
+    };
+
+    input.addEventListener('focus', openNativePicker);
+    input.addEventListener('click', openNativePicker);
+  });
   const updateQuickBookingDateUI = () => {
     if (!packageSelect || !endDateField || !endDateInput) {
       return;
