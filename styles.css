@@ -630,6 +630,19 @@ h2 {
   cursor: pointer;
 }
 
+@media (max-width: 640px) {
+  .lightbox {
+    padding: 0.75rem;
+  }
+
+  .lightbox-image {
+    width: auto;
+    max-width: calc(100vw - 1.5rem);
+    max-height: 82vh;
+    margin-inline: auto;
+  }
+}
+
 .reveal {
   opacity: 0;
   transform: translateY(20px);
