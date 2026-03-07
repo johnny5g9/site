@@ -14,6 +14,7 @@ const endDateField = document.querySelector('#end-date-field');
 const endDateInput = document.querySelector('#end-date-input');
 const dateInputs = document.querySelectorAll('#quick-booking-form input[type="date"]');
 const questionsEmailLinks = document.querySelectorAll('a[href="mailto:questions@groisslhockeyphotography.com"]');
+const questionsScrollButton = document.querySelector('.questions-scroll-btn');
 const questionsEmailAddress = 'questions@groisslhockeyphotography.com';
 
 let questionsEmailMenu = null;
@@ -549,6 +550,13 @@ const bindQuestionsEmailMenu = () => {
 };
 
 bindQuestionsEmailMenu();
+
+if (questionsScrollButton) {
+  questionsScrollButton.addEventListener('click', (event) => {
+    event.preventDefault();
+    window.scrollTo({ top: document.documentElement.scrollHeight, behavior: 'smooth' });
+  });
+}
 
 faqItems.forEach((item) => {
   const body = getFaqBody(item);

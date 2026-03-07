@@ -168,20 +168,8 @@ body {
   color: var(--accent);
 }
 
-.nav-links a.nav-questions-btn {
-  padding: 0.42rem 0.78rem;
-  border: 1px solid #d8af6f80;
-  border-radius: 999px;
-  color: #f3cb8c;
+.nav-links .btn {
   opacity: 1;
-  font-weight: 600;
-  line-height: 1;
-}
-
-.nav-links a.nav-questions-btn:hover {
-  color: #ffe3b3;
-  border-color: #f3cb8c;
-  background: #d8af6f14;
 }
 
 .section {
