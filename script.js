@@ -13,6 +13,13 @@ const packageSelect = document.querySelector('#quick-booking-form select[name="p
 const endDateField = document.querySelector('#end-date-field');
 const endDateInput = document.querySelector('#end-date-input');
 const dateInputs = document.querySelectorAll('#quick-booking-form input[type="date"]');
+const questionsEmailLinks = document.querySelectorAll('a[href="mailto:questions@groisslhockeyphotography.com"]');
+const questionsEmailAddress = 'questions@groisslhockeyphotography.com';
+
+let questionsEmailMenu = null;
+let copyQuestionsButton = null;
+let openMailButton = null;
+let activeQuestionsLink = null;
 
 const hasBgShots = bgShots.length > 0;
 const isMobileViewport = window.matchMedia('(max-width: 900px)').matches;
@@ -392,6 +399,156 @@ const closeFaqItem = (item) => {
 
   body.addEventListener('transitionend', handleClose);
 };
+
+const closeQuestionsEmailMenu = () => {
+  if (!questionsEmailMenu) {
+    return;
+  }
+
+  questionsEmailMenu.hidden = true;
+  activeQuestionsLink = null;
+};
+
+const positionQuestionsEmailMenu = (anchor) => {
+  if (!questionsEmailMenu || !anchor) {
+    return;
+  }
+
+  const rect = anchor.getBoundingClientRect();
+  const gap = 8;
+
+  questionsEmailMenu.hidden = false;
+
+  const menuRect = questionsEmailMenu.getBoundingClientRect();
+  const left = Math.max(8, Math.min(rect.left + (rect.width / 2) - (menuRect.width / 2), window.innerWidth - menuRect.width - 8));
+
+  let top = rect.top - menuRect.height - gap;
+  if (top < 8) {
+    top = rect.bottom + gap;
+  }
+
+  questionsEmailMenu.style.left = `${left}px`;
+  questionsEmailMenu.style.top = `${top}px`;
+};
+
+const copyQuestionsEmail = async () => {
+  try {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      await navigator.clipboard.writeText(questionsEmailAddress);
+    } else {
+      const temp = document.createElement('textarea');
+      temp.value = questionsEmailAddress;
+      temp.setAttribute('readonly', '');
+      temp.style.position = 'fixed';
+      temp.style.left = '-9999px';
+      document.body.appendChild(temp);
+      temp.select();
+      document.execCommand('copy');
+      temp.remove();
+    }
+
+    if (copyQuestionsButton) {
+      const originalText = copyQuestionsButton.textContent;
+      copyQuestionsButton.textContent = 'Copied';
+      window.setTimeout(() => {
+        copyQuestionsButton.textContent = originalText;
+      }, 1100);
+    }
+  } catch (error) {
+    if (copyQuestionsButton) {
+      const originalText = copyQuestionsButton.textContent;
+      copyQuestionsButton.textContent = 'Copy failed';
+      window.setTimeout(() => {
+        copyQuestionsButton.textContent = originalText;
+      }, 1300);
+    }
+  }
+};
+
+const buildQuestionsEmailMenu = () => {
+  if (questionsEmailMenu) {
+    return;
+  }
+
+  questionsEmailMenu = document.createElement('div');
+  questionsEmailMenu.className = 'questions-email-menu';
+  questionsEmailMenu.setAttribute('role', 'menu');
+  questionsEmailMenu.hidden = true;
+
+  copyQuestionsButton = document.createElement('button');
+  copyQuestionsButton.type = 'button';
+  copyQuestionsButton.setAttribute('role', 'menuitem');
+  copyQuestionsButton.textContent = 'Copy email address';
+
+  openMailButton = document.createElement('button');
+  openMailButton.type = 'button';
+  openMailButton.setAttribute('role', 'menuitem');
+  openMailButton.textContent = 'Open mail app';
+
+  questionsEmailMenu.append(copyQuestionsButton, openMailButton);
+  document.body.appendChild(questionsEmailMenu);
+
+  copyQuestionsButton.addEventListener('click', async () => {
+    await copyQuestionsEmail();
+  });
+
+  openMailButton.addEventListener('click', () => {
+    closeQuestionsEmailMenu();
+    window.location.href = `mailto:${questionsEmailAddress}`;
+  });
+};
+
+const bindQuestionsEmailMenu = () => {
+  if (questionsEmailLinks.length === 0) {
+    return;
+  }
+
+  buildQuestionsEmailMenu();
+
+  questionsEmailLinks.forEach((link) => {
+    link.addEventListener('click', (event) => {
+      event.preventDefault();
+
+      const sameLink = activeQuestionsLink === link && questionsEmailMenu && !questionsEmailMenu.hidden;
+      if (sameLink) {
+        closeQuestionsEmailMenu();
+        return;
+      }
+
+      activeQuestionsLink = link;
+      positionQuestionsEmailMenu(link);
+    });
+  });
+
+  document.addEventListener('click', (event) => {
+    if (!questionsEmailMenu || questionsEmailMenu.hidden) {
+      return;
+    }
+
+    const clickedQuestionsLink = event.target.closest('a[href="mailto:questions@groisslhockeyphotography.com"]');
+    if (clickedQuestionsLink || questionsEmailMenu.contains(event.target)) {
+      return;
+    }
+
+    closeQuestionsEmailMenu();
+  });
+
+  window.addEventListener('resize', () => {
+    if (!questionsEmailMenu || questionsEmailMenu.hidden || !activeQuestionsLink) {
+      return;
+    }
+
+    positionQuestionsEmailMenu(activeQuestionsLink);
+  });
+
+  window.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') {
+      closeQuestionsEmailMenu();
+    }
+  });
+};
+
+bindQuestionsEmailMenu();
 
 faqItems.forEach((item) => {
   const body = getFaqBody(item);

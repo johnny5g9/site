@@ -639,6 +639,49 @@ h2 {
   text-decoration: underline;
 }
 
+.questions-email-menu {
+  position: fixed;
+  z-index: 120;
+  min-width: 172px;
+  padding: 0.3rem;
+  border: 1px solid #ffffff2b;
+  border-radius: 10px;
+  background: #0c111ef2;
+  box-shadow: 0 12px 26px #0000008a;
+  display: grid;
+  gap: 0.24rem;
+}
+
+.questions-email-menu[hidden] {
+  display: none;
+}
+
+.questions-email-menu button {
+  appearance: none;
+  border: 1px solid #ffffff1a;
+  background: #131b2be6;
+  color: #dfe7f1;
+  border-radius: 7px;
+  font: inherit;
+  font-size: 0.75rem;
+  line-height: 1.2;
+  text-align: left;
+  padding: 0.42rem 0.55rem;
+  cursor: pointer;
+}
+
+.questions-email-menu button:hover,
+.questions-email-menu button:focus-visible {
+  border-color: #d8af6f8f;
+  background: #1a2538;
+  color: #ffe3b3;
+}
+
+.questions-email-menu button:focus-visible {
+  outline: 2px solid #d8af6f80;
+  outline-offset: 1px;
+}
+
 .removal-note {
   margin-top: 0.75rem;
   padding-top: 0.75rem;
