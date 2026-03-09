@@ -153,17 +153,17 @@ body {
   transition: font-size 180ms ease, letter-spacing 180ms ease;
 }
 .site-header.is-compact {
-  padding: 0.62rem 0.82rem;
+  padding: 0.56rem 0.74rem;
   background: #07090ee8;
   border-bottom-color: #ffffff24;
 }
 
 .site-header.is-compact .logo-crop {
-  width: clamp(72px, 5.4vw, 92px);
+  width: clamp(68px, 5.1vw, 88px);
 }
 
 .site-header.is-compact .header-brand {
-  font-size: 0.88rem;
+  font-size: 0.84rem;
   letter-spacing: 0.02em;
 }
 
@@ -819,8 +819,8 @@ h2 {
   }
 
   .site-header.is-compact {
-    padding: 0.56rem 0.58rem;
-    gap: 0.5rem;
+    padding: 0.5rem 0.52rem;
+    gap: 0.42rem;
   }
 
   .site-header nav {
