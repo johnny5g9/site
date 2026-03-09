@@ -15,6 +15,7 @@ const endDateInput = document.querySelector('#end-date-input');
 const dateInputs = document.querySelectorAll('#quick-booking-form input[type="date"]');
 const questionsEmailLinks = document.querySelectorAll('a[href="mailto:questions@groisslhockeyphotography.com"]');
 const questionsScrollButton = document.querySelector('.questions-scroll-btn');
+const siteHeader = document.querySelector('.site-header');
 const questionsEmailAddress = 'questions@groisslhockeyphotography.com';
 
 let questionsEmailMenu = null;
@@ -29,6 +30,7 @@ const slowLoadTimeoutMs = 2500;
 let nonCriticalInitialized = false;
 let lightboxBound = false;
 let parallaxBound = false;
+let headerCompactBound = false;
 let ticking = false;
 let lastScrollY = -1;
 
@@ -102,6 +104,34 @@ const bindParallax = () => {
   updateParallax();
 };
 
+const bindHeaderCompaction = () => {
+  if (!siteHeader || headerCompactBound) {
+    return;
+  }
+
+  headerCompactBound = true;
+  let headerTicking = false;
+
+  const updateHeaderCompaction = () => {
+    siteHeader.classList.toggle('is-compact', window.scrollY > 42);
+  };
+
+  const queueHeaderUpdate = () => {
+    if (headerTicking) {
+      return;
+    }
+
+    headerTicking = true;
+    window.requestAnimationFrame(() => {
+      updateHeaderCompaction();
+      headerTicking = false;
+    });
+  };
+
+  window.addEventListener('scroll', queueHeaderUpdate, { passive: true });
+  window.addEventListener('resize', queueHeaderUpdate, { passive: true });
+  updateHeaderCompaction();
+};
 const openLightbox = (src, alt) => {
   if (!lightbox || !lightboxImage) {
     return;
@@ -181,6 +211,8 @@ const runWhenIdle = (fn) => {
 
   window.setTimeout(fn, 250);
 };
+
+bindHeaderCompaction();
 
 if (isMobileViewport) {
   let slowModeTriggered = false;

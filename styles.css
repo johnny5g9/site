@@ -122,6 +122,7 @@ body {
   border-bottom: 1px solid #ffffff14;
   border-radius: 0 0 14px 14px;
   backdrop-filter: blur(10px);
+  transition: padding 180ms ease, background-color 180ms ease, border-color 180ms ease;
 }
 
 .site-header nav {
@@ -137,6 +138,7 @@ body {
 .logo-crop {
   display: block;
   width: clamp(86px, 6.6vw, 112px);
+  transition: width 180ms ease;
 }
 
 .header-brand {
@@ -148,7 +150,23 @@ body {
   letter-spacing: 0.03em;
   white-space: nowrap;
   padding-inline: 0.75rem;
+  transition: font-size 180ms ease, letter-spacing 180ms ease;
 }
+.site-header.is-compact {
+  padding: 0.62rem 0.82rem;
+  background: #07090ee8;
+  border-bottom-color: #ffffff24;
+}
+
+.site-header.is-compact .logo-crop {
+  width: clamp(72px, 5.4vw, 92px);
+}
+
+.site-header.is-compact .header-brand {
+  font-size: 0.88rem;
+  letter-spacing: 0.02em;
+}
+
 .logo img {
   display: block;
   width: 100%;
@@ -798,6 +816,11 @@ h2 {
     flex-direction: column;
     gap: 0.8rem;
     border-radius: 0;
+  }
+
+  .site-header.is-compact {
+    padding: 0.56rem 0.58rem;
+    gap: 0.5rem;
   }
 
   .site-header nav {
