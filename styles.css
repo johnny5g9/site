@@ -139,6 +139,16 @@ body {
   width: clamp(86px, 6.6vw, 112px);
 }
 
+.header-brand {
+  flex: 1;
+  text-align: center;
+  color: var(--ink);
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+  padding-inline: 0.75rem;
+}
 .logo img {
   display: block;
   width: 100%;
@@ -1217,3 +1227,10 @@ h2 {
   display: none !important;
 }
 
+
+@media (max-width: 640px) {
+  .header-brand {
+    font-size: 0.78rem;
+    padding-inline: 0.25rem;
+  }
+}
