@@ -143,6 +143,7 @@ body {
 
 .header-brand {
   flex: 1;
+  min-width: 0;
   text-align: center;
   color: var(--ink);
   font-size: 0.95rem;
@@ -1255,5 +1256,15 @@ h2 {
   .header-brand {
     font-size: 0.78rem;
     padding-inline: 0.25rem;
+    line-height: 1.1;
+  }
+}
+
+@media (max-width: 900px) {
+  .header-brand {
+    width: 100%;
+    white-space: normal;
+    line-height: 1.15;
+    padding-inline: 0.35rem;
   }
 }
