@@ -935,13 +935,15 @@ h2 {
   .site-header {
     grid-template-columns: auto;
     justify-content: stretch;
+    justify-items: start;
     padding: 0.58rem 0.55rem 0.46rem;
     row-gap: 0.42rem;
   }
 
   .site-header.is-compact {
-    padding: 0.36rem 0.45rem 0.3rem;
-    row-gap: 0.24rem;
+    justify-content: start;
+    padding: 0.3rem 0.42rem 0.24rem;
+    row-gap: 0;
   }
 
   .logo-crop {
@@ -949,7 +951,7 @@ h2 {
   }
 
   .site-header.is-compact .logo-crop {
-    width: clamp(44px, 12vw, 52px);
+    width: clamp(42px, 11vw, 50px);
   }
 
   .header-brand {
@@ -958,6 +960,11 @@ h2 {
 
   .site-header nav {
     overflow: visible;
+    width: 100%;
+  }
+
+  .site-header.is-compact nav {
+    display: none;
   }
 
   .nav-links {
@@ -1351,6 +1358,7 @@ h2 {
     padding-inline: 0;
   }
 }
+
 
 
 
