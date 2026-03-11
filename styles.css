@@ -763,6 +763,36 @@ h2 {
   border: 1px solid #ffffff36;
 }
 
+.lightbox-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  border: 1px solid #ffffff2a;
+  border-radius: 999px;
+  background: #0c111ad9;
+  color: var(--ink);
+  font-size: 2rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.lightbox-nav[hidden] {
+  display: none;
+}
+
+.lightbox-nav-prev {
+  left: 1.1rem;
+}
+
+.lightbox-nav-next {
+  right: 1.1rem;
+}
+
 .lightbox-close {
   position: absolute;
   top: 1.1rem;
@@ -785,6 +815,20 @@ h2 {
     max-width: calc(100vw - 1.5rem);
     max-height: 82vh;
     margin-inline: auto;
+  }
+
+  .lightbox-nav {
+    width: 2.5rem;
+    height: 2.5rem;
+    font-size: 1.7rem;
+  }
+
+  .lightbox-nav-prev {
+    left: 0.55rem;
+  }
+
+  .lightbox-nav-next {
+    right: 0.55rem;
   }
 }
 
@@ -1416,6 +1460,7 @@ h2 {
     padding-inline: 0;
   }
 }
+
 
 
 

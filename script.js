@@ -6,6 +6,8 @@ const lightboxTargets = document.querySelectorAll('.lightboxable');
 const lightbox = document.querySelector('#lightbox');
 const lightboxImage = document.querySelector('.lightbox-image');
 const lightboxClose = document.querySelector('.lightbox-close');
+const lightboxPrev = document.querySelector('.lightbox-nav-prev');
+const lightboxNext = document.querySelector('.lightbox-nav-next');
 const bookingCards = document.querySelectorAll('.booking-option[data-scroll-target]');
 const quickBookingForm = document.querySelector('#quick-booking-form');
 const quickBookingStatus = document.querySelector('.quick-booking-status');
@@ -25,6 +27,10 @@ let copyQuestionsButton = null;
 let openMailButton = null;
 let activeQuestionsLink = null;
 let mobileHeaderExpanded = false;
+let lightboxItems = [];
+let activeLightboxIndex = -1;
+let lightboxTouchStartX = 0;
+let lightboxTouchStartY = 0;
 
 const hasBgShots = bgShots.length > 0;
 const isMobileViewport = window.matchMedia('(max-width: 900px)').matches;
@@ -158,13 +164,55 @@ const bindHeaderCompaction = () => {
   window.addEventListener('resize', queueHeaderUpdate, { passive: true });
   applyMobileHeaderState();
 };
-const openLightbox = (src, alt) => {
+const getVisibleLightboxItems = () => Array.from(lightboxTargets).filter((img) => {
+  const card = img.closest('.mosaic-item');
+  return !card || !card.classList.contains('is-hidden');
+});
+
+const updateLightboxControls = () => {
+  const hasMultiple = lightboxItems.length > 1;
+
+  if (lightboxPrev) {
+    lightboxPrev.hidden = !hasMultiple;
+  }
+
+  if (lightboxNext) {
+    lightboxNext.hidden = !hasMultiple;
+  }
+};
+
+const showLightboxItem = (index) => {
+  if (!lightbox || !lightboxImage || lightboxItems.length === 0) {
+    return;
+  }
+
+  const total = lightboxItems.length;
+  activeLightboxIndex = ((index % total) + total) % total;
+
+  const item = lightboxItems[activeLightboxIndex];
+  lightboxImage.src = item.currentSrc || item.src;
+  lightboxImage.alt = item.alt || 'Expanded gallery image';
+  updateLightboxControls();
+};
+
+const openLightbox = (target) => {
   if (!lightbox || !lightboxImage) {
     return;
   }
 
-  lightboxImage.src = src;
-  lightboxImage.alt = alt || 'Expanded gallery image';
+  lightboxItems = getVisibleLightboxItems();
+  activeLightboxIndex = lightboxItems.indexOf(target);
+
+  if (activeLightboxIndex === -1) {
+    lightboxItems = Array.from(lightboxTargets);
+    activeLightboxIndex = lightboxItems.indexOf(target);
+  }
+
+  if (activeLightboxIndex === -1) {
+    return;
+  }
+
+  showLightboxItem(activeLightboxIndex);
   lightbox.classList.add('open');
   lightbox.setAttribute('aria-hidden', 'false');
   document.body.style.overflow = 'hidden';
@@ -178,7 +226,25 @@ const closeLightbox = () => {
   lightbox.classList.remove('open');
   lightbox.setAttribute('aria-hidden', 'true');
   lightboxImage.src = '';
+  lightboxItems = [];
+  activeLightboxIndex = -1;
   document.body.style.overflow = '';
+};
+
+const showNextLightboxItem = () => {
+  if (activeLightboxIndex === -1) {
+    return;
+  }
+
+  showLightboxItem(activeLightboxIndex + 1);
+};
+
+const showPreviousLightboxItem = () => {
+  if (activeLightboxIndex === -1) {
+    return;
+  }
+
+  showLightboxItem(activeLightboxIndex - 1);
 };
 
 const bindLightbox = () => {
@@ -190,12 +256,20 @@ const bindLightbox = () => {
 
   lightboxTargets.forEach((img) => {
     img.addEventListener('click', () => {
-      openLightbox(img.currentSrc || img.src, img.alt);
+      openLightbox(img);
     });
   });
 
   if (lightboxClose) {
     lightboxClose.addEventListener('click', closeLightbox);
+  }
+
+  if (lightboxPrev) {
+    lightboxPrev.addEventListener('click', showPreviousLightboxItem);
+  }
+
+  if (lightboxNext) {
+    lightboxNext.addEventListener('click', showNextLightboxItem);
   }
 
   if (lightbox) {
@@ -204,11 +278,48 @@ const bindLightbox = () => {
         closeLightbox();
       }
     });
+
+    lightbox.addEventListener('touchstart', (event) => {
+      const touch = event.changedTouches[0];
+      lightboxTouchStartX = touch.clientX;
+      lightboxTouchStartY = touch.clientY;
+    }, { passive: true });
+
+    lightbox.addEventListener('touchend', (event) => {
+      const touch = event.changedTouches[0];
+      const deltaX = touch.clientX - lightboxTouchStartX;
+      const deltaY = touch.clientY - lightboxTouchStartY;
+
+      if (Math.abs(deltaX) < 40 || Math.abs(deltaX) < Math.abs(deltaY)) {
+        return;
+      }
+
+      if (deltaX < 0) {
+        showNextLightboxItem();
+        return;
+      }
+
+      showPreviousLightboxItem();
+    }, { passive: true });
   }
 
   window.addEventListener('keydown', (event) => {
+    if (!lightbox || !lightbox.classList.contains('open')) {
+      return;
+    }
+
     if (event.key === 'Escape') {
       closeLightbox();
+      return;
+    }
+
+    if (event.key === 'ArrowRight') {
+      showNextLightboxItem();
+      return;
+    }
+
+    if (event.key === 'ArrowLeft') {
+      showPreviousLightboxItem();
     }
   });
 };
@@ -648,6 +759,7 @@ faqItems.forEach((item) => {
     }
   });
 });
+
 
 
 
