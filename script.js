@@ -16,12 +16,15 @@ const dateInputs = document.querySelectorAll('#quick-booking-form input[type="da
 const questionsEmailLinks = document.querySelectorAll('a[href="mailto:questions@groisslhockeyphotography.com"]');
 const questionsScrollButton = document.querySelector('.questions-scroll-btn');
 const siteHeader = document.querySelector('.site-header');
+const headerExpandToggle = document.querySelector('.header-expand-toggle');
+const mobileHeaderMedia = window.matchMedia('(max-width: 640px)');
 const questionsEmailAddress = 'questions@groisslhockeyphotography.com';
 
 let questionsEmailMenu = null;
 let copyQuestionsButton = null;
 let openMailButton = null;
 let activeQuestionsLink = null;
+let mobileHeaderExpanded = false;
 
 const hasBgShots = bgShots.length > 0;
 const isMobileViewport = window.matchMedia('(max-width: 900px)').matches;
@@ -112,8 +115,20 @@ const bindHeaderCompaction = () => {
   headerCompactBound = true;
   let headerTicking = false;
 
-  const updateHeaderCompaction = () => {
-    siteHeader.classList.toggle('is-compact', window.scrollY > 42);
+  const applyMobileHeaderState = () => {
+    const isCompact = window.scrollY > 42;
+    const isMobile = mobileHeaderMedia.matches;
+
+    if (!isMobile || !isCompact) {
+      mobileHeaderExpanded = false;
+    }
+
+    siteHeader.classList.toggle('is-compact', isCompact);
+    siteHeader.classList.toggle('is-mobile-expanded', isMobile && isCompact && mobileHeaderExpanded);
+
+    if (headerExpandToggle) {
+      headerExpandToggle.setAttribute('aria-expanded', isMobile && isCompact && mobileHeaderExpanded ? 'true' : 'false');
+    }
   };
 
   const queueHeaderUpdate = () => {
@@ -123,14 +138,25 @@ const bindHeaderCompaction = () => {
 
     headerTicking = true;
     window.requestAnimationFrame(() => {
-      updateHeaderCompaction();
+      applyMobileHeaderState();
       headerTicking = false;
     });
   };
 
+  if (headerExpandToggle) {
+    headerExpandToggle.addEventListener('click', () => {
+      if (!mobileHeaderMedia.matches || !siteHeader.classList.contains('is-compact')) {
+        return;
+      }
+
+      mobileHeaderExpanded = !mobileHeaderExpanded;
+      applyMobileHeaderState();
+    });
+  }
+
   window.addEventListener('scroll', queueHeaderUpdate, { passive: true });
   window.addEventListener('resize', queueHeaderUpdate, { passive: true });
-  updateHeaderCompaction();
+  applyMobileHeaderState();
 };
 const openLightbox = (src, alt) => {
   if (!lightbox || !lightboxImage) {
@@ -622,3 +648,6 @@ faqItems.forEach((item) => {
     }
   });
 });
+
+
+
