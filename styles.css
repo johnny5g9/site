@@ -934,27 +934,63 @@ h2 {
 
   .site-header {
     grid-template-columns: auto;
-    justify-content: start;
+    justify-content: stretch;
     padding: 0.58rem 0.55rem 0.46rem;
-    row-gap: 0.38rem;
+    row-gap: 0.42rem;
   }
 
   .site-header.is-compact {
-    padding: 0.4rem 0.48rem 0.34rem;
-    row-gap: 0.28rem;
+    padding: 0.36rem 0.45rem 0.3rem;
+    row-gap: 0.24rem;
   }
 
   .logo-crop {
     width: clamp(52px, 14vw, 64px);
   }
 
+  .site-header.is-compact .logo-crop {
+    width: clamp(44px, 12vw, 52px);
+  }
+
   .header-brand {
     display: none;
   }
 
-  .nav-links {
-    gap: 0.6rem;
+  .site-header nav {
+    overflow: visible;
   }
+
+  .nav-links {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    width: 100%;
+    gap: 0.35rem;
+  }
+
+  .nav-links li {
+    min-width: 0;
+  }
+
+  .nav-links a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 2.35rem;
+    padding: 0.42rem 0.35rem;
+    white-space: normal;
+    text-align: center;
+    line-height: 1.15;
+    font-size: 0.74rem;
+    border: 1px solid #ffffff1a;
+    border-radius: 10px;
+    background: #ffffff08;
+  }
+
+  .nav-links .btn {
+    min-height: 2.35rem;
+    padding: 0.42rem 0.35rem;
+  }
+
   .section {
     padding: 3rem 0;
   }
@@ -1315,6 +1351,7 @@ h2 {
     padding-inline: 0;
   }
 }
+
 
 
 
