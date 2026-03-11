@@ -963,8 +963,12 @@ h2 {
   }
 
   .site-header nav {
-    overflow: visible;
+    overflow: hidden;
     width: 100%;
+    max-height: 18rem;
+    opacity: 1;
+    transform: translateY(0);
+    transition: max-height 220ms ease, opacity 180ms ease, transform 180ms ease;
   }
 
   .header-expand-toggle {
@@ -985,22 +989,29 @@ h2 {
     line-height: 1;
   }
 
-  .header-expand-toggle span {
+  .header-expand-icon {
     display: block;
-    font-size: 0.8rem;
-    transform: rotate(180deg);
+    width: 0.42rem;
+    height: 0.42rem;
+    border-right: 2px solid currentColor;
+    border-bottom: 2px solid currentColor;
+    transform: rotate(45deg);
+    transition: transform 180ms ease;
   }
 
   .site-header.is-compact .header-expand-toggle {
     display: inline-flex;
   }
 
-  .site-header.is-compact.is-mobile-expanded .header-expand-toggle span {
+  .site-header.is-compact.is-mobile-expanded .header-expand-icon {
     transform: rotate(0deg);
   }
 
   .site-header.is-compact nav {
-    display: none;
+    max-height: 0;
+    opacity: 0;
+    transform: translateY(-0.3rem);
+    pointer-events: none;
   }
 
   .site-header.is-compact.is-mobile-expanded {
@@ -1008,7 +1019,10 @@ h2 {
   }
 
   .site-header.is-compact.is-mobile-expanded nav {
-    display: block;
+    max-height: 18rem;
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
   }
 
   .nav-links {
@@ -1402,6 +1416,8 @@ h2 {
     padding-inline: 0;
   }
 }
+
+
 
 
 
