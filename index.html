@@ -12,51 +12,83 @@
   <meta property="og:url" content="https://groisslhockeyphotography.com/" />
   <meta property="og:site_name" content="Groissl Hockey Photography" />
   <meta property="og:image" content="https://groisslhockeyphotography.com/Logo.png" />
+  <meta property="og:image:alt" content="Groissl Hockey Photography logo" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Groissl Hockey Photography" />
   <meta name="twitter:description" content="Cinematic hockey photography for Raleigh and Triangle teams." />
   <meta name="twitter:image" content="https://groisslhockeyphotography.com/Logo.png" />
+  <meta name="twitter:image:alt" content="Groissl Hockey Photography logo" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;700;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
-  <link rel="icon" type="image/png" sizes="512x512" href="https://groisslhockeyphotography.com/Logo.png" />
-  <link rel="shortcut icon" type="image/png" href="https://groisslhockeyphotography.com/Logo.png" />
-  <link rel="apple-touch-icon" href="https://groisslhockeyphotography.com/Logo.png" />
+  <link rel="icon" href="https://groisslhockeyphotography.com/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/png" sizes="48x48" href="https://groisslhockeyphotography.com/favicon-48x48.png" />
+  <link rel="icon" type="image/png" sizes="96x96" href="https://groisslhockeyphotography.com/favicon-96x96.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="https://groisslhockeyphotography.com/apple-touch-icon.png" />
+  <link rel="manifest" href="https://groisslhockeyphotography.com/site.webmanifest" />
   <link rel="stylesheet" href="./styles.css" />
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "ProfessionalService",
-      "name": "Groissl Hockey Photography",
-      "url": "https://groisslhockeyphotography.com/",
-      "image": "https://groisslhockeyphotography.com/SEAHAWK-017.jpg",
-      "logo": "https://groisslhockeyphotography.com/Logo.png",
-      "description": "Raleigh and Triangle area hockey photography for teams and athletes.",
-      "email": "Booking@groisslhockeyphotography.com",
-      "sameAs": [
-        "https://www.instagram.com/groisslhockeyphotography/"
-      ],
-      "areaServed": [
-        "Raleigh, NC",
-        "Cary, NC",
-        "Wake Forest, NC",
-        "Garner, NC",
-        "Triangle, NC"
-      ],
-      "makesOffer": [
+      "@graph": [
         {
-          "@type": "Offer",
-          "name": "Single Game",
-          "price": "75",
-          "priceCurrency": "USD",
-          "description": "Single-game hockey coverage with 60+ edited photos and typical 48-hour delivery."
+          "@type": "Organization",
+          "@id": "https://groisslhockeyphotography.com/#organization",
+          "name": "Groissl Hockey Photography",
+          "url": "https://groisslhockeyphotography.com/",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://groisslhockeyphotography.com/Logo.png",
+            "width": 1024,
+            "height": 1024
+          },
+          "image": "https://groisslhockeyphotography.com/SEAHAWK-017.jpg",
+          "email": "Booking@groisslhockeyphotography.com",
+          "sameAs": [
+            "https://www.instagram.com/groisslhockeyphotography/"
+          ]
         },
         {
-          "@type": "Offer",
-          "name": "Tournament Package",
-          "price": "65",
-          "priceCurrency": "USD",
-          "description": "Tournament coverage for 3+ games with 180+ edited photos and priority turnaround."
+          "@type": "ProfessionalService",
+          "@id": "https://groisslhockeyphotography.com/#service",
+          "name": "Groissl Hockey Photography",
+          "url": "https://groisslhockeyphotography.com/",
+          "description": "Raleigh and Triangle area hockey photography for teams and athletes.",
+          "provider": {
+            "@id": "https://groisslhockeyphotography.com/#organization"
+          },
+          "areaServed": [
+            "Raleigh, NC",
+            "Cary, NC",
+            "Wake Forest, NC",
+            "Garner, NC",
+            "Triangle, NC"
+          ],
+          "makesOffer": [
+            {
+              "@type": "Offer",
+              "name": "Single Game",
+              "price": "75",
+              "priceCurrency": "USD",
+              "description": "Single-game hockey coverage with 60+ edited photos and typical 48-hour delivery."
+            },
+            {
+              "@type": "Offer",
+              "name": "Tournament Package",
+              "price": "65",
+              "priceCurrency": "USD",
+              "description": "Tournament coverage for 3+ games with 180+ edited photos and priority turnaround."
+            }
+          ]
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://groisslhockeyphotography.com/#website",
+          "url": "https://groisslhockeyphotography.com/",
+          "name": "Groissl Hockey Photography",
+          "publisher": {
+            "@id": "https://groisslhockeyphotography.com/#organization"
+          }
         }
       ]
     }
