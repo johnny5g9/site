@@ -431,15 +431,13 @@ h2 {
 }
 
 #work .portfolio-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 0.8rem;
 }
 
 #work .card {
+  grid-column: auto;
   min-height: 180px;
-}
-
-#work .card.wide {
-  min-height: 240px;
 }
 
 .card img {
@@ -1224,10 +1222,6 @@ h2 {
 
   #work .card {
     min-height: 180px;
-  }
-
-  #work .card.wide {
-    min-height: 240px;
   }
 }
 
