@@ -16,9 +16,9 @@ const endDateField = document.querySelector('#end-date-field');
 const endDateInput = document.querySelector('#end-date-input');
 const dateInputs = document.querySelectorAll('#quick-booking-form input[type="date"]');
 const questionsEmailLinks = document.querySelectorAll('a[href="mailto:questions@groisslhockeyphotography.com"]');
-const questionsScrollButton = document.querySelector('.questions-scroll-btn');
 const siteHeader = document.querySelector('.site-header');
 const headerExpandToggle = document.querySelector('.header-expand-toggle');
+const internalAnchorLinks = document.querySelectorAll('a[href^="#"]');
 const mobileHeaderMedia = window.matchMedia('(max-width: 640px)');
 const questionsEmailAddress = 'questions@groisslhockeyphotography.com';
 
@@ -31,6 +31,7 @@ let lightboxItems = [];
 let activeLightboxIndex = -1;
 let lightboxTouchStartX = 0;
 let lightboxTouchStartY = 0;
+let anchorScrollTimeout = null;
 
 const hasBgShots = bgShots.length > 0;
 const isMobileViewport = window.matchMedia('(max-width: 900px)').matches;
@@ -135,6 +136,8 @@ const bindHeaderCompaction = () => {
     if (headerExpandToggle) {
       headerExpandToggle.setAttribute('aria-expanded', isMobile && isCompact && mobileHeaderExpanded ? 'true' : 'false');
     }
+
+    updateHeaderOffset();
   };
 
   const queueHeaderUpdate = () => {
@@ -164,6 +167,100 @@ const bindHeaderCompaction = () => {
   window.addEventListener('resize', queueHeaderUpdate, { passive: true });
   applyMobileHeaderState();
 };
+
+const updateHeaderOffset = () => {
+  if (!siteHeader) {
+    return 0;
+  }
+
+  const headerHeight = Math.ceil(siteHeader.getBoundingClientRect().height);
+  document.documentElement.style.setProperty('--header-offset', `${headerHeight}px`);
+  return headerHeight;
+};
+
+const collapseMobileHeader = () => {
+  if (!siteHeader || !mobileHeaderMedia.matches || !mobileHeaderExpanded) {
+    return false;
+  }
+
+  mobileHeaderExpanded = false;
+  siteHeader.classList.remove('is-mobile-expanded');
+
+  if (headerExpandToggle) {
+    headerExpandToggle.setAttribute('aria-expanded', 'false');
+  }
+
+  return true;
+};
+
+const scrollToSelector = (selector, options = {}) => {
+  if (!selector) {
+    return;
+  }
+
+  const target = document.querySelector(selector);
+  if (!target) {
+    return;
+  }
+
+  const needsHeaderCollapse = options.collapseHeader !== false && collapseMobileHeader();
+  const scrollBehavior = options.behavior || 'smooth';
+  const delayMs = needsHeaderCollapse ? 220 : 0;
+
+  if (anchorScrollTimeout) {
+    window.clearTimeout(anchorScrollTimeout);
+  }
+
+  const performScroll = () => {
+    const headerOffset = updateHeaderOffset();
+    const top = Math.max(0, window.scrollY + target.getBoundingClientRect().top - headerOffset - 12);
+
+    window.scrollTo({
+      top,
+      behavior: scrollBehavior
+    });
+  };
+
+  if (delayMs > 0) {
+    anchorScrollTimeout = window.setTimeout(performScroll, delayMs);
+    return;
+  }
+
+  performScroll();
+};
+
+const bindInternalAnchorScroll = () => {
+  if (internalAnchorLinks.length === 0) {
+    return;
+  }
+
+  internalAnchorLinks.forEach((link) => {
+    const href = link.getAttribute('href');
+
+    if (!href || href === '#') {
+      return;
+    }
+
+    link.addEventListener('click', (event) => {
+      const target = document.querySelector(href);
+      if (!target) {
+        return;
+      }
+
+      event.preventDefault();
+      scrollToSelector(href);
+
+      if (window.location.hash !== href) {
+        history.pushState(null, '', href);
+      }
+    });
+  });
+
+  window.addEventListener('resize', updateHeaderOffset, { passive: true });
+  window.addEventListener('load', updateHeaderOffset, { once: true });
+  updateHeaderOffset();
+};
+
 const getVisibleLightboxItems = () => Array.from(lightboxTargets).filter((img) => {
   const card = img.closest('.mosaic-item');
   return !card || !card.classList.contains('is-hidden');
@@ -495,13 +592,7 @@ const scrollToBookingTarget = (selector) => {
   if (!selector) {
     return;
   }
-
-  const target = document.querySelector(selector);
-  if (!target) {
-    return;
-  }
-
-  target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  scrollToSelector(selector);
 };
 
 bookingCards.forEach((card) => {
@@ -719,13 +810,7 @@ const bindQuestionsEmailMenu = () => {
 };
 
 bindQuestionsEmailMenu();
-
-if (questionsScrollButton) {
-  questionsScrollButton.addEventListener('click', (event) => {
-    event.preventDefault();
-    window.scrollTo({ top: document.documentElement.scrollHeight, behavior: 'smooth' });
-  });
-}
+bindInternalAnchorScroll();
 
 faqItems.forEach((item) => {
   const body = getFaqBody(item);
@@ -759,6 +844,16 @@ faqItems.forEach((item) => {
     }
   });
 });
+
+if (window.location.hash) {
+  window.addEventListener(
+    'load',
+    () => {
+      scrollToSelector(window.location.hash, { behavior: 'auto' });
+    },
+    { once: true }
+  );
+}
 
 
 
