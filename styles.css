@@ -430,6 +430,18 @@ h2 {
   min-height: 330px;
 }
 
+#work .portfolio-grid {
+  gap: 0.8rem;
+}
+
+#work .card {
+  min-height: 180px;
+}
+
+#work .card.wide {
+  min-height: 240px;
+}
+
 .card img {
   width: 100%;
   height: 100%;
@@ -1211,11 +1223,11 @@ h2 {
   }
 
   #work .card {
-    min-height: 220px;
+    min-height: 180px;
   }
 
   #work .card.wide {
-    min-height: 290px;
+    min-height: 240px;
   }
 }
 
