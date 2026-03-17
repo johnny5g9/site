@@ -420,14 +420,14 @@ h2 {
   overflow: hidden;
   border-radius: 18px;
   grid-column: span 6;
-  min-height: 320px;
+  min-height: 250px;
   border: 1px solid var(--line);
   background: #05080f52;
 }
 
 .card.wide {
   grid-column: span 12;
-  min-height: 460px;
+  min-height: 330px;
 }
 
 .card img {
@@ -1211,11 +1211,11 @@ h2 {
   }
 
   #work .card {
-    min-height: 280px;
+    min-height: 220px;
   }
 
   #work .card.wide {
-    min-height: 405px;
+    min-height: 290px;
   }
 }
 
