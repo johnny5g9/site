@@ -350,6 +350,38 @@ h2 {
   margin: 0.35rem 0 0;
 }
 
+.proof-strip {
+  padding-top: 1.4rem;
+  padding-bottom: 1.2rem;
+}
+
+.proof-strip-grid,
+.decision-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.proof-strip-grid article,
+.decision-grid article {
+  padding: 1.15rem;
+  border-radius: 14px;
+  border: 1px solid var(--line);
+  background: var(--card);
+}
+
+.proof-strip-grid h3,
+.decision-grid h3 {
+  font-size: 1rem;
+  margin-bottom: 0.55rem;
+}
+
+.proof-strip-grid p,
+.decision-grid p {
+  margin: 0;
+  color: var(--muted);
+}
+
 .trusted-by {
   padding-top: 1.8rem;
   padding-bottom: 1.2rem;
@@ -566,6 +598,13 @@ h2 {
   letter-spacing: 0.01em;
 }
 
+.package-fit {
+  margin: 0 0 0.9rem;
+  color: #dfe7f1;
+  font-size: 0.94rem;
+  line-height: 1.45;
+}
+
 .packages-grid {
   margin-top: 1rem;
 }
@@ -578,6 +617,11 @@ h2 {
 
 .packages-grid li + li {
   margin-top: 0.3rem;
+}
+
+.packages-grid article {
+  display: grid;
+  align-content: start;
 }
 
 .featured-package {
@@ -646,6 +690,13 @@ h2 {
   background: linear-gradient(180deg, #d8af6f1f 0%, #d8af6f12 100%);
   border: 1px solid #d8af6f52;
   border-radius: 10px;
+}
+
+.booking-next-step {
+  max-width: 780px;
+  color: #ecf2fa;
+  font-size: 1rem;
+  line-height: 1.55;
 }
 
 .booking-urgency {
@@ -849,7 +900,9 @@ h2 {
   .services-grid,
   .packages-grid,
   .service-area-grid,
-.trusted-by-strip {
+  .trusted-by-strip,
+  .proof-strip-grid,
+  .decision-grid {
     grid-template-columns: 1fr 1fr;
   }
 
@@ -946,7 +999,9 @@ h2 {
   .services-grid,
   .packages-grid,
   .service-area-grid,
-.trusted-by-strip,
+  .trusted-by-strip,
+  .proof-strip-grid,
+  .decision-grid,
   .process-list,
   .stats {
     grid-template-columns: 1fr;
@@ -1218,6 +1273,10 @@ h2 {
     padding-block: 1.1rem;
   }
 
+  .proof-strip {
+    padding-top: 1rem;
+  }
+
   .stats h3 {
     font-size: 1.25rem;
   }
@@ -1249,6 +1308,8 @@ h2 {
 
   .services-grid article,
   .packages-grid article,
+  .proof-strip-grid article,
+  .decision-grid article,
   .process-list li,
   .faq-grid details {
     padding: 0.9rem;
