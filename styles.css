@@ -237,6 +237,11 @@ body {
   margin-bottom: 1.15rem;
 }
 
+.hero h1 {
+  font-size: clamp(1.95rem, 4.6vw, 4rem);
+  max-width: 13ch;
+}
+
 .eyebrow {
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -1239,6 +1244,11 @@ h2 {
   h1 {
     font-size: clamp(1.55rem, 8.8vw, 2.15rem);
     max-width: 16ch;
+  }
+
+  .hero h1 {
+    font-size: clamp(1.55rem, 7.8vw, 2rem);
+    max-width: 15ch;
   }
 
   h2 {
