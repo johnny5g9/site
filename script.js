@@ -377,7 +377,7 @@ const runIntroDustAnimation = async () => {
   introOverlay.classList.add('is-playing');
 
   const dissolveStartMs = 760;
-  const dissolveDurationMs = 1280;
+  const dissolveDurationMs = 1480;
   const totalDurationMs = dissolveStartMs + dissolveDurationMs + 360;
 
   return new Promise((resolve) => {
