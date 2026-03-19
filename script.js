@@ -377,8 +377,8 @@ const runIntroDustAnimation = async () => {
   introOverlay.classList.add('is-playing');
 
   const dissolveStartMs = 760;
-  const dissolveDurationMs = 1480;
-  const totalDurationMs = dissolveStartMs + dissolveDurationMs + 360;
+  const dissolveDurationMs = 1400;
+  const totalDurationMs = dissolveStartMs + dissolveDurationMs + 320;
 
   return new Promise((resolve) => {
     let startTime = 0;
@@ -429,12 +429,12 @@ const finishIntro = () => {
     introOverlay.classList.add('is-complete');
     window.setTimeout(() => {
       introOverlay.remove();
-    }, reducedMotionMedia.matches ? 140 : 320);
+    }, reducedMotionMedia.matches ? 130 : 300);
   }
 
   window.setTimeout(() => {
     document.documentElement.classList.remove('site-entering');
-  }, reducedMotionMedia.matches ? 140 : 560);
+  }, reducedMotionMedia.matches ? 130 : 520);
 
   resolveIntroReady();
 };

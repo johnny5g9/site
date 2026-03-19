@@ -47,7 +47,7 @@ html.intro-active .site-shell {
 }
 
 html.site-entering .site-shell {
-  animation: site-shell-reveal 520ms cubic-bezier(0.18, 0.84, 0.22, 1) forwards;
+  animation: site-shell-reveal 480ms cubic-bezier(0.18, 0.84, 0.22, 1) forwards;
 }
 
 .intro-overlay {
@@ -61,7 +61,7 @@ html.site-entering .site-shell {
     radial-gradient(circle at 50% 24%, #ffffff0b 0, transparent 28%),
     linear-gradient(180deg, #090b0ef2 0%, #040507f6 52%, #000000fb 100%);
   isolation: isolate;
-  transition: opacity 280ms ease, visibility 0s linear 280ms;
+  transition: opacity 260ms ease, visibility 0s linear 260ms;
 }
 
 .intro-overlay.is-complete {
