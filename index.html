@@ -54,29 +54,39 @@
           "name": "Groissl Hockey Photography",
           "url": "https://groisslhockeyphotography.com/",
           "description": "Raleigh and Triangle area hockey photography for teams and athletes.",
+          "serviceType": "Sports Photography",
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Raleigh",
+            "addressRegion": "NC",
+            "addressCountry": "US"
+          },
           "provider": {
             "@id": "https://groisslhockeyphotography.com/#organization"
           },
-          "areaServed": [
-            "Raleigh, NC",
-            "Cary, NC",
-            "Wake Forest, NC",
-            "Garner, NC",
-            "Triangle, NC"
-          ],
+          "potentialAction": {
+            "@type": "ContactAction",
+            "target": "https://groisslhockeyphotography.com/#contact"
+          },
+          "areaServed": {
+            "@type": "Place",
+            "name": "Raleigh-Durham-Chapel Hill, NC"
+          },
           "makesOffer": [
             {
               "@type": "Offer",
               "name": "Single Game",
               "price": "75",
               "priceCurrency": "USD",
+              "availability": "https://schema.org/InStock",
               "description": "Single-game hockey coverage with 60+ edited photos and typical 48-hour delivery."
             },
             {
               "@type": "Offer",
-              "name": "Tournament Package",
+              "name": "Tournament Package (3+ games)",
               "price": "65",
               "priceCurrency": "USD",
+              "availability": "https://schema.org/InStock",
               "description": "Tournament coverage for 3+ games with 180+ edited photos and priority turnaround."
             }
           ]
