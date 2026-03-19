@@ -429,12 +429,12 @@ const finishIntro = () => {
     introOverlay.classList.add('is-complete');
     window.setTimeout(() => {
       introOverlay.remove();
-    }, reducedMotionMedia.matches ? 180 : 420);
+    }, reducedMotionMedia.matches ? 140 : 320);
   }
 
   window.setTimeout(() => {
     document.documentElement.classList.remove('site-entering');
-  }, reducedMotionMedia.matches ? 180 : 680);
+  }, reducedMotionMedia.matches ? 140 : 560);
 
   resolveIntroReady();
 };
@@ -457,7 +457,7 @@ const beginIntro = async () => {
 
     if (animationRan && introOverlay) {
       introOverlay.classList.add('is-finishing');
-      window.setTimeout(finishIntro, 110);
+      window.setTimeout(finishIntro, 60);
       return;
     }
   } catch (error) {
