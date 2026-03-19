@@ -44,8 +44,8 @@ html.intro-active body {
   place-items: center;
   padding: 2rem;
   background:
-    radial-gradient(circle at 50% 24%, #ffffff12 0, transparent 28%),
-    linear-gradient(180deg, #60656df2 0%, #585d65f4 50%, #4d525af5 100%);
+    radial-gradient(circle at 50% 24%, #ffffff0b 0, transparent 28%),
+    linear-gradient(180deg, #090b0ef2 0%, #040507f6 52%, #000000fb 100%);
   isolation: isolate;
   transition: opacity 560ms ease, visibility 0s linear 560ms;
 }
