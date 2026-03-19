@@ -60,6 +60,18 @@ const easeInOutCubic = (value) => (value < 0.5
   : 1 - ((-2 * value + 2) ** 3) / 2);
 const easeOutCubic = (value) => 1 - ((1 - value) ** 3);
 const randomBetween = (min, max) => min + ((max - min) * Math.random());
+const shouldSkipIntroForReferrer = () => {
+  if (!document.referrer) {
+    return false;
+  }
+
+  try {
+    const referrerUrl = new URL(document.referrer);
+    return referrerUrl.origin === window.location.origin && /\/gallery\.html$/i.test(referrerUrl.pathname);
+  } catch (error) {
+    return false;
+  }
+};
 
 const waitForImage = (image) => new Promise((resolve, reject) => {
   if (!image) {
@@ -445,7 +457,7 @@ const beginIntro = async () => {
     return;
   }
 
-  if (reducedMotionMedia.matches) {
+  if (reducedMotionMedia.matches || shouldSkipIntroForReferrer()) {
     finishIntro();
     return;
   }
