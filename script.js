@@ -18,8 +18,10 @@ const dateInputs = document.querySelectorAll('#quick-booking-form input[type="da
 const questionsEmailLinks = document.querySelectorAll('a[href="mailto:questions@groisslhockeyphotography.com"]');
 const siteHeader = document.querySelector('.site-header');
 const headerExpandToggle = document.querySelector('.header-expand-toggle');
+const introOverlay = document.querySelector('.intro-overlay');
 const internalAnchorLinks = document.querySelectorAll('a[href^="#"]');
 const mobileHeaderMedia = window.matchMedia('(max-width: 640px)');
+const reducedMotionMedia = window.matchMedia('(prefers-reduced-motion: reduce)');
 const questionsEmailAddress = 'questions@groisslhockeyphotography.com';
 
 let questionsEmailMenu = null;
@@ -43,6 +45,12 @@ let parallaxBound = false;
 let headerCompactBound = false;
 let ticking = false;
 let lastScrollY = -1;
+let introFinished = false;
+
+let resolveIntroReady = () => {};
+const introReady = new Promise((resolve) => {
+  resolveIntroReady = resolve;
+});
 
 const bgShotSpeeds = hasBgShots
   ? Array.from(bgShots, (shot) => Number(shot.dataset.speed || 0.05) * 1.35)
@@ -71,6 +79,44 @@ const bgObserver = new IntersectionObserver(
   },
   { threshold: 0.01 }
 );
+
+const finishIntro = () => {
+  if (introFinished) {
+    return;
+  }
+
+  introFinished = true;
+  document.documentElement.classList.remove('intro-active');
+
+  if (introOverlay) {
+    introOverlay.classList.add('is-complete');
+    window.setTimeout(() => {
+      introOverlay.remove();
+    }, reducedMotionMedia.matches ? 240 : 620);
+  }
+
+  resolveIntroReady();
+};
+
+const beginIntro = () => {
+  if (!introOverlay) {
+    finishIntro();
+    return;
+  }
+
+  if (reducedMotionMedia.matches) {
+    finishIntro();
+    return;
+  }
+
+  document.documentElement.classList.add('intro-active');
+
+  window.requestAnimationFrame(() => {
+    introOverlay.classList.add('is-playing');
+  });
+
+  window.setTimeout(finishIntro, 3150);
+};
 
 const updateParallax = () => {
   const y = window.scrollY;
@@ -437,6 +483,12 @@ const initNonCritical = () => {
   bindLightbox();
 };
 
+const initNonCriticalWhenReady = () => {
+  introReady.then(() => {
+    initNonCritical();
+  });
+};
+
 const runWhenIdle = (fn) => {
   if (typeof window.requestIdleCallback === 'function') {
     window.requestIdleCallback(() => fn(), { timeout: 2200 });
@@ -446,6 +498,7 @@ const runWhenIdle = (fn) => {
   window.setTimeout(fn, 250);
 };
 
+beginIntro();
 bindHeaderCompaction();
 
 if (isMobileViewport) {
@@ -466,22 +519,22 @@ if (isMobileViewport) {
       if (slowModeTriggered) {
         runWhenIdle(() => {
           document.documentElement.classList.remove('perf-defer');
-          initNonCritical();
+          initNonCriticalWhenReady();
         });
         return;
       }
 
-      initNonCritical();
+      initNonCriticalWhenReady();
     },
     { once: true }
   );
 
   if (document.readyState === 'complete') {
     window.clearTimeout(slowModeTimer);
-    initNonCritical();
+    initNonCriticalWhenReady();
   }
 } else {
-  initNonCritical();
+  initNonCriticalWhenReady();
 }
 
 if (mosaicItems.length > 0) {
@@ -849,7 +902,9 @@ if (window.location.hash) {
   window.addEventListener(
     'load',
     () => {
-      scrollToSelector(window.location.hash, { behavior: 'auto' });
+      introReady.then(() => {
+        scrollToSelector(window.location.hash, { behavior: 'auto' });
+      });
     },
     { once: true }
   );
