@@ -44,8 +44,8 @@ html.intro-active body {
   place-items: center;
   padding: 2rem;
   background:
-    radial-gradient(circle at 50% 30%, #d8af6f22 0, transparent 26%),
-    linear-gradient(180deg, #03060af7 0%, #070b12fb 52%, #04070cfb 100%);
+    radial-gradient(circle at 50% 28%, #ffffff14 0, transparent 28%),
+    linear-gradient(180deg, #494f58f2 0%, #41464ff4 52%, #353941f6 100%);
   isolation: isolate;
   transition: opacity 560ms ease, visibility 0s linear 560ms;
 }
@@ -90,6 +90,8 @@ html.intro-active body {
   height: 100%;
   opacity: 0;
   transform: translateY(18px) scale(0.88);
+  clip-path: inset(0 0 0 0);
+  mix-blend-mode: screen;
 }
 
 .intro-logo-visual::after {
@@ -110,36 +112,27 @@ html.intro-active body {
   width: 100%;
   height: 100%;
   object-fit: contain;
+  mix-blend-mode: screen;
   filter: drop-shadow(0 26px 50px #00000078);
 }
 
 .intro-dust-field {
   position: absolute;
-  inset: -2% -6%;
+  inset: -4% -8%;
   pointer-events: none;
 }
 
 .intro-dust-field::after {
   content: "";
   position: absolute;
-  top: 38%;
-  left: 36%;
-  width: 52%;
-  height: 20%;
+  top: 14%;
+  left: 24%;
+  width: 58%;
+  height: 14%;
   opacity: 0;
-  background: linear-gradient(90deg, #ffffff24 0%, #ffffff12 42%, transparent 100%);
-  filter: blur(16px);
+  background: linear-gradient(90deg, #0506075c 0%, #0506072e 48%, transparent 100%);
+  filter: blur(12px);
   transform: translateX(0);
-}
-
-.intro-logo-dust-shape {
-  position: absolute;
-  inset: 2% 6%;
-  opacity: 0;
-  background: url("./Logo.png") center / contain no-repeat;
-  mix-blend-mode: screen;
-  filter: brightness(1.04) contrast(1.02);
-  transform: translate3d(0, 0, 0) scale(1);
 }
 
 .intro-dust-particle {
@@ -150,19 +143,23 @@ html.intro-active body {
   aspect-ratio: 1;
   border-radius: 999px;
   opacity: 0;
-  background: radial-gradient(circle, #ffffffea 0%, #ffffffa6 42%, #ffffff00 74%);
+  background: radial-gradient(circle, #0a0b0d 0%, #111418 46%, #11141800 74%);
   filter: blur(var(--blur, 0px));
-  transform: translate3d(0, 0, 0) scale(0.35);
+  transform: translate3d(0, 0, 0) scale(0.25);
 }
 
-.intro-dust-particle-1 { --x: 42%; --y: 36%; --size: 10px; --blur: 0px; --drift-x: 88px; --drift-y: -30px; --delay: 1.5s; }
-.intro-dust-particle-2 { --x: 54%; --y: 42%; --size: 8px; --blur: 0.6px; --drift-x: 116px; --drift-y: -18px; --delay: 1.56s; }
-.intro-dust-particle-3 { --x: 60%; --y: 50%; --size: 12px; --blur: 1px; --drift-x: 132px; --drift-y: 6px; --delay: 1.62s; }
-.intro-dust-particle-4 { --x: 48%; --y: 56%; --size: 7px; --blur: 0.4px; --drift-x: 98px; --drift-y: 22px; --delay: 1.66s; }
-.intro-dust-particle-5 { --x: 68%; --y: 38%; --size: 14px; --blur: 1.4px; --drift-x: 154px; --drift-y: -26px; --delay: 1.7s; }
-.intro-dust-particle-6 { --x: 70%; --y: 48%; --size: 9px; --blur: 0.8px; --drift-x: 170px; --drift-y: -2px; --delay: 1.76s; }
-.intro-dust-particle-7 { --x: 58%; --y: 62%; --size: 11px; --blur: 1.2px; --drift-x: 124px; --drift-y: 28px; --delay: 1.8s; }
-.intro-dust-particle-8 { --x: 76%; --y: 54%; --size: 16px; --blur: 1.8px; --drift-x: 186px; --drift-y: 14px; --delay: 1.84s; }
+.intro-dust-particle-1 { --x: 32%; --y: 20%; --size: 4px; --blur: 0px; --drift-x: 42px; --drift-y: -18px; --delay: 1.48s; }
+.intro-dust-particle-2 { --x: 44%; --y: 24%; --size: 5px; --blur: 0px; --drift-x: 56px; --drift-y: -12px; --delay: 1.52s; }
+.intro-dust-particle-3 { --x: 58%; --y: 28%; --size: 4px; --blur: 0.2px; --drift-x: 72px; --drift-y: -10px; --delay: 1.56s; }
+.intro-dust-particle-4 { --x: 70%; --y: 33%; --size: 6px; --blur: 0.4px; --drift-x: 96px; --drift-y: -8px; --delay: 1.6s; }
+.intro-dust-particle-5 { --x: 40%; --y: 40%; --size: 5px; --blur: 0.3px; --drift-x: 64px; --drift-y: 2px; --delay: 1.66s; }
+.intro-dust-particle-6 { --x: 54%; --y: 46%; --size: 6px; --blur: 0.5px; --drift-x: 82px; --drift-y: 8px; --delay: 1.72s; }
+.intro-dust-particle-7 { --x: 67%; --y: 50%; --size: 5px; --blur: 0.7px; --drift-x: 104px; --drift-y: 10px; --delay: 1.76s; }
+.intro-dust-particle-8 { --x: 78%; --y: 56%; --size: 7px; --blur: 1px; --drift-x: 126px; --drift-y: 12px; --delay: 1.8s; }
+.intro-dust-particle-9 { --x: 46%; --y: 60%; --size: 4px; --blur: 0.4px; --drift-x: 70px; --drift-y: 18px; --delay: 1.84s; }
+.intro-dust-particle-10 { --x: 60%; --y: 66%; --size: 6px; --blur: 0.8px; --drift-x: 94px; --drift-y: 20px; --delay: 1.88s; }
+.intro-dust-particle-11 { --x: 72%; --y: 72%; --size: 5px; --blur: 1.1px; --drift-x: 118px; --drift-y: 24px; --delay: 1.92s; }
+.intro-dust-particle-12 { --x: 82%; --y: 78%; --size: 7px; --blur: 1.4px; --drift-x: 146px; --drift-y: 28px; --delay: 1.96s; }
 
 .intro-wordmark {
   margin: 0;
@@ -181,16 +178,11 @@ html.intro-active body {
 
 .intro-overlay.is-playing .intro-logo-visual {
   animation: intro-logo-enter 940ms cubic-bezier(0.18, 0.88, 0.2, 1) forwards,
-    intro-logo-dust-fade 980ms cubic-bezier(0.22, 0.78, 0.2, 1) forwards 1.56s;
-}
-
-.intro-overlay.is-playing .intro-logo-dust-shape {
-  animation: intro-logo-dust-form 380ms ease forwards 1.34s,
-    intro-logo-dust-dispersal 1180ms cubic-bezier(0.22, 0.78, 0.2, 1) forwards 1.5s;
+    intro-logo-dust-topdown 1180ms cubic-bezier(0.22, 0.78, 0.2, 1) forwards 1.46s;
 }
 
 .intro-overlay.is-playing .intro-dust-field::after {
-  animation: intro-dust-trail 920ms ease forwards 1.56s;
+  animation: intro-dust-trail 1080ms cubic-bezier(0.22, 0.78, 0.2, 1) forwards 1.46s;
 }
 
 .intro-overlay.is-playing .intro-logo-visual::after {
@@ -251,54 +243,30 @@ html.intro-active body {
   }
 }
 
-@keyframes intro-logo-dust-fade {
+@keyframes intro-logo-dust-topdown {
   0% {
     opacity: 1;
+    clip-path: inset(0 0 0 0);
     transform: translateY(0) scale(1);
     filter: blur(0) saturate(1);
   }
-  56% {
-    opacity: 0.96;
-    transform: translateY(3px) scale(1);
-  }
-  100% {
-    opacity: 0;
-    transform: translateY(-2px) scale(0.99);
-    filter: blur(6px) brightness(1.08) saturate(0.88);
-  }
-}
-
-@keyframes intro-logo-dust-form {
-  from {
-    opacity: 0;
-    transform: translateY(0) scale(1);
-  }
-  to {
-    opacity: 0.98;
-    transform: translateY(0) scale(1);
-  }
-}
-
-@keyframes intro-logo-dust-dispersal {
-  0% {
-    opacity: 0.98;
-    transform: translateY(0) scale(1);
-    filter: brightness(1.04) contrast(1.02);
-  }
-  32% {
+  24% {
     opacity: 1;
-    transform: translate3d(18px, -4px, 0) scale(1.01);
-    filter: brightness(1.08) contrast(1.04) blur(1px);
+    clip-path: inset(14% 0 0 0);
+    transform: translate3d(4px, -1px, 0) scale(1);
+    filter: blur(0.2px) saturate(1);
   }
-  68% {
-    opacity: 0.98;
-    transform: translate3d(56px, -12px, 0) scale(1.03);
-    filter: brightness(1.1) contrast(1.04) blur(6px);
+  58% {
+    opacity: 0.9;
+    clip-path: inset(46% 0 0 0);
+    transform: translate3d(12px, -4px, 0) scale(0.998);
+    filter: blur(2px) brightness(1.06) saturate(0.94);
   }
   100% {
     opacity: 0;
-    transform: translate3d(116px, -28px, 0) scale(1.06);
-    filter: brightness(1.12) contrast(1.02) blur(18px);
+    clip-path: inset(100% 0 0 0);
+    transform: translate3d(52px, -14px, 0) scale(0.985);
+    filter: blur(12px) brightness(1.08) saturate(0.84);
   }
 }
 
@@ -323,29 +291,37 @@ html.intro-active body {
 @keyframes intro-dust-trail {
   0% {
     opacity: 0;
+    top: 14%;
     transform: translateX(0) scaleX(0.45);
   }
-  30% {
-    opacity: 0.34;
-    transform: translateX(18px) scaleX(0.82);
+  32% {
+    opacity: 0.28;
+    top: 28%;
+    transform: translateX(18px) scaleX(0.76);
+  }
+  68% {
+    opacity: 0.22;
+    top: 50%;
+    transform: translateX(44px) scaleX(0.98);
   }
   100% {
     opacity: 0;
-    transform: translateX(96px) scaleX(1.2);
+    top: 74%;
+    transform: translateX(96px) scaleX(1.18);
   }
 }
 
 @keyframes intro-dust-burst {
   0% {
     opacity: 0;
-    transform: translate3d(0, 0, 0) scale(0.35);
+    transform: translate3d(0, 0, 0) scale(0.25);
   }
   18% {
-    opacity: 1;
+    opacity: 0.92;
   }
   100% {
     opacity: 0;
-    transform: translate3d(var(--drift-x), var(--drift-y), 0) scale(1.45);
+    transform: translate3d(var(--drift-x), var(--drift-y), 0) scale(1.15);
   }
 }
 
@@ -1785,7 +1761,6 @@ h2 {
   .intro-logo-visual,
   .intro-logo-visual::after,
   .intro-dust-field,
-  .intro-logo-dust-shape,
   .intro-dust-particle,
   .intro-wordmark,
   .intro-stage {
