@@ -249,7 +249,7 @@ const spawnIntroDustParticle = (state, sample, dissolveProgress) => {
     shade: Math.round(randomBetween(214, 255)),
     baseAlpha: randomBetween(0.34, 0.78) * sample.opacity,
     age: 0,
-    life: randomBetween(520, 980)
+    life: randomBetween(580, 1080)
   };
 };
 
