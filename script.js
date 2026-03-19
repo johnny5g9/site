@@ -246,7 +246,7 @@ const spawnIntroDustParticle = (state, sample, dissolveProgress) => {
     vx: randomBetween(windBase * 0.75, windBase * 1.16),
     vy: rowPull + randomBetween(-12, 12) * state.dpr,
     size: Math.max(1, Math.round(sample.size)),
-    shade: Math.round(randomBetween(10, 34)),
+    shade: Math.round(randomBetween(214, 255)),
     baseAlpha: randomBetween(0.34, 0.78) * sample.opacity,
     age: 0,
     life: randomBetween(520, 980)
@@ -343,7 +343,8 @@ const drawIntroDustParticles = (state) => {
 
     const size = Math.max(1, Math.round(particle.size * (1 - (ageProgress * 0.18))));
     const channel = particle.shade;
-    state.ctx.fillStyle = `rgba(${channel}, ${channel}, ${channel + 4}, ${alpha})`;
+    const highlight = Math.min(255, channel + 6);
+    state.ctx.fillStyle = `rgba(${channel}, ${channel}, ${highlight}, ${alpha})`;
     state.ctx.fillRect(Math.round(particle.x), Math.round(particle.y), size, size);
   }
 };
