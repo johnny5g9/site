@@ -78,7 +78,7 @@ html.intro-active body {
 }
 
 .intro-logo-liquid {
-  --intro-logo-size: clamp(240px, 36vw, 420px);
+  --intro-logo-size: clamp(280px, 42vw, 500px);
   position: relative;
   width: var(--intro-logo-size);
   aspect-ratio: 1;
