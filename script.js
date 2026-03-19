@@ -19,12 +19,14 @@ const questionsEmailLinks = document.querySelectorAll('a[href="mailto:questions@
 const siteHeader = document.querySelector('.site-header');
 const headerExpandToggle = document.querySelector('.header-expand-toggle');
 const introOverlay = document.querySelector('.intro-overlay');
-const introLogoCanvas = document.querySelector('.intro-logo-canvas');
+const introSceneCanvas = document.querySelector('.intro-scene');
 const introLogoSource = document.querySelector('.intro-logo-source');
+const introTagline = document.querySelector('.intro-tagline');
 const internalAnchorLinks = document.querySelectorAll('a[href^="#"]');
 const mobileHeaderMedia = window.matchMedia('(max-width: 640px)');
 const reducedMotionMedia = window.matchMedia('(prefers-reduced-motion: reduce)');
 const questionsEmailAddress = 'questions@groisslhockeyphotography.com';
+const introTaglineText = 'Hockey moves fast, and so do I';
 
 let questionsEmailMenu = null;
 let copyQuestionsButton = null;
@@ -119,12 +121,69 @@ const bgObserver = new IntersectionObserver(
   { threshold: 0.01 }
 );
 
-const buildIntroDustScene = () => {
-  if (!introLogoCanvas || !introLogoSource) {
+const createAmbientIntroParticle = (width, height, dpr, x = randomBetween(0, width), y = randomBetween(0, height)) => ({
+  x,
+  y,
+  radius: randomBetween(0.8, 2.2) * dpr,
+  alpha: randomBetween(0.05, 0.2),
+  vx: randomBetween(-5.5, 5.5) * dpr,
+  vy: randomBetween(-7.5, 1.5) * dpr,
+  sway: randomBetween(1.4, 4.8) * dpr,
+  phase: randomBetween(0, Math.PI * 2)
+});
+
+const createIntroDisintegrationParticle = (state, sample) => ({
+  x: sample.x,
+  y: sample.y,
+  radius: Math.max(1, sample.size * randomBetween(0.45, 0.9)),
+  alpha: randomBetween(0.14, 0.28) * sample.opacity,
+  vx: ((sample.dirX * randomBetween(10, 22)) + randomBetween(-9, 10)) * state.dpr,
+  vy: ((sample.dirY * randomBetween(8, 20)) - randomBetween(3, 16)) * state.dpr,
+  drift: randomBetween(4, 10) * state.dpr,
+  phase: randomBetween(0, Math.PI * 2),
+  age: 0,
+  life: randomBetween(820, 1460)
+});
+
+const drawIntroSoftParticle = (ctx, x, y, radius, alpha) => {
+  const outerRadius = radius * 2.35;
+  const gradient = ctx.createRadialGradient(x, y, 0, x, y, outerRadius);
+  gradient.addColorStop(0, `rgba(255, 255, 255, ${alpha})`);
+  gradient.addColorStop(0.35, `rgba(255, 255, 255, ${alpha * 0.42})`);
+  gradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
+  ctx.fillStyle = gradient;
+  ctx.beginPath();
+  ctx.arc(x, y, outerRadius, 0, Math.PI * 2);
+  ctx.fill();
+};
+
+const updateIntroTaglineText = (elapsed, timeline) => {
+  if (!introTagline) {
+    return;
+  }
+
+  const typingProgress = clamp((elapsed - timeline.textStartMs) / timeline.textCharacterMs, 0, introTaglineText.length);
+  const typedLength = elapsed < timeline.textStartMs ? 0 : Math.min(introTaglineText.length, Math.floor(typingProgress));
+  let opacity = 0;
+
+  if (typedLength > 0) {
+    opacity = 0.78;
+  }
+
+  if (elapsed >= timeline.textFadeStartMs) {
+    opacity *= 1 - clamp((elapsed - timeline.textFadeStartMs) / timeline.textFadeDurationMs, 0, 1);
+  }
+
+  introTagline.textContent = introTaglineText.slice(0, typedLength);
+  introTagline.style.opacity = opacity.toFixed(3);
+};
+
+const buildIntroAtmosphereScene = () => {
+  if (!introOverlay || !introSceneCanvas || !introLogoSource) {
     return null;
   }
 
-  const rect = introLogoCanvas.getBoundingClientRect();
+  const rect = introOverlay.getBoundingClientRect();
   if (rect.width < 1 || rect.height < 1) {
     return null;
   }
@@ -133,10 +192,10 @@ const buildIntroDustScene = () => {
   const width = Math.max(1, Math.round(rect.width * dpr));
   const height = Math.max(1, Math.round(rect.height * dpr));
 
-  introLogoCanvas.width = width;
-  introLogoCanvas.height = height;
+  introSceneCanvas.width = width;
+  introSceneCanvas.height = height;
 
-  const ctx = introLogoCanvas.getContext('2d');
+  const ctx = introSceneCanvas.getContext('2d');
   if (!ctx) {
     return null;
   }
@@ -156,15 +215,22 @@ const buildIntroDustScene = () => {
   maskedCanvas.height = height;
   const maskedCtx = maskedCanvas.getContext('2d');
 
-  if (!sourceCtx || !logoCtx || !maskedCtx) {
+  const breakCanvas = document.createElement('canvas');
+  breakCanvas.width = width;
+  breakCanvas.height = height;
+  const breakCtx = breakCanvas.getContext('2d');
+
+  if (!sourceCtx || !logoCtx || !maskedCtx || !breakCtx) {
     return null;
   }
 
-  const scale = Math.min(width / introLogoSource.naturalWidth, height / introLogoSource.naturalHeight);
+  const logoMaxWidth = Math.min(width * (mobileHeaderMedia.matches ? 0.62 : 0.42), 560 * dpr);
+  const logoMaxHeight = Math.min(height * (mobileHeaderMedia.matches ? 0.23 : 0.28), 340 * dpr);
+  const scale = Math.min(logoMaxWidth / introLogoSource.naturalWidth, logoMaxHeight / introLogoSource.naturalHeight);
   const drawWidth = Math.max(1, Math.round(introLogoSource.naturalWidth * scale));
   const drawHeight = Math.max(1, Math.round(introLogoSource.naturalHeight * scale));
   const drawX = Math.round((width - drawWidth) / 2);
-  const drawY = Math.round((height - drawHeight) / 2);
+  const drawY = Math.round((height - drawHeight) * 0.35);
 
   sourceCtx.clearRect(0, 0, width, height);
   sourceCtx.drawImage(introLogoSource, drawX, drawY, drawWidth, drawHeight);
@@ -193,7 +259,8 @@ const buildIntroDustScene = () => {
   logoCtx.putImageData(logoPixels, 0, 0);
 
   const sampleStep = Math.max(2, Math.round(1.5 * dpr));
-  const bandSize = Math.max(14 * dpr, drawHeight * 0.085);
+  const centerX = drawX + (drawWidth / 2);
+  const centerY = drawY + (drawHeight / 2);
   const samples = [];
 
   for (let y = drawY; y < drawY + drawHeight; y += sampleStep) {
@@ -201,87 +268,114 @@ const buildIntroDustScene = () => {
       const pixelIndex = ((y * width) + x) * 4;
       const alpha = logoPixels.data[pixelIndex + 3];
 
-      if (alpha < 24) {
+      if (alpha < 28) {
         continue;
       }
 
+      const leftAlpha = x > 0 ? logoPixels.data[pixelIndex - 1] : 0;
+      const rightAlpha = x < width - 1 ? logoPixels.data[pixelIndex + 7] : 0;
+      const topAlpha = y > 0 ? logoPixels.data[pixelIndex - (width * 4) + 3] : 0;
+      const bottomAlpha = y < height - 1 ? logoPixels.data[pixelIndex + (width * 4) + 3] : 0;
+      const edgeOpen = leftAlpha < 18 || rightAlpha < 18 || topAlpha < 18 || bottomAlpha < 18;
+      const dirX = (x - centerX) / Math.max(1, drawWidth * 0.5);
+      const dirY = (y - centerY) / Math.max(1, drawHeight * 0.5);
+      const radial = clamp(Math.hypot(dirX, dirY), 0, 1.3);
+      const edgeStrength = clamp((edgeOpen ? 0.7 : 0) + (((radial - 0.42) / 0.58) * 0.75), 0, 1);
+      const trigger = clamp(((1 - edgeStrength) * 0.78) + randomBetween(-0.08, 0.1), 0, 1);
+
       samples.push({
-        x: x + randomBetween(-sampleStep * 0.3, sampleStep * 0.3),
-        y: y + randomBetween(-sampleStep * 0.3, sampleStep * 0.3),
-        triggerY: y + randomBetween(-bandSize * 0.55, bandSize * 0.45),
-        size: Math.max(1, sampleStep * randomBetween(0.28, 0.6)),
-        row: clamp((y - drawY) / Math.max(1, drawHeight), 0, 1),
-        opacity: clamp(alpha / 255, 0.28, 1)
+        x: x + randomBetween(-sampleStep * 0.25, sampleStep * 0.25),
+        y: y + randomBetween(-sampleStep * 0.25, sampleStep * 0.25),
+        size: Math.max(1, sampleStep * randomBetween(0.5, 1)),
+        opacity: clamp(alpha / 255, 0.22, 1),
+        dirX: Math.abs(dirX) < 0.05 ? randomBetween(-0.24, 0.24) : dirX,
+        dirY: Math.abs(dirY) < 0.05 ? randomBetween(-0.3, 0.1) : dirY,
+        trigger
       });
     }
   }
 
-  samples.sort((left, right) => left.triggerY - right.triggerY);
+  samples.sort((left, right) => left.trigger - right.trigger);
+
+  const ambientCount = clamp(Math.round((rect.width * rect.height) / 13000), 85, 150);
 
   return {
     ctx,
     width,
     height,
     dpr,
-    drawY,
-    drawHeight,
     logoCanvas,
     maskedCanvas,
     maskedCtx,
+    breakCanvas,
+    breakCtx,
     samples,
     nextSampleIndex: 0,
-    particles: [],
-    bandSize,
-    sampleStep
+    ambientParticles: Array.from({ length: ambientCount }, () => createAmbientIntroParticle(width, height, dpr)),
+    disintegrationParticles: [],
+    logoCenterX: centerX,
+    logoCenterY: centerY,
+    logoRadius: Math.max(drawWidth, drawHeight) * 0.42
   };
 };
 
-const spawnIntroDustParticle = (state, sample, dissolveProgress) => {
-  const rowPull = (sample.row - 0.48) * 18 * state.dpr;
-  const windBase = (26 + (dissolveProgress * 44)) * state.dpr;
+const updateAmbientIntroParticles = (state, deltaMs, time) => {
+  const deltaSeconds = deltaMs / 1000;
+  const margin = 32 * state.dpr;
 
-  return {
-    x: sample.x,
-    y: sample.y,
-    vx: randomBetween(windBase * 0.75, windBase * 1.16),
-    vy: rowPull + randomBetween(-12, 12) * state.dpr,
-    size: Math.max(1, Math.round(sample.size)),
-    shade: Math.round(randomBetween(214, 255)),
-    baseAlpha: randomBetween(0.34, 0.78) * sample.opacity,
-    age: 0,
-    life: randomBetween(580, 1080)
-  };
-};
+  for (const particle of state.ambientParticles) {
+    const swayX = Math.sin((time * 0.00022) + particle.phase) * particle.sway;
+    const swayY = Math.cos((time * 0.00018) + particle.phase) * particle.sway * 0.3;
+    particle.x += (particle.vx + swayX) * deltaSeconds;
+    particle.y += (particle.vy + swayY) * deltaSeconds;
 
-const releaseIntroDustParticles = (state, releaseY, dissolveProgress) => {
-  while (
-    state.nextSampleIndex < state.samples.length
-    && state.samples[state.nextSampleIndex].triggerY <= releaseY
-  ) {
-    const sample = state.samples[state.nextSampleIndex];
-    state.nextSampleIndex += 1;
-    state.particles.push(spawnIntroDustParticle(state, sample, dissolveProgress));
+    if (particle.x < -margin) {
+      particle.x = state.width + margin;
+    } else if (particle.x > state.width + margin) {
+      particle.x = -margin;
+    }
 
-    if (sample.size > (state.sampleStep * 0.58) && Math.random() > 0.7) {
-      const secondary = spawnIntroDustParticle(state, sample, dissolveProgress);
-      secondary.size = Math.max(1, secondary.size - 1);
-      secondary.x += randomBetween(-state.sampleStep * 0.45, state.sampleStep * 0.45);
-      secondary.y += randomBetween(-state.sampleStep * 0.45, state.sampleStep * 0.45);
-      secondary.vx *= randomBetween(0.88, 1.08);
-      secondary.vy += randomBetween(-8, 8) * state.dpr;
-      secondary.baseAlpha *= 0.82;
-      secondary.life *= 0.88;
-      state.particles.push(secondary);
+    if (particle.y < -margin) {
+      particle.y = state.height + margin;
+    } else if (particle.y > state.height + margin) {
+      particle.y = -margin;
     }
   }
 };
 
-const updateIntroDustParticles = (state, deltaMs, dissolveProgress) => {
-  const deltaSeconds = deltaMs / 1000;
-  const windPull = (18 + (dissolveProgress * 62)) * state.dpr;
-  const activeParticles = [];
+const releaseIntroDisintegration = (state, dissolveProgress) => {
+  while (
+    state.nextSampleIndex < state.samples.length
+    && state.samples[state.nextSampleIndex].trigger <= dissolveProgress
+  ) {
+    const sample = state.samples[state.nextSampleIndex];
+    state.nextSampleIndex += 1;
 
-  for (const particle of state.particles) {
+    state.disintegrationParticles.push(createIntroDisintegrationParticle(state, sample));
+
+    if (sample.size > 1.2 && Math.random() > 0.58) {
+      const secondary = createIntroDisintegrationParticle(state, sample);
+      secondary.radius *= 0.8;
+      secondary.alpha *= 0.8;
+      state.disintegrationParticles.push(secondary);
+    }
+
+    drawIntroSoftParticle(
+      state.breakCtx,
+      sample.x,
+      sample.y,
+      sample.size * 0.9,
+      0.18 * sample.opacity
+    );
+  }
+};
+
+const updateIntroDisintegrationParticles = (state, deltaMs, time) => {
+  const deltaSeconds = deltaMs / 1000;
+  const activeParticles = [];
+  const margin = 36 * state.dpr;
+
+  for (const particle of state.disintegrationParticles) {
     particle.age += deltaMs;
     const ageProgress = particle.age / particle.life;
 
@@ -289,96 +383,154 @@ const updateIntroDustParticles = (state, deltaMs, dissolveProgress) => {
       continue;
     }
 
-    particle.vx += windPull * deltaSeconds * 0.36;
-    particle.vy += randomBetween(-5, 5) * state.dpr * deltaSeconds;
-    particle.x += particle.vx * deltaSeconds;
-    particle.y += particle.vy * deltaSeconds;
+    const driftX = Math.sin((time * 0.00032) + particle.phase) * particle.drift;
+    const driftY = Math.cos((time * 0.00028) + particle.phase) * particle.drift * 0.28;
+    particle.x += (particle.vx + driftX) * deltaSeconds;
+    particle.y += (particle.vy + driftY) * deltaSeconds;
+
+    if (
+      particle.x < -margin
+      || particle.x > state.width + margin
+      || particle.y < -margin
+      || particle.y > state.height + margin
+    ) {
+      continue;
+    }
 
     activeParticles.push(particle);
   }
 
-  state.particles = activeParticles;
+  state.disintegrationParticles = activeParticles;
 };
 
-const drawIntroRemainingLogo = (state, dissolveProgress) => {
-  if (dissolveProgress >= 1) {
+const drawIntroLogo = (state, introProgress, dissolveProgress, sceneOpacity) => {
+  if (introProgress <= 0.001) {
     return;
   }
-
-  if (dissolveProgress <= 0.001) {
-    state.ctx.drawImage(state.logoCanvas, 0, 0);
-    return;
-  }
-
-  const bandCenter = state.drawY + (dissolveProgress * state.drawHeight);
-  const bandTop = bandCenter - state.bandSize;
-  const bandBottom = bandCenter + (state.bandSize * 0.65);
 
   state.maskedCtx.clearRect(0, 0, state.width, state.height);
   state.maskedCtx.globalCompositeOperation = 'source-over';
   state.maskedCtx.drawImage(state.logoCanvas, 0, 0);
-  state.maskedCtx.globalCompositeOperation = 'destination-in';
 
-  const gradient = state.maskedCtx.createLinearGradient(0, bandTop, 0, bandBottom);
-  gradient.addColorStop(0, 'rgba(0, 0, 0, 0)');
-  gradient.addColorStop(0.26, 'rgba(0, 0, 0, 0.05)');
-  gradient.addColorStop(0.58, 'rgba(0, 0, 0, 0.34)');
-  gradient.addColorStop(1, 'rgba(0, 0, 0, 1)');
+  if (dissolveProgress > 0) {
+    state.maskedCtx.globalCompositeOperation = 'destination-out';
+    state.maskedCtx.drawImage(state.breakCanvas, 0, 0);
+    state.maskedCtx.globalCompositeOperation = 'source-over';
+  }
 
-  state.maskedCtx.fillStyle = gradient;
-  state.maskedCtx.fillRect(0, 0, state.width, state.height);
-  state.maskedCtx.globalCompositeOperation = 'source-over';
+  const dissolveFade = dissolveProgress < 0.72
+    ? 1
+    : 1 - clamp((dissolveProgress - 0.72) / 0.28, 0, 1);
+  const alpha = easeInOutCubic(introProgress) * dissolveFade * sceneOpacity;
 
+  if (alpha <= 0.001) {
+    return;
+  }
+
+  const glowRadius = state.logoRadius * (1.3 + (introProgress * 0.08));
+  const glow = state.ctx.createRadialGradient(
+    state.logoCenterX,
+    state.logoCenterY,
+    0,
+    state.logoCenterX,
+    state.logoCenterY,
+    glowRadius
+  );
+  glow.addColorStop(0, `rgba(255, 255, 255, ${0.1 * introProgress * sceneOpacity})`);
+  glow.addColorStop(0.5, `rgba(255, 255, 255, ${0.035 * introProgress * sceneOpacity})`);
+  glow.addColorStop(1, 'rgba(255, 255, 255, 0)');
+
+  state.ctx.fillStyle = glow;
+  state.ctx.beginPath();
+  state.ctx.arc(state.logoCenterX, state.logoCenterY, glowRadius, 0, Math.PI * 2);
+  state.ctx.fill();
+
+  state.ctx.save();
+  state.ctx.globalAlpha = alpha;
+  state.ctx.translate(0, (1 - introProgress) * 14 * state.dpr);
   state.ctx.drawImage(state.maskedCanvas, 0, 0);
+  state.ctx.restore();
 };
 
-const drawIntroDustParticles = (state) => {
-  for (const particle of state.particles) {
-    const ageProgress = clamp(particle.age / particle.life, 0, 1);
-    const alpha = particle.baseAlpha * (1 - easeOutCubic(ageProgress));
+const drawIntroAtmosphere = (state, sceneOpacity) => {
+  for (const particle of state.ambientParticles) {
+    drawIntroSoftParticle(state.ctx, particle.x, particle.y, particle.radius, particle.alpha * sceneOpacity);
+  }
+};
 
-    if (alpha <= 0.01) {
+const drawIntroDisintegrationParticles = (state, sceneOpacity) => {
+  for (const particle of state.disintegrationParticles) {
+    const ageProgress = clamp(particle.age / particle.life, 0, 1);
+    const alpha = particle.alpha * (1 - easeOutCubic(ageProgress)) * sceneOpacity;
+
+    if (alpha <= 0.008) {
       continue;
     }
 
-    const size = Math.max(1, Math.round(particle.size * (1 - (ageProgress * 0.18))));
-    const channel = particle.shade;
-    const highlight = Math.min(255, channel + 6);
-    state.ctx.fillStyle = `rgba(${channel}, ${channel}, ${highlight}, ${alpha})`;
-    state.ctx.fillRect(Math.round(particle.x), Math.round(particle.y), size, size);
+    drawIntroSoftParticle(
+      state.ctx,
+      particle.x,
+      particle.y,
+      particle.radius * (1 - (ageProgress * 0.14)),
+      alpha
+    );
   }
 };
 
-const renderIntroDustScene = (state, deltaMs, dissolveProgress) => {
-  state.ctx.clearRect(0, 0, state.width, state.height);
+const renderIntroAtmosphereScene = (state, deltaMs, elapsed, timeline) => {
+  const introProgress = clamp((elapsed - timeline.logoFadeStartMs) / timeline.logoFadeDurationMs, 0, 1);
+  const dissolveProgress = easeInOutCubic(
+    clamp((elapsed - timeline.dissolveStartMs) / timeline.dissolveDurationMs, 0, 1)
+  );
+  const sceneOpacity = 1 - clamp((elapsed - timeline.sceneFadeStartMs) / timeline.sceneFadeDurationMs, 0, 1);
+
+  updateAmbientIntroParticles(state, deltaMs, elapsed);
 
   if (dissolveProgress > 0) {
-    const releaseY = state.drawY + (dissolveProgress * state.drawHeight) + (dissolveProgress >= 1 ? state.bandSize : 0);
-    releaseIntroDustParticles(state, releaseY, dissolveProgress);
+    releaseIntroDisintegration(state, dissolveProgress);
   }
 
-  updateIntroDustParticles(state, deltaMs, dissolveProgress);
-  drawIntroRemainingLogo(state, dissolveProgress);
-  drawIntroDustParticles(state);
+  updateIntroDisintegrationParticles(state, deltaMs, elapsed);
+
+  state.ctx.clearRect(0, 0, state.width, state.height);
+  drawIntroAtmosphere(state, sceneOpacity);
+  drawIntroLogo(state, introProgress, dissolveProgress, sceneOpacity);
+  drawIntroDisintegrationParticles(state, sceneOpacity);
+  updateIntroTaglineText(elapsed, timeline);
 };
 
 const runIntroDustAnimation = async () => {
-  if (!introOverlay || !introLogoCanvas || !introLogoSource) {
+  if (!introOverlay || !introSceneCanvas || !introLogoSource) {
     return false;
   }
 
   await waitForImage(introLogoSource);
 
-  const state = buildIntroDustScene();
+  const state = buildIntroAtmosphereScene();
   if (!state) {
     return false;
   }
 
-  introOverlay.classList.add('is-playing');
+  if (introTagline) {
+    introTagline.textContent = '';
+    introTagline.style.opacity = '0';
+  }
 
-  const dissolveStartMs = 760;
-  const dissolveDurationMs = 1400;
-  const totalDurationMs = dissolveStartMs + dissolveDurationMs + 320;
+  const timeline = {
+    logoFadeStartMs: 120,
+    logoFadeDurationMs: 860,
+    textStartMs: 960,
+    textCharacterMs: 42,
+    textHoldMs: 520,
+    textFadeDurationMs: 360
+  };
+
+  timeline.textFadeStartMs = timeline.textStartMs + (introTaglineText.length * timeline.textCharacterMs) + timeline.textHoldMs;
+  timeline.dissolveStartMs = timeline.textFadeStartMs;
+  timeline.dissolveDurationMs = 1120;
+  timeline.sceneFadeStartMs = timeline.dissolveStartMs + timeline.dissolveDurationMs - 160;
+  timeline.sceneFadeDurationMs = 280;
+  timeline.totalDurationMs = timeline.sceneFadeStartMs + timeline.sceneFadeDurationMs;
 
   return new Promise((resolve) => {
     let startTime = 0;
@@ -394,17 +546,9 @@ const runIntroDustAnimation = async () => {
       const deltaMs = Math.min(40, time - lastTime);
       lastTime = time;
 
-      const dissolveProgress = easeInOutCubic(
-        clamp((elapsed - dissolveStartMs) / dissolveDurationMs, 0, 1)
-      );
+      renderIntroAtmosphereScene(state, deltaMs, elapsed, timeline);
 
-      renderIntroDustScene(state, deltaMs, dissolveProgress);
-
-      if (
-        elapsed < totalDurationMs
-        || state.nextSampleIndex < state.samples.length
-        || state.particles.length > 0
-      ) {
+      if (elapsed < timeline.totalDurationMs || state.disintegrationParticles.length > 0) {
         window.requestAnimationFrame(frame);
         return;
       }
@@ -455,9 +599,8 @@ const beginIntro = async () => {
   try {
     const animationRan = await runIntroDustAnimation();
 
-    if (animationRan && introOverlay) {
-      introOverlay.classList.add('is-finishing');
-      window.setTimeout(finishIntro, 60);
+    if (animationRan) {
+      window.setTimeout(finishIntro, 36);
       return;
     }
   } catch (error) {

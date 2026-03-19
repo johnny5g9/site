@@ -54,12 +54,10 @@ html.site-entering .site-shell {
   position: fixed;
   inset: 0;
   z-index: 120;
-  display: grid;
-  place-items: center;
-  padding: 2rem;
+  overflow: hidden;
   background:
-    radial-gradient(circle at 50% 24%, #ffffff0b 0, transparent 28%),
-    linear-gradient(180deg, #090b0ef2 0%, #040507f6 52%, #000000fb 100%);
+    radial-gradient(circle at 50% 18%, #ffffff10 0, transparent 28%),
+    linear-gradient(180deg, #050608f8 0%, #020304fc 56%, #000000 100%);
   isolation: isolate;
   transition: opacity 260ms ease, visibility 0s linear 260ms;
 }
@@ -70,137 +68,52 @@ html.site-entering .site-shell {
   pointer-events: none;
 }
 
-.intro-stage {
-  position: relative;
-  display: grid;
-  justify-items: center;
-  gap: 1rem;
-  width: min(84vw, 540px);
-}
-
-.intro-glow {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: min(68vw, 420px);
-  aspect-ratio: 1;
-  border-radius: 50%;
-  background: radial-gradient(circle, #ffffff18 0, #ffffff08 38%, transparent 72%);
-  filter: blur(20px);
-  opacity: 0;
-  transform: translate(-50%, -56%) scale(0.82);
-}
-
-.intro-logo-liquid {
-  --intro-logo-size: clamp(280px, 42vw, 500px);
-  position: relative;
-  width: var(--intro-logo-size);
-  aspect-ratio: 1;
-}
-
-.intro-logo-visual {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  opacity: 0;
-  transform: translateY(18px) scale(0.9);
-  will-change: opacity, transform;
-}
-
-.intro-logo-canvas,
+.intro-scene,
 .intro-logo-source {
   position: absolute;
   inset: 0;
   display: block;
   width: 100%;
   height: 100%;
-  object-fit: contain;
 }
 
-.intro-logo-canvas {
+.intro-scene {
+  z-index: 0;
   image-rendering: auto;
 }
 
 .intro-logo-source {
   opacity: 0;
   pointer-events: none;
+  width: 0;
+  height: 0;
 }
 
-.intro-wordmark {
+.intro-copy {
+  position: absolute;
+  left: 50%;
+  bottom: clamp(2rem, 7vh, 4.5rem);
+  transform: translateX(-50%);
+  z-index: 1;
+  width: min(90vw, 720px);
+  display: flex;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.intro-tagline {
   margin: 0;
-  color: #181d24b5;
+  min-height: 1.4em;
+  color: #eef2f7;
   text-transform: uppercase;
-  letter-spacing: 0.24em;
-  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  font-size: clamp(0.72rem, 1vw, 0.92rem);
+  font-weight: 500;
+  white-space: pre;
+  text-align: center;
   opacity: 0;
-  transform: translateY(10px);
-}
-
-.intro-overlay.is-playing .intro-glow {
-  animation: intro-glow-pulse 920ms cubic-bezier(0.2, 0.86, 0.2, 1) forwards;
-}
-
-.intro-overlay.is-playing .intro-logo-visual {
-  animation: intro-logo-enter 760ms cubic-bezier(0.2, 0.86, 0.2, 1) forwards;
-}
-
-.intro-overlay.is-playing .intro-wordmark {
-  animation: intro-wordmark-in 460ms ease forwards 180ms;
-}
-
-.intro-overlay.is-finishing .intro-wordmark {
-  animation: intro-wordmark-out 420ms ease forwards;
-}
-
-.intro-overlay.is-finishing .intro-stage {
-  animation: intro-stage-exit 520ms cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
-}
-
-@keyframes intro-glow-pulse {
-  0% {
-    opacity: 0;
-    transform: translate(-50%, -56%) scale(0.82);
-  }
-  100% {
-    opacity: 0.88;
-    transform: translate(-50%, -50%) scale(1);
-  }
-}
-
-@keyframes intro-logo-enter {
-  0% {
-    opacity: 0;
-    transform: translateY(18px) scale(0.9);
-  }
-  56% {
-    opacity: 1;
-    transform: translateY(0) scale(1.02);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-}
-
-@keyframes intro-wordmark-in {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes intro-wordmark-out {
-  to {
-    opacity: 0;
-    transform: translateY(18px);
-  }
-}
-
-@keyframes intro-stage-exit {
-  to {
-    opacity: 0;
-    transform: translateY(-16px) scale(0.985);
-  }
+  text-shadow: 0 0 18px #ffffff14;
+  transition: opacity 200ms ease;
 }
 
 @keyframes site-shell-reveal {
@@ -1627,14 +1540,6 @@ h2 {
 @media (prefers-reduced-motion: reduce) {
   .intro-overlay {
     transition-duration: 220ms;
-  }
-
-  .intro-glow,
-  .intro-logo-visual,
-  .intro-logo-canvas,
-  .intro-wordmark,
-  .intro-stage {
-    animation: none !important;
   }
 
   .full-gallery-grid .mosaic-item {
