@@ -36,6 +36,7 @@ let activeLightboxIndex = -1;
 let lightboxTouchStartX = 0;
 let lightboxTouchStartY = 0;
 let anchorScrollTimeout = null;
+const introSeenStorageKey = 'ghp-intro-seen';
 
 const hasBgShots = bgShots.length > 0;
 const isMobileViewport = window.matchMedia('(max-width: 900px)').matches;
@@ -61,13 +62,21 @@ const easeInOutCubic = (value) => (value < 0.5
 const easeOutCubic = (value) => 1 - ((1 - value) ** 3);
 const randomBetween = (min, max) => min + ((max - min) * Math.random());
 const shouldSkipIntroForReferrer = () => {
+  try {
+    if (window.sessionStorage.getItem(introSeenStorageKey) === '1') {
+      return true;
+    }
+  } catch (error) {
+    // Ignore storage access failures and fall back to referrer checks.
+  }
+
   if (!document.referrer) {
     return false;
   }
 
   try {
     const referrerUrl = new URL(document.referrer);
-    return referrerUrl.origin === window.location.origin && /\/gallery\.html$/i.test(referrerUrl.pathname);
+    return referrerUrl.origin === window.location.origin;
   } catch (error) {
     return false;
   }
@@ -434,6 +443,13 @@ const finishIntro = () => {
   }
 
   introFinished = true;
+
+  try {
+    window.sessionStorage.setItem(introSeenStorageKey, '1');
+  } catch (error) {
+    // Ignore storage access failures; referrer-based skipping still applies.
+  }
+
   document.documentElement.classList.add('site-entering');
   document.documentElement.classList.remove('intro-active');
 
