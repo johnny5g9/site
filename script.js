@@ -429,12 +429,12 @@ const finishIntro = () => {
     introOverlay.classList.add('is-complete');
     window.setTimeout(() => {
       introOverlay.remove();
-    }, reducedMotionMedia.matches ? 240 : 620);
+    }, reducedMotionMedia.matches ? 180 : 420);
   }
 
   window.setTimeout(() => {
     document.documentElement.classList.remove('site-entering');
-  }, reducedMotionMedia.matches ? 220 : 820);
+  }, reducedMotionMedia.matches ? 180 : 680);
 
   resolveIntroReady();
 };
@@ -457,7 +457,7 @@ const beginIntro = async () => {
 
     if (animationRan && introOverlay) {
       introOverlay.classList.add('is-finishing');
-      window.setTimeout(finishIntro, 220);
+      window.setTimeout(finishIntro, 110);
       return;
     }
   } catch (error) {
