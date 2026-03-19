@@ -422,6 +422,7 @@ const finishIntro = () => {
   }
 
   introFinished = true;
+  document.documentElement.classList.add('site-entering');
   document.documentElement.classList.remove('intro-active');
 
   if (introOverlay) {
@@ -430,6 +431,10 @@ const finishIntro = () => {
       introOverlay.remove();
     }, reducedMotionMedia.matches ? 240 : 620);
   }
+
+  window.setTimeout(() => {
+    document.documentElement.classList.remove('site-entering');
+  }, reducedMotionMedia.matches ? 220 : 820);
 
   resolveIntroReady();
 };
