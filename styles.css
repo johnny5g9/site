@@ -29,6 +29,7 @@ body {
   color: var(--ink);
   background: var(--bg);
   line-height: 1.5;
+  overflow-x: hidden;
 }
 
 html.intro-active,
@@ -1380,9 +1381,9 @@ h2 {
 
   .nav-links {
     display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     width: 100%;
-    gap: 0.35rem;
+    gap: 0.42rem;
   }
 
   .nav-links li {
@@ -1393,20 +1394,20 @@ h2 {
     display: flex;
     align-items: center;
     justify-content: center;
-    min-height: 2.35rem;
-    padding: 0.42rem 0.35rem;
+    min-height: 2.6rem;
+    padding: 0.5rem 0.45rem;
     white-space: normal;
     text-align: center;
     line-height: 1.15;
-    font-size: 0.74rem;
+    font-size: 0.78rem;
     border: 1px solid #ffffff1a;
     border-radius: 10px;
     background: #ffffff08;
   }
 
   .nav-links .btn {
-    min-height: 2.35rem;
-    padding: 0.42rem 0.35rem;
+    min-height: 2.6rem;
+    padding: 0.5rem 0.45rem;
   }
 
   .section {
@@ -1514,11 +1515,19 @@ h2 {
   .hero-actions {
     margin-top: 1.1rem;
     gap: 0.55rem;
+    flex-direction: column;
+    align-items: stretch;
   }
 
   .btn {
     padding: 0.62rem 0.9rem;
     font-size: 0.82rem;
+  }
+
+  .hero-actions .btn {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
   }
 
   .stats {
@@ -1575,6 +1584,11 @@ h2 {
 
   .removal-note {
     font-size: 0.7rem;
+  }
+
+  .gallery-only {
+    width: min(1500px, 94vw);
+    padding-top: 2.6rem;
   }
 }
 
