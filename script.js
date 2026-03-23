@@ -549,15 +549,15 @@ const bindHeaderCompaction = () => {
     const isCompact = window.scrollY > 42;
     const isMobile = mobileHeaderMedia.matches;
 
-    if (!isMobile || !isCompact) {
+    if (!isMobile) {
       mobileHeaderExpanded = false;
     }
 
     siteHeader.classList.toggle('is-compact', isCompact);
-    siteHeader.classList.toggle('is-mobile-expanded', isMobile && isCompact && mobileHeaderExpanded);
+    siteHeader.classList.toggle('is-mobile-expanded', isMobile && mobileHeaderExpanded);
 
     if (headerExpandToggle) {
-      headerExpandToggle.setAttribute('aria-expanded', isMobile && isCompact && mobileHeaderExpanded ? 'true' : 'false');
+      headerExpandToggle.setAttribute('aria-expanded', isMobile && mobileHeaderExpanded ? 'true' : 'false');
     }
 
     updateHeaderOffset();
@@ -577,7 +577,7 @@ const bindHeaderCompaction = () => {
 
   if (headerExpandToggle) {
     headerExpandToggle.addEventListener('click', () => {
-      if (!mobileHeaderMedia.matches || !siteHeader.classList.contains('is-compact')) {
+      if (!mobileHeaderMedia.matches) {
         return;
       }
 

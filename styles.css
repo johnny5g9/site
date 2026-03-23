@@ -1294,13 +1294,13 @@ h2 {
     grid-template-columns: auto;
     justify-content: stretch;
     justify-items: start;
-    padding: 0.58rem 0.55rem 0.46rem;
-    row-gap: 0.42rem;
+    padding: 0.44rem 0.46rem 0.4rem;
+    row-gap: 0;
   }
 
   .site-header.is-compact {
     justify-content: start;
-    padding: 0.3rem 0.42rem 0.24rem;
+    padding: 0.38rem 0.42rem 0.34rem;
     row-gap: 0;
   }
 
@@ -1319,9 +1319,10 @@ h2 {
   .site-header nav {
     overflow: hidden;
     width: 100%;
-    max-height: 18rem;
-    opacity: 1;
-    transform: translateY(0);
+    max-height: 0;
+    opacity: 0;
+    transform: translateY(-0.3rem);
+    pointer-events: none;
     transition: max-height 220ms ease, opacity 180ms ease, transform 180ms ease;
   }
 
@@ -1329,7 +1330,7 @@ h2 {
     position: absolute;
     top: 0.42rem;
     right: 0.42rem;
-    display: none;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
     width: 1.55rem;
@@ -1353,26 +1354,15 @@ h2 {
     transition: transform 180ms ease;
   }
 
-  .site-header.is-compact .header-expand-toggle {
-    display: inline-flex;
-  }
-
-  .site-header.is-compact.is-mobile-expanded .header-expand-icon {
+  .site-header.is-mobile-expanded .header-expand-icon {
     transform: rotate(0deg);
   }
 
-  .site-header.is-compact nav {
-    max-height: 0;
-    opacity: 0;
-    transform: translateY(-0.3rem);
-    pointer-events: none;
-  }
-
-  .site-header.is-compact.is-mobile-expanded {
+  .site-header.is-mobile-expanded {
     row-gap: 0.38rem;
   }
 
-  .site-header.is-compact.is-mobile-expanded nav {
+  .site-header.is-mobile-expanded nav {
     max-height: 18rem;
     opacity: 1;
     transform: translateY(0);
@@ -1381,9 +1371,9 @@ h2 {
 
   .nav-links {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     width: 100%;
-    gap: 0.42rem;
+    gap: 0.32rem;
   }
 
   .nav-links li {
@@ -1394,20 +1384,20 @@ h2 {
     display: flex;
     align-items: center;
     justify-content: center;
-    min-height: 2.6rem;
-    padding: 0.5rem 0.45rem;
+    min-height: 2.28rem;
+    padding: 0.42rem 0.38rem;
     white-space: normal;
     text-align: center;
     line-height: 1.15;
-    font-size: 0.78rem;
+    font-size: 0.72rem;
     border: 1px solid #ffffff1a;
     border-radius: 10px;
     background: #ffffff08;
   }
 
   .nav-links .btn {
-    min-height: 2.6rem;
-    padding: 0.5rem 0.45rem;
+    min-height: 2.28rem;
+    padding: 0.42rem 0.38rem;
   }
 
   .section {
