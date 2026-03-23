@@ -642,6 +642,11 @@ h2 {
   filter: none;
 }
 
+.card img.detail-atmosphere-shot,
+.mosaic-item img.detail-atmosphere-shot {
+  object-position: 34% center;
+}
+
 .card-meta {
   position: absolute;
   inset-inline: 0;
