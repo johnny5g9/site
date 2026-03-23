@@ -746,15 +746,22 @@ h2 {
   filter: none;
 }
 
-#gallery .mosaic-item,
-.full-gallery-grid .mosaic-item {
-  background: #05080f;
-}
-
 #gallery .mosaic-item img,
 .full-gallery-grid .mosaic-item img {
+  height: auto;
   object-fit: contain;
   object-position: center;
+}
+
+#gallery .mosaic-item,
+#gallery .mosaic-item.wide,
+#gallery .mosaic-item.tall,
+.full-gallery-grid .mosaic-item,
+.full-gallery-grid .mosaic-item.wide,
+.full-gallery-grid .mosaic-item.tall {
+  aspect-ratio: auto;
+  border: 0;
+  background: transparent;
 }
 
 .split {
@@ -1420,7 +1427,7 @@ h2 {
   #gallery .mosaic-item,
   #gallery .mosaic-item.wide,
   #gallery .mosaic-item.tall {
-    aspect-ratio: 4 / 3;
+    aspect-ratio: auto;
   }
 
   #work .card {
@@ -1557,7 +1564,7 @@ h2 {
 .full-gallery-grid .mosaic-item,
 .full-gallery-grid .mosaic-item.wide,
 .full-gallery-grid .mosaic-item.tall {
-  aspect-ratio: 4 / 3;
+  aspect-ratio: auto;
 }
 
 @media (max-width: 900px) {
