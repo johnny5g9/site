@@ -746,6 +746,17 @@ h2 {
   filter: none;
 }
 
+#gallery .mosaic-item,
+.full-gallery-grid .mosaic-item {
+  background: #05080f;
+}
+
+#gallery .mosaic-item img,
+.full-gallery-grid .mosaic-item img {
+  object-fit: contain;
+  object-position: center;
+}
+
 .split {
   display: grid;
   grid-template-columns: 1fr 1fr;
