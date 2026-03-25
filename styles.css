@@ -395,6 +395,37 @@ html.site-entering .site-shell {
   opacity: 1;
 }
 
+@media (max-width: 1120px) and (min-width: 901px) {
+  .site-header {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: center;
+    column-gap: 0.8rem;
+    row-gap: 0.6rem;
+  }
+
+  .site-header nav {
+    grid-column: 1 / -1;
+    width: 100%;
+    margin-right: 0;
+  }
+
+  .header-brand {
+    text-align: left;
+    padding-inline: 0;
+    font-size: 0.88rem;
+  }
+
+  .site-header.is-compact .header-brand {
+    font-size: 0.8rem;
+  }
+
+  .nav-links {
+    justify-content: flex-start;
+    gap: 0.85rem;
+  }
+}
+
 .service-link {
   color: var(--accent);
   text-decoration: none;
