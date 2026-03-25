@@ -1321,6 +1321,10 @@ h2 {
     grid-template-columns: 1fr;
   }
 
+  .mobile-priority-first {
+    order: -1;
+  }
+
   .site-header {
     grid-template-columns: auto;
     justify-content: stretch;
