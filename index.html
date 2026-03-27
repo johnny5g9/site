@@ -32,8 +32,8 @@
       "@context": "https://schema.org",
       "@graph": [
         {
-          "@type": "Organization",
-          "@id": "https://groisslhockeyphotography.com/#organization",
+          "@type": "LocalBusiness",
+          "@id": "https://groisslhockeyphotography.com/#business",
           "name": "Groissl Hockey Photography",
           "url": "https://groisslhockeyphotography.com/",
           "logo": {
@@ -44,52 +44,38 @@
           },
           "image": "https://groisslhockeyphotography.com/SEAHAWK-017.jpg",
           "email": "Booking@groisslhockeyphotography.com",
-          "sameAs": [
-            "https://www.instagram.com/groisslhockeyphotography/"
-          ]
-        },
-        {
-          "@type": "ProfessionalService",
-          "@id": "https://groisslhockeyphotography.com/#service",
-          "name": "Groissl Hockey Photography",
-          "url": "https://groisslhockeyphotography.com/",
-          "description": "Raleigh and Triangle area hockey photography for teams and athletes.",
-          "serviceType": "Sports Photography",
           "address": {
             "@type": "PostalAddress",
             "addressLocality": "Raleigh",
             "addressRegion": "NC",
             "addressCountry": "US"
           },
-          "provider": {
-            "@id": "https://groisslhockeyphotography.com/#organization"
+          "founder": {
+            "@id": "https://groisslhockeyphotography.com/#johnny-groissl"
           },
-          "potentialAction": {
-            "@type": "ContactAction",
-            "target": "https://groisslhockeyphotography.com/#contact"
+          "sameAs": [
+            "https://www.instagram.com/groisslhockeyphotography/"
+          ]
+        },
+        {
+          "@type": "Person",
+          "@id": "https://groisslhockeyphotography.com/#johnny-groissl",
+          "name": "Johnny Groissl"
+        },
+        {
+          "@type": "Service",
+          "@id": "https://groisslhockeyphotography.com/#service",
+          "name": "Groissl Hockey Photography",
+          "url": "https://groisslhockeyphotography.com/",
+          "description": "Raleigh and Triangle area hockey photography for teams and athletes.",
+          "serviceType": "Sports Photography",
+          "provider": {
+            "@id": "https://groisslhockeyphotography.com/#business"
           },
           "areaServed": {
             "@type": "Place",
             "name": "Raleigh-Durham-Chapel Hill, NC"
-          },
-          "makesOffer": [
-            {
-              "@type": "Offer",
-              "name": "Single Game",
-              "price": "75",
-              "priceCurrency": "USD",
-              "availability": "https://schema.org/InStock",
-              "description": "Single-game hockey coverage with 60+ edited photos and typical 48-hour delivery."
-            },
-            {
-              "@type": "Offer",
-              "name": "Tournament Package (3+ games)",
-              "price": "65",
-              "priceCurrency": "USD",
-              "availability": "https://schema.org/InStock",
-              "description": "Tournament coverage for 3+ games with 180+ edited photos and priority turnaround."
-            }
-          ]
+          }
         },
         {
           "@type": "WebSite",
@@ -97,7 +83,19 @@
           "url": "https://groisslhockeyphotography.com/",
           "name": "Groissl Hockey Photography",
           "publisher": {
-            "@id": "https://groisslhockeyphotography.com/#organization"
+            "@id": "https://groisslhockeyphotography.com/#business"
+          }
+        },
+        {
+          "@type": "WebPage",
+          "@id": "https://groisslhockeyphotography.com/#webpage",
+          "url": "https://groisslhockeyphotography.com/",
+          "name": "Groissl Hockey Photography",
+          "isPartOf": {
+            "@id": "https://groisslhockeyphotography.com/#website"
+          },
+          "about": {
+            "@id": "https://groisslhockeyphotography.com/#business"
           }
         }
       ]
