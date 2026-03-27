@@ -450,7 +450,6 @@ const finishIntro = () => {
     // Ignore storage access failures; referrer-based skipping still applies.
   }
 
-  document.documentElement.classList.add('site-entering');
   document.documentElement.classList.remove('intro-active');
 
   if (introOverlay) {
@@ -459,10 +458,6 @@ const finishIntro = () => {
       introOverlay.remove();
     }, reducedMotionMedia.matches ? 130 : 300);
   }
-
-  window.setTimeout(() => {
-    document.documentElement.classList.remove('site-entering');
-  }, reducedMotionMedia.matches ? 130 : 520);
 
   resolveIntroReady();
 };
