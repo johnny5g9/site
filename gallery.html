@@ -16,11 +16,40 @@
   <meta name="twitter:title" content="Raleigh Hockey Photography Gallery | Groissl Hockey Photography" />
   <meta name="twitter:description" content="View full hockey photography galleries from Raleigh and across the Triangle." />
   <meta name="twitter:image" content="https://groisslhockeyphotography.com/SEAHAWK-124.jpg" />
+  <meta name="keywords" content="Raleigh hockey gallery, Triangle hockey photography gallery, youth hockey photos, tournament hockey photos" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;700;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
   <link rel="icon" type="image/png" href="./groissl-hockey-photography-logo.png" />
   <link rel="stylesheet" href="./styles.css" />
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "ImageGallery",
+          "@id": "https://groisslhockeyphotography.com/gallery#gallery",
+          "url": "https://groisslhockeyphotography.com/gallery",
+          "name": "Raleigh Hockey Photography Gallery",
+          "description": "A hockey photography gallery featuring Raleigh and Triangle game action, bench emotion, and tournament moments.",
+          "publisher": {
+            "@type": "LocalBusiness",
+            "name": "Groissl Hockey Photography",
+            "url": "https://groisslhockeyphotography.com/"
+          }
+        },
+        {
+          "@type": "CollectionPage",
+          "@id": "https://groisslhockeyphotography.com/gallery#webpage",
+          "url": "https://groisslhockeyphotography.com/gallery",
+          "name": "Raleigh Hockey Photography Gallery | Groissl Hockey Photography",
+          "about": {
+            "@id": "https://groisslhockeyphotography.com/gallery#gallery"
+          }
+        }
+      ]
+    }
+  </script>
 </head>
 <body>
   <div class="page-bg" aria-hidden="true"></div>
@@ -52,6 +81,7 @@
           <p class="eyebrow">Full Gallery</p>
           <h1>Raleigh and Triangle Hockey Gallery</h1>
           <p class="hero-copy">Click any image to view it larger. Updated galleries include teams from Raleigh, Cary, Wake Forest, and Garner.</p>
+          <p class="hero-copy">This gallery highlights the style Groissl Hockey Photography delivers for youth, school, and travel hockey families looking for action-heavy and emotion-driven coverage in North Carolina.</p>
         </div>
         <div class="hero-actions">
           <a class="btn btn-primary" href="/#contact">Book: DM or Form</a>
@@ -79,10 +109,32 @@
         <article class="mosaic-item"><img class="lightboxable" src="./jr-seahawks-020726/SEAHAWK-019.jpg" alt="Jr. Seahawks action sequence capturing speed and contact" loading="lazy" /></article>
       </div>
     </section>
+
+    <section class="section reveal">
+      <div class="section-head">
+        <p class="eyebrow">What This Shows</p>
+        <h2>Game action, bench emotion, and tournament storytelling from Triangle rinks</h2>
+      </div>
+      <div class="services-grid">
+        <article>
+          <h3>Action Coverage</h3>
+          <p>Examples include rushes, shots, net-front battles, saves, and game sequences that read clearly for parents, players, and team posts.</p>
+        </article>
+        <article>
+          <h3>Local Rink Familiarity</h3>
+          <p>The work shown here reflects regular coverage in Raleigh, Cary, Wake Forest, and nearby Triangle hockey markets where timing and angle familiarity matter.</p>
+        </article>
+        <article>
+          <h3>Useful Final Galleries</h3>
+          <p>Final edits are designed to be strong enough for family keepsakes, social sharing, season recaps, and team communication after game day.</p>
+        </article>
+      </div>
+    </section>
   </main>
 
   <footer class="site-footer">
     <p>&copy; 2026 Groissl Hockey Photography</p>
+    <p>Raleigh hockey photographer serving the Triangle with team coverage, tournament coverage, and player sessions.</p>
   </footer>
 
   <div class="lightbox" id="lightbox" aria-hidden="true">
