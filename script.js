@@ -15,6 +15,7 @@ const packageSelect = document.querySelector('#quick-booking-form select[name="p
 const endDateField = document.querySelector('#end-date-field');
 const endDateInput = document.querySelector('#end-date-input');
 const dateInputs = document.querySelectorAll('#quick-booking-form input[type="date"]');
+const bookingEmailLinks = document.querySelectorAll('a[href="mailto:Booking@groisslhockeyphotography.com"]');
 const questionsEmailLinks = document.querySelectorAll('a[href="mailto:questions@groisslhockeyphotography.com"]');
 const siteHeader = document.querySelector('.site-header');
 const headerExpandToggle = document.querySelector('.header-expand-toggle');
@@ -24,8 +25,13 @@ const introLogoSource = document.querySelector('.intro-logo-source');
 const internalAnchorLinks = document.querySelectorAll('a[href^="#"]');
 const mobileHeaderMedia = window.matchMedia('(max-width: 640px)');
 const reducedMotionMedia = window.matchMedia('(prefers-reduced-motion: reduce)');
+const bookingEmailAddress = 'Booking@groisslhockeyphotography.com';
 const questionsEmailAddress = 'questions@groisslhockeyphotography.com';
 
+let bookingEmailMenu = null;
+let copyBookingButton = null;
+let openBookingMailButton = null;
+let activeBookingLink = null;
 let questionsEmailMenu = null;
 let copyQuestionsButton = null;
 let openMailButton = null;
@@ -1117,6 +1123,154 @@ const positionQuestionsEmailMenu = (anchor) => {
   questionsEmailMenu.style.top = `${top}px`;
 };
 
+const closeBookingEmailMenu = () => {
+  if (!bookingEmailMenu) {
+    return;
+  }
+
+  bookingEmailMenu.hidden = true;
+  activeBookingLink = null;
+};
+
+const positionBookingEmailMenu = (anchor) => {
+  if (!bookingEmailMenu || !anchor) {
+    return;
+  }
+
+  const rect = anchor.getBoundingClientRect();
+  const gap = 8;
+
+  bookingEmailMenu.hidden = false;
+
+  const menuRect = bookingEmailMenu.getBoundingClientRect();
+  const left = Math.max(8, Math.min(rect.left + (rect.width / 2) - (menuRect.width / 2), window.innerWidth - menuRect.width - 8));
+
+  let top = rect.top - menuRect.height - gap;
+  if (top < 8) {
+    top = rect.bottom + gap;
+  }
+
+  bookingEmailMenu.style.left = `${left}px`;
+  bookingEmailMenu.style.top = `${top}px`;
+};
+
+const copyBookingEmail = async () => {
+  try {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      await navigator.clipboard.writeText(bookingEmailAddress);
+    } else {
+      const temp = document.createElement('textarea');
+      temp.value = bookingEmailAddress;
+      temp.setAttribute('readonly', '');
+      temp.style.position = 'fixed';
+      temp.style.left = '-9999px';
+      document.body.appendChild(temp);
+      temp.select();
+      document.execCommand('copy');
+      temp.remove();
+    }
+
+    if (copyBookingButton) {
+      const originalText = copyBookingButton.textContent;
+      copyBookingButton.textContent = 'Copied';
+      window.setTimeout(() => {
+        copyBookingButton.textContent = originalText;
+      }, 1100);
+    }
+  } catch (error) {
+    if (copyBookingButton) {
+      const originalText = copyBookingButton.textContent;
+      copyBookingButton.textContent = 'Copy failed';
+      window.setTimeout(() => {
+        copyBookingButton.textContent = originalText;
+      }, 1300);
+    }
+  }
+};
+
+const buildBookingEmailMenu = () => {
+  if (bookingEmailMenu) {
+    return;
+  }
+
+  bookingEmailMenu = document.createElement('div');
+  bookingEmailMenu.className = 'questions-email-menu';
+  bookingEmailMenu.setAttribute('role', 'menu');
+  bookingEmailMenu.hidden = true;
+
+  copyBookingButton = document.createElement('button');
+  copyBookingButton.type = 'button';
+  copyBookingButton.setAttribute('role', 'menuitem');
+  copyBookingButton.textContent = 'Copy email address';
+
+  openBookingMailButton = document.createElement('button');
+  openBookingMailButton.type = 'button';
+  openBookingMailButton.setAttribute('role', 'menuitem');
+  openBookingMailButton.textContent = 'Open mail app';
+
+  bookingEmailMenu.append(copyBookingButton, openBookingMailButton);
+  document.body.appendChild(bookingEmailMenu);
+
+  copyBookingButton.addEventListener('click', async () => {
+    await copyBookingEmail();
+  });
+
+  openBookingMailButton.addEventListener('click', () => {
+    closeBookingEmailMenu();
+    window.location.href = `mailto:${bookingEmailAddress}`;
+  });
+};
+
+const bindBookingEmailMenu = () => {
+  if (bookingEmailLinks.length === 0) {
+    return;
+  }
+
+  buildBookingEmailMenu();
+
+  bookingEmailLinks.forEach((link) => {
+    link.addEventListener('click', (event) => {
+      event.preventDefault();
+
+      const sameLink = activeBookingLink === link && bookingEmailMenu && !bookingEmailMenu.hidden;
+      if (sameLink) {
+        closeBookingEmailMenu();
+        return;
+      }
+
+      activeBookingLink = link;
+      positionBookingEmailMenu(link);
+    });
+  });
+
+  document.addEventListener('click', (event) => {
+    if (!bookingEmailMenu || bookingEmailMenu.hidden) {
+      return;
+    }
+
+    const clickedBookingLink = event.target.closest('a[href="mailto:Booking@groisslhockeyphotography.com"]');
+    if (clickedBookingLink || bookingEmailMenu.contains(event.target)) {
+      return;
+    }
+
+    closeBookingEmailMenu();
+  });
+
+  window.addEventListener('resize', () => {
+    if (!bookingEmailMenu || bookingEmailMenu.hidden || !activeBookingLink) {
+      return;
+    }
+
+    positionBookingEmailMenu(activeBookingLink);
+  });
+
+  window.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') {
+      closeBookingEmailMenu();
+    }
+  });
+};
+
 const copyQuestionsEmail = async () => {
   try {
     if (navigator.clipboard && navigator.clipboard.writeText) {
@@ -1234,6 +1388,7 @@ const bindQuestionsEmailMenu = () => {
   });
 };
 
+bindBookingEmailMenu();
 bindQuestionsEmailMenu();
 bindInternalAnchorScroll();
 
