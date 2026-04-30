@@ -27,7 +27,7 @@
   <link rel="icon" type="image/png" sizes="96x96" href="https://groisslhockeyphotography.com/favicon-96x96.png" />
   <link rel="apple-touch-icon" sizes="180x180" href="https://groisslhockeyphotography.com/apple-touch-icon.png" />
   <link rel="manifest" href="https://groisslhockeyphotography.com/site.webmanifest" />
-  <link rel="stylesheet" href="./styles.css?v=20260430a" />
+  <link rel="stylesheet" href="./styles.css?v=20260430b" />
   <noscript>
     <style>
       .intro-overlay {
@@ -569,28 +569,28 @@
         <input type="hidden" name="_captcha" value="false" />
         <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off" />
         <div class="quick-booking-grid">
-          <label>
-            Full Name
+          <label class="form-field">
+            <span class="field-label">Full Name</span>
             <input type="text" name="full_name" autocomplete="name" required />
           </label>
-          <label>
-            Email
+          <label class="form-field">
+            <span class="field-label">Email</span>
             <input type="email" name="email" autocomplete="email" required />
           </label>
-          <label>
-            Team / Organization
+          <label class="form-field">
+            <span class="field-label">Team / Organization</span>
             <input type="text" name="team" autocomplete="organization" />
           </label>
-          <label>
-            Package
+          <label class="form-field">
+            <span class="field-label">Package</span>
             <select name="package" required>
               <option value="Single Game">Single Game</option>
               <option value="Tournament Package">Tournament Package</option>
               <option value="Custom Coverage">Custom Coverage</option>
             </select>
           </label>
-          <label>
-            Coverage Type
+          <label class="form-field">
+            <span class="field-label">Coverage Type</span>
             <select name="coverage_type">
               <option value="" selected>Select</option>
               <option value="Single player focus">Single player focus</option>
@@ -598,16 +598,16 @@
               <option value="Other">Other</option>
             </select>
           </label>
-          <label>
-            Date of Game(s) - Start
+          <label class="form-field form-field-wide">
+            <span class="field-label">Date of Game(s) - Start</span>
             <input type="date" name="start_date" />
           </label>
-          <label id="end-date-field">
-            Date of Game(s) - End
+          <label id="end-date-field" class="form-field form-field-wide">
+            <span class="field-label">Date of Game(s) - End</span>
             <input id="end-date-input" type="date" name="end_date" />
           </label>
-          <label>
-            Rink / Location
+          <label class="form-field form-field-wide">
+            <span class="field-label">Rink / Location</span>
             <select name="rink" required>
               <option value="" selected disabled>(Select)</option>
               <option value="WCC (Invisalign Arena)">WCC (Invisalign Arena)</option>
@@ -618,8 +618,8 @@
             </select>
           </label>
         </div>
-        <label class="quick-booking-message">
-          Notes
+        <label class="quick-booking-message form-field">
+          <span class="field-label">Notes</span>
           <textarea name="notes" rows="4" placeholder="Share game details, number of games, and anything important."></textarea>
         </label>
         <div class="quick-booking-actions">
