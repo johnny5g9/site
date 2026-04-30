@@ -483,6 +483,22 @@ h2 {
   color: var(--muted);
 }
 
+.hero-copy a,
+.about-copy a {
+  color: #d8af6f;
+  text-decoration: none;
+  border-bottom: 1px solid #d8af6f55;
+  transition: color 180ms ease, border-color 180ms ease;
+}
+
+.hero-copy a:hover,
+.hero-copy a:focus-visible,
+.about-copy a:hover,
+.about-copy a:focus-visible {
+  color: #f1c785;
+  border-bottom-color: #f1c785;
+}
+
 .hero-actions {
   margin-top: 1.8rem;
   display: flex;
