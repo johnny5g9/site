@@ -1,3 +1,114 @@
+(() => {
+  const officialHosts = new Set([
+    'groisslhockeyphotography.com',
+    'www.groisslhockeyphotography.com',
+  ]);
+  const host = window.location.hostname.toLowerCase().replace(/\.$/, '');
+
+  if (officialHosts.has(host)) {
+    return;
+  }
+
+  const officialUrl = new URL(
+    `${window.location.pathname}${window.location.search}${window.location.hash}`,
+    'https://groisslhockeyphotography.com'
+  );
+
+  const blockUnofficialCopy = () => {
+    if (!document.body) {
+      return;
+    }
+
+    document.title = 'Official site required';
+    document.documentElement.classList.add('unofficial-copy');
+
+    const robotsMeta = document.querySelector('meta[name="robots"]') || document.createElement('meta');
+    robotsMeta.setAttribute('name', 'robots');
+    robotsMeta.setAttribute('content', 'noindex, nofollow, noarchive');
+    if (!robotsMeta.parentNode) {
+      document.head.appendChild(robotsMeta);
+    }
+
+    document.body.innerHTML = `
+      <main class="unofficial-site-lock" role="main" aria-labelledby="unofficial-site-title">
+        <div class="unofficial-site-lock-panel">
+          <p class="unofficial-site-kicker">Unofficial copy blocked</p>
+          <h1 id="unofficial-site-title">This is not the official Groissl Hockey Photography site.</h1>
+          <p>This copy is running from an unauthorized host, so the site has disabled itself.</p>
+          <a href="${officialUrl.href}" rel="canonical">Open the official site</a>
+        </div>
+      </main>
+    `;
+  };
+
+  const lockStyle = document.createElement('style');
+  lockStyle.textContent = `
+    html.unofficial-copy,
+    html.unofficial-copy body {
+      min-height: 100%;
+      margin: 0;
+      background: #07090e;
+      color: #e8edf5;
+    }
+
+    html.unofficial-copy body {
+      display: grid;
+      place-items: center;
+      padding: 24px;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    .unofficial-site-lock {
+      width: min(100%, 720px);
+    }
+
+    .unofficial-site-lock-panel {
+      border: 1px solid #ffffff26;
+      background: #0f141df2;
+      padding: clamp(28px, 6vw, 56px);
+      box-shadow: 0 24px 80px #00000080;
+    }
+
+    .unofficial-site-kicker {
+      margin: 0 0 12px;
+      color: #d8af6f;
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .unofficial-site-lock h1 {
+      margin: 0;
+      max-width: 12ch;
+      font-size: clamp(2.4rem, 10vw, 5.8rem);
+      line-height: 0.92;
+    }
+
+    .unofficial-site-lock p:not(.unofficial-site-kicker) {
+      max-width: 52ch;
+      margin: 20px 0 0;
+      color: #c5ced9;
+      font-size: 1.05rem;
+    }
+
+    .unofficial-site-lock a {
+      display: inline-flex;
+      margin-top: 28px;
+      color: #07090e;
+      background: #d8af6f;
+      padding: 0.85rem 1rem;
+      font-weight: 800;
+      text-decoration: none;
+      text-transform: uppercase;
+    }
+  `;
+  document.head.appendChild(lockStyle);
+
+  blockUnofficialCopy();
+  throw new Error('Unofficial host blocked');
+})();
+
 const reveals = document.querySelectorAll('.reveal');
 const bgShots = document.querySelectorAll('.scroll-shot');
 const filterButtons = document.querySelectorAll('.chip');
