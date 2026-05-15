@@ -991,20 +991,26 @@ h2 {
 }
 
 .site-footer {
-  padding: 2rem 0 3rem;
-  font-size: 0.9rem;
+  padding: 1.15rem 0 1.6rem;
+  font-size: 0.82rem;
+  line-height: 1.35;
   border-top: 1px solid var(--line);
 }
 
+.site-footer p {
+  margin: 0.24rem 0;
+}
+
 .copyright-notice {
-  max-width: 980px;
+  max-width: 900px;
   color: #c7d2df;
-  line-height: 1.55;
+  font-size: 0.76rem;
+  line-height: 1.35;
 }
 
 .questions-note {
-  margin-top: 0.35rem;
-  font-size: 0.82rem;
+  margin-top: 0.25rem;
+  font-size: 0.76rem;
   color: #c7d2df;
 }
 
@@ -1061,10 +1067,11 @@ h2 {
 }
 
 .removal-note {
-  margin-top: 0.75rem;
-  padding-top: 0.75rem;
+  margin-top: 0.45rem;
+  padding-top: 0.5rem;
   border-top: 1px solid #ffffff14;
-  font-size: 0.78rem;
+  font-size: 0.72rem;
+  line-height: 1.35;
   letter-spacing: 0.01em;
   color: #b4bfcc;
 }
@@ -1602,12 +1609,16 @@ h2 {
   }
 
   .site-footer {
-    padding: 1.5rem 0 2rem;
-    font-size: 0.8rem;
+    padding: 0.9rem 0 1.25rem;
+    font-size: 0.75rem;
+  }
+
+  .copyright-notice {
+    font-size: 0.7rem;
   }
 
   .removal-note {
-    font-size: 0.7rem;
+    font-size: 0.68rem;
   }
 
   .gallery-only {
