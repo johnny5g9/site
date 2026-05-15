@@ -996,6 +996,12 @@ h2 {
   border-top: 1px solid var(--line);
 }
 
+.copyright-notice {
+  max-width: 980px;
+  color: #c7d2df;
+  line-height: 1.55;
+}
+
 .questions-note {
   margin-top: 0.35rem;
   font-size: 0.82rem;
