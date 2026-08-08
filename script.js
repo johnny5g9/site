@@ -3,9 +3,10 @@
     'groisslhockeyphotography.com',
     'www.groisslhockeyphotography.com',
   ]);
+  const loopbackHosts = new Set(['localhost', '127.0.0.1', '::1', '[::1]']);
   const host = window.location.hostname.toLowerCase().replace(/\.$/, '');
 
-  if (officialHosts.has(host)) {
+  if (officialHosts.has(host) || loopbackHosts.has(host)) {
     return;
   }
 
