@@ -52,7 +52,7 @@
           },
           "image": "https://groisslhockeyphotography.com/triangle-youth-hockey-goalie-save.webp",
           "email": "Booking@groisslhockeyphotography.com",
-          "priceRange": "$60-$75+",
+          "priceRange": "$45-$75+",
           "founder": {
             "@id": "https://groisslhockeyphotography.com/#johnny-groissl"
           },
@@ -124,6 +124,13 @@
           "offers": [
             {
               "@type": "Offer",
+              "name": "Individual Player",
+              "price": "45",
+              "priceCurrency": "USD",
+              "description": "One player during one game, with 15 edited photos and 48-hour delivery."
+            },
+            {
+              "@type": "Offer",
               "name": "Single Game Coverage",
               "price": "75",
               "priceCurrency": "USD"
@@ -183,7 +190,7 @@
               "name": "How many photos do we receive?",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "Single Game coverage includes 60 or more edited photos at 75 dollars per game. Tournament Package coverage includes 180 or more edited photos at 60 dollars per game for 3 or more games."
+                "text": "Individual Player coverage includes 15 edited photos of one player during one game at 45 dollars per game, with 48-hour delivery. Single Game coverage includes 60 or more edited photos at 75 dollars per game. Tournament Package coverage includes 180 or more edited photos at 60 dollars per game for 3 or more games."
               }
             },
             {
@@ -439,9 +446,21 @@
         </article>
       </div>
 
-      <p class="services-note">Need individual player sessions? <a class="service-link" href="/individual-player-sessions-raleigh-hockey">View player session details</a>.</p>
+      <p class="services-note">Want coverage focused on one player? <a class="service-link" href="/individual-player-sessions-raleigh-hockey">View the $45 Individual Player package</a>.</p>
 
       <div class="packages-grid">
+        <article class="booking-option" data-scroll-target="#contact" data-package="Individual Player" role="button" tabindex="0" aria-label="Book Individual Player package">
+          <p class="eyebrow">Player Focus</p>
+          <h3>Individual Player</h3>
+          <p class="package-rate">$45 per game</p>
+          <p class="package-fit">For players and families who want a focused gallery of one athlete.</p>
+          <ul>
+            <li>One player during one game</li>
+            <li>Focused game-action coverage</li>
+            <li>15 edited photos</li>
+            <li>48-hour delivery</li>
+          </ul>
+        </article>
         <article class="booking-option" data-scroll-target="#contact" data-package="Single Game" role="button" tabindex="0" aria-label="Book Single Game package">
           <p class="eyebrow">Starter</p>
           <h3>Single Game</h3>
@@ -555,7 +574,7 @@
         </details>
         <details>
           <summary>How many photos do we receive?</summary>
-          <p>Single Game coverage includes 60+ edited photos at $75 per game. Tournament Package coverage includes 180+ edited photos at $60 per game for 3+ games.</p>
+          <p>Individual Player coverage is $45 per game for one player, with 15 edited photos and 48-hour delivery. Single Game coverage includes 60+ edited photos at $75 per game. Tournament Package coverage includes 180+ edited photos at $60 per game for 3+ games.</p>
         </details>
         <details>
           <summary>How far do you travel in the Triangle?</summary>
@@ -567,7 +586,7 @@
         </details>
         <details>
           <summary>What are your rates and deliverables?</summary>
-          <p>Single Game coverage is $75 per game with 60+ edited photos. Tournament Package coverage is $60 per game for 3+ games with 180+ edited photos.</p>
+          <p>Individual Player coverage is $45 per game for one player, with 15 edited photos and 48-hour delivery. Single Game coverage is $75 per game with 60+ edited photos. Tournament Package coverage is $60 per game for 3+ games with 180+ edited photos.</p>
         </details>
         <details>
           <summary>How do we book?</summary>
@@ -604,7 +623,8 @@
           <label class="form-field">
             <span class="field-label">Package</span>
             <select name="package" required>
-              <option value="Single Game">Single Game</option>
+              <option value="Individual Player">Individual Player</option>
+              <option value="Single Game" selected>Single Game</option>
               <option value="Tournament Package">Tournament Package</option>
               <option value="Custom Coverage">Custom Coverage</option>
             </select>
@@ -675,7 +695,7 @@
     </div>
   </div>
 
-  <script src="./script.js?v=20260920a"></script>
+  <script src="./script.js?v=20260920b"></script>
 </body>
 </html>
 
