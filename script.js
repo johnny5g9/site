@@ -1131,16 +1131,27 @@ if (quickBookingForm) {
   });
 }
 
-const scrollToBookingTarget = (selector) => {
+const selectBookingPackage = (packageName) => {
+  if (!packageSelect || !packageName) {
+    return;
+  }
+
+  packageSelect.value = packageName;
+  packageSelect.dispatchEvent(new Event('change', { bubbles: true }));
+};
+
+const scrollToBookingTarget = (selector, packageName) => {
   if (!selector) {
     return;
   }
+
+  selectBookingPackage(packageName);
   scrollToSelector(selector);
 };
 
 bookingCards.forEach((card) => {
   card.addEventListener('click', () => {
-    scrollToBookingTarget(card.dataset.scrollTarget);
+    scrollToBookingTarget(card.dataset.scrollTarget, card.dataset.package);
   });
 
   card.addEventListener('keydown', (event) => {
@@ -1149,7 +1160,7 @@ bookingCards.forEach((card) => {
     }
 
     event.preventDefault();
-    scrollToBookingTarget(card.dataset.scrollTarget);
+    scrollToBookingTarget(card.dataset.scrollTarget, card.dataset.package);
   });
 });
 
