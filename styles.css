@@ -1709,6 +1709,36 @@ h2 {
 .full-gallery-grid .mosaic-item:nth-child(6) { animation-delay: 430ms; }
 .full-gallery-grid .mosaic-item:nth-child(7) { animation-delay: 500ms; }
 
+.event-coverage .event-title {
+  max-width: 24ch;
+  font-size: clamp(2rem, 5vw, 4.2rem);
+}
+
+.event-breadcrumb,
+.event-meta,
+.event-credit,
+.event-gallery figcaption {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.event-breadcrumb a {
+  color: var(--ink);
+}
+
+.event-meta {
+  margin-top: 1.2rem;
+}
+
+.event-credit {
+  margin: 0.9rem 0 0;
+}
+
+.event-gallery figcaption {
+  padding: 0.35rem 0.1rem 0;
+  line-height: 1.4;
+}
+
 @keyframes gallery-slide-in {
   to {
     opacity: 1;
