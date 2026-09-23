@@ -388,7 +388,7 @@ const spawnIntroDustParticle = (state, sample, dissolveProgress) => {
     shade: Math.round(randomBetween(214, 255)),
     baseAlpha: randomBetween(0.34, 0.78) * sample.opacity,
     age: 0,
-    life: randomBetween(580, 1080)
+    life: randomBetween(290, 540)
   };
 };
 
@@ -515,9 +515,9 @@ const runIntroDustAnimation = async () => {
 
   introOverlay.classList.add('is-playing');
 
-  const dissolveStartMs = 760;
-  const dissolveDurationMs = 1400;
-  const totalDurationMs = dissolveStartMs + dissolveDurationMs + 320;
+  const dissolveStartMs = 380;
+  const dissolveDurationMs = 700;
+  const totalDurationMs = dissolveStartMs + dissolveDurationMs + 160;
 
   return new Promise((resolve) => {
     let startTime = 0;
@@ -574,7 +574,7 @@ const finishIntro = () => {
     introOverlay.classList.add('is-complete');
     window.setTimeout(() => {
       introOverlay.remove();
-    }, reducedMotionMedia.matches ? 130 : 300);
+    }, reducedMotionMedia.matches ? 65 : 150);
   }
 
   resolveIntroReady();
@@ -598,7 +598,7 @@ const beginIntro = async () => {
 
     if (animationRan && introOverlay) {
       introOverlay.classList.add('is-finishing');
-      window.setTimeout(finishIntro, 60);
+      window.setTimeout(finishIntro, 30);
       return;
     }
   } catch (error) {

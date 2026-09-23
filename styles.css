@@ -52,7 +52,7 @@ html.intro-active body {
     radial-gradient(circle at 50% 24%, #ffffff0b 0, transparent 28%),
     linear-gradient(180deg, #090b0ef2 0%, #040507f6 52%, #000000fb 100%);
   isolation: isolate;
-  transition: opacity 260ms ease, visibility 0s linear 260ms;
+  transition: opacity 130ms ease, visibility 0s linear 130ms;
 }
 
 .intro-overlay.is-complete {
@@ -128,23 +128,23 @@ html.intro-active body {
 }
 
 .intro-overlay.is-playing .intro-glow {
-  animation: intro-glow-pulse 920ms cubic-bezier(0.2, 0.86, 0.2, 1) forwards;
+  animation: intro-glow-pulse 460ms cubic-bezier(0.2, 0.86, 0.2, 1) forwards;
 }
 
 .intro-overlay.is-playing .intro-logo-visual {
-  animation: intro-logo-enter 760ms cubic-bezier(0.2, 0.86, 0.2, 1) forwards;
+  animation: intro-logo-enter 380ms cubic-bezier(0.2, 0.86, 0.2, 1) forwards;
 }
 
 .intro-overlay.is-playing .intro-wordmark {
-  animation: intro-wordmark-in 460ms ease forwards 180ms;
+  animation: intro-wordmark-in 230ms ease forwards 90ms;
 }
 
 .intro-overlay.is-finishing .intro-wordmark {
-  animation: intro-wordmark-out 420ms ease forwards;
+  animation: intro-wordmark-out 210ms ease forwards;
 }
 
 .intro-overlay.is-finishing .intro-stage {
-  animation: intro-stage-exit 520ms cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+  animation: intro-stage-exit 260ms cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
 }
 
 @keyframes intro-glow-pulse {
@@ -1765,7 +1765,7 @@ h2 {
 }
 @media (prefers-reduced-motion: reduce) {
   .intro-overlay {
-    transition-duration: 220ms;
+    transition-duration: 110ms;
   }
 
   .intro-glow,
