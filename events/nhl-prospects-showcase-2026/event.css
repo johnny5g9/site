@@ -61,6 +61,12 @@
   max-width: 84ch;
 }
 
+.event-footer {
+  color: #cbd4e2;
+  font-size: 0.88rem;
+  line-height: 1.5;
+}
+
 @media (min-width: 1800px) {
   .event-gallery {
     column-count: 4;
