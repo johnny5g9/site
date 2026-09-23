@@ -1,0 +1,80 @@
+/* Page-specific editorial layout; shared site pages keep their existing styles. */
+.event-coverage {
+  padding-top: clamp(1.5rem, 2.5vw, 2.5rem);
+}
+
+.event-coverage,
+.event-coverage .event-title {
+  scroll-margin-top: calc(var(--header-offset, 180px) + 1rem);
+}
+
+.event-gallery {
+  column-count: 3;
+  column-fill: balance;
+  column-gap: 0.85rem;
+  overflow-x: clip;
+}
+
+.event-gallery .mosaic-item {
+  margin-bottom: 0.85rem;
+}
+
+.event-gallery .mosaic-item img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+.event-gallery.is-balanced {
+  display: grid;
+  grid-template-columns: repeat(var(--event-column-count), minmax(0, 1fr));
+  align-items: start;
+  gap: 0.85rem;
+}
+
+.event-gallery.is-balanced .event-gallery-column {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  min-width: 0;
+}
+
+.event-gallery.is-balanced .event-gallery-featured {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.85rem;
+}
+
+.event-gallery.is-balanced .event-gallery-featured .mosaic-item {
+  width: 100%;
+  margin: 0;
+}
+
+.event-gallery.is-balanced .mosaic-item {
+  display: block;
+  width: 100%;
+  margin: 0;
+}
+
+.event-footer p {
+  max-width: 84ch;
+}
+
+@media (min-width: 1800px) {
+  .event-gallery {
+    column-count: 4;
+  }
+}
+
+@media (max-width: 1023px) {
+  .event-gallery {
+    column-count: 2;
+  }
+}
+
+@media (max-width: 639px) {
+  .event-gallery {
+    column-count: 1;
+  }
+}
