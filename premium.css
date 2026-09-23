@@ -587,6 +587,25 @@ h2 {
   }
 }
 
+@media (max-width: 640px) {
+  .article-hero {
+    padding-top: 2.5rem;
+    padding-bottom: 2.25rem;
+  }
+
+  .article-hero h1 {
+    max-width: 18ch;
+    font-size: clamp(2rem, 9vw, 2.375rem);
+    line-height: 1.08;
+  }
+
+  .article-hero .hero-copy {
+    margin-top: 1rem;
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .btn,
   .card img,

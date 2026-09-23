@@ -21,7 +21,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;700;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
   <link rel="icon" type="image/png" href="./groissl-hockey-photography-logo.png" />
-  <link rel="stylesheet" href="./styles.css?v=20260430b" />
+  <link rel="stylesheet" href="./styles.css?v=20260923a" />
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -85,16 +85,22 @@
           <p class="eyebrow">Full Gallery</p>
           <h1>Raleigh and Triangle Hockey Gallery</h1>
           <p class="hero-copy">Click any image to view it larger. Updated galleries include teams from Raleigh, Cary, Wake Forest, and Garner.</p>
-          <p class="hero-copy">This gallery highlights the style Groissl Hockey Photography delivers for youth, school, and travel hockey families looking for action-heavy and emotion-driven coverage in North Carolina.</p>
+          <p class="hero-copy gallery-secondary--desktop">This gallery highlights the style Groissl Hockey Photography delivers for youth, school, and travel hockey families looking for action-heavy and emotion-driven coverage in North Carolina.</p>
         </div>
         <div class="hero-actions">
           <a class="btn btn-primary" href="/#contact">Book: DM or Form</a>
-          <a class="btn btn-ghost" href="/showcase-raleigh-hockey">Monthly Showcase</a>
+          <a class="btn btn-ghost gallery-secondary--desktop" href="/showcase-raleigh-hockey">Monthly Showcase</a>
         </div>
       </div>
 
       <div class="mosaic-grid full-gallery-grid">
-        <article class="mosaic-item tall"><img class="lightboxable" src="./wake-forest-hockey-goalie-bench.webp" alt="Goalie leaning over the bench during a Wake Forest hockey game" loading="lazy" /></article>
+        <article class="mosaic-item tall">
+          <img class="lightboxable" src="./wake-forest-hockey-goalie-bench.webp" alt="Goalie leaning over the bench during a Wake Forest hockey game" loading="lazy" />
+          <div class="gallery-secondary--mobile">
+            <p class="hero-copy">This gallery highlights the style Groissl Hockey Photography delivers for youth, school, and travel hockey families looking for action-heavy and emotion-driven coverage in North Carolina.</p>
+            <a class="btn btn-ghost" href="/showcase-raleigh-hockey">Monthly Showcase</a>
+          </div>
+        </article>
         <article class="mosaic-item"><img class="lightboxable" src="./wake-forest-hockey-player-stretching.webp" alt="Wake Forest hockey player stretching on the ice before action resumes" loading="lazy" /></article>
         <article class="mosaic-item"><img class="lightboxable" src="./wake-forest-hockey-stick-flex-action.webp" alt="Hockey player loading a shot with visible stick flex in Wake Forest" loading="lazy" /></article>
         <article class="mosaic-item tall"><img class="lightboxable" src="./wake-forest-hockey-player-bench-portrait.webp" alt="Wake Forest hockey player portrait on the bench holding a stick" loading="lazy" /></article>
@@ -157,13 +163,13 @@
     <p>Raleigh hockey photographer serving the Triangle with team coverage, tournament coverage, and player sessions.</p>
   </footer>
 
-  <div class="lightbox" id="lightbox" aria-hidden="true">
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Gallery image viewer" aria-hidden="true">
     <button class="lightbox-close" type="button" aria-label="Close image">Close</button>
     <button class="lightbox-nav lightbox-nav-prev" type="button" aria-label="Previous image">&#8249;</button>
     <img class="lightbox-image" src="" alt="Expanded gallery image" />
     <button class="lightbox-nav lightbox-nav-next" type="button" aria-label="Next image">&#8250;</button>
   </div>
 
-  <script src="./script.js?v=20260920a"></script>
+  <script src="./script.js?v=20260923a"></script>
 </body>
 </html>

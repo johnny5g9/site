@@ -6,11 +6,19 @@
   let resizeFrame = 0;
 
   const layout = () => {
+    const focusedTrigger = gallery.contains(document.activeElement)
+      && document.activeElement.matches('.lightboxable')
+      ? document.activeElement
+      : null;
+
     gallery.classList.remove('is-balanced');
     gallery.replaceChildren(...figures);
 
     const count = Number.parseInt(getComputedStyle(gallery).columnCount, 10) || 1;
-    if (count === 1) return;
+    if (count === 1) {
+      focusedTrigger?.focus({ preventScroll: true });
+      return;
+    }
 
     const columns = Array.from({ length: count }, () => {
       const column = document.createElement('div');
@@ -71,6 +79,7 @@
 
     search(0, 0);
     layoutFigures.forEach((figure, index) => columns[bestAssignment[index]].appendChild(figure));
+    focusedTrigger?.focus({ preventScroll: true });
   };
 
   document.fonts.ready.then(layout);

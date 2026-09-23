@@ -88,6 +88,6 @@
   }
 
   .coverage-card img {
-    max-width: 340px;
+    max-width: none;
   }
 }
