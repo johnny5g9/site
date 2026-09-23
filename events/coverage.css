@@ -1,0 +1,93 @@
+/* Editorial index and homepage coverage card only. */
+.editorial-coverage {
+  border-top: 1px solid var(--line);
+}
+
+.coverage-index h1 {
+  max-width: 18ch;
+}
+
+.coverage-card {
+  display: grid;
+  grid-template-columns: minmax(0, 310px) minmax(0, 1fr);
+  align-items: center;
+  gap: clamp(1rem, 2.4vw, 1.7rem);
+  max-width: 880px;
+  padding: 0.85rem;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--card);
+}
+
+.coverage-card-home {
+  grid-template-columns: minmax(0, 260px) minmax(0, 1fr);
+  max-width: 780px;
+}
+
+.coverage-card img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+
+.coverage-card-copy {
+  min-width: 0;
+}
+
+.coverage-card-copy .eyebrow {
+  margin: 0 0 0.45rem;
+}
+
+.coverage-card h2,
+.coverage-card h3 {
+  max-width: none;
+  margin: 0;
+  font-size: clamp(1.25rem, 2vw, 1.6rem);
+  line-height: 1.2;
+}
+
+.coverage-meta {
+  margin: 0.7rem 0 0;
+  color: #cbd4e2;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.coverage-link,
+.coverage-index-link a {
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px solid #d8af6f70;
+}
+
+.coverage-link {
+  display: inline-block;
+  margin-top: 1rem;
+  font-weight: 700;
+}
+
+.coverage-link:hover,
+.coverage-link:focus-visible,
+.coverage-index-link a:hover,
+.coverage-index-link a:focus-visible {
+  color: #f1c785;
+  border-bottom-color: currentColor;
+}
+
+.coverage-index-link {
+  margin: 1rem 0 0;
+  font-size: 0.88rem;
+}
+
+@media (max-width: 640px) {
+  .coverage-card,
+  .coverage-card-home {
+    grid-template-columns: 1fr;
+    max-width: 420px;
+  }
+
+  .coverage-card img {
+    max-width: 340px;
+  }
+}
