@@ -1464,16 +1464,24 @@ if (quickBookingForm) {
 
     try {
       const formData = new FormData(quickBookingForm);
-      const response = await fetch(quickBookingForm.action, {
+      const ajaxUrl = new URL(quickBookingForm.action);
+      ajaxUrl.pathname = `/ajax${ajaxUrl.pathname}`;
+      const response = await fetch(ajaxUrl, {
         method: 'POST',
-        body: formData,
+        body: JSON.stringify(Object.fromEntries(formData.entries())),
         headers: {
+          'Content-Type': 'application/json',
           Accept: 'application/json'
         }
       });
 
       if (!response.ok) {
         throw new Error(`Form submission failed with status ${response.status}`);
+      }
+
+      const result = await response.json();
+      if (result.success === false || result.success === 'false') {
+        throw new Error(result.message || 'Form submission was rejected');
       }
 
       if (quickBookingStatus) {
