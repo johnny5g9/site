@@ -53,7 +53,7 @@
           },
           "image": "https://groisslhockeyphotography.com/triangle-youth-hockey-goalie-save.webp",
           "email": "Booking@groisslhockeyphotography.com",
-          "priceRange": "$45-$85+",
+          "priceRange": "$40-$85+",
           "founder": {
             "@id": "https://groisslhockeyphotography.com/#johnny-groissl"
           },
@@ -142,14 +142,14 @@
               "name": "Tournament Package - Full Team",
               "price": "70",
               "priceCurrency": "USD",
-              "description": "Full-team coverage at 70 dollars per game for 3 or more games."
+              "description": "Full-team coverage at 70 dollars per game for 3 or more tournament games, with 60 or more edited photos per game and priority turnaround."
             },
             {
               "@type": "Offer",
               "name": "Tournament Package - Individual Player",
               "price": "40",
               "priceCurrency": "USD",
-              "description": "Individual-player coverage at 40 dollars per game during a 3 or more game tournament."
+              "description": "Individual-player coverage at 40 dollars per game for 3 or more tournament games, with 15 edited photos per game and priority turnaround."
             }
           ]
         },
@@ -199,7 +199,7 @@
               "name": "How many photos do we receive?",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "Individual Player coverage includes 15 edited photos of one player during one game at 45 dollars per game, with 48-hour delivery. Full Team Single Game coverage includes 60 or more edited photos at 85 dollars per game. For 3 or more tournament games, full-team coverage is 70 dollars per game and individual-player coverage is 40 dollars per game."
+                "text": "Individual Player coverage includes 15 edited photos of one player during one game at 45 dollars per game, with 48-hour delivery. Full Team Single Game coverage includes 60 or more edited photos at 85 dollars per game. For 3 or more tournament games, full-team coverage is 70 dollars per game with 60 or more edited photos per game, and individual-player coverage is 40 dollars per game with 15 edited photos per game."
               }
             },
             {
@@ -493,7 +493,7 @@
         </article>
       </div>
 
-      <p class="services-note">Want coverage focused on one player? <a class="service-link" href="/individual-player-sessions-raleigh-hockey">View the $45 Individual Player package</a>.</p>
+      <p class="services-note">Want coverage focused on one player? <a class="service-link" href="/individual-player-sessions-raleigh-hockey">View single-game and tournament Individual Player options</a>.</p>
 
       <div class="packages-grid">
         <article class="booking-option" data-scroll-target="#contact" data-package="Individual Player" role="button" tabindex="0" aria-label="Book Individual Player package">
@@ -529,7 +529,7 @@
           <p class="package-fit">For 3+ tournament or showcase games. Choose full-team coverage or focused coverage of one player.</p>
           <ul>
             <li>Full team: $70 per game for 3+ games</li>
-            <li>Individual player: $40 per game</li>
+            <li>Individual player: $40 per game for 3+ games</li>
             <li>60+ team photos or 15 player photos per game</li>
             <li>Priority turnaround</li>
           </ul>
@@ -624,7 +624,7 @@
         </details>
         <details>
           <summary>How many photos do we receive?</summary>
-          <p>Individual Player coverage is $45 per game for one player, with 15 edited photos and 48-hour delivery. Full Team Single Game coverage includes 60+ edited photos at $85 per game. For 3+ tournament games, full-team coverage is $70 per game and individual-player coverage is $40 per game.</p>
+          <p>Individual Player coverage is $45 per game for one player, with 15 edited photos and 48-hour delivery. Full Team Single Game coverage includes 60+ edited photos at $85 per game. For 3+ tournament games, full-team coverage is $70 per game with 60+ edited photos per game, and individual-player coverage is $40 per game with 15 edited photos per game.</p>
         </details>
         <details>
           <summary>How far do you travel in the Triangle?</summary>
@@ -673,16 +673,17 @@
           <label class="form-field">
             <span class="field-label">Package</span>
             <select name="package" required>
-              <option value="Individual Player">Individual Player</option>
-              <option value="Single Game" selected>Single Game</option>
-              <option value="Tournament Package">Tournament Package</option>
+              <option value="Individual Player">Individual Player — $45/game</option>
+              <option value="Single Game" selected>Full Team — $85 / game</option>
+              <option value="Tournament Package">Tournament — 3+ games</option>
               <option value="Custom Coverage">Custom Coverage</option>
             </select>
+            <span class="booking-response-time">Tournament: $70/game full team or $40/game one player, for 3+ games.</span>
           </label>
           <label class="form-field">
             <span class="field-label">Coverage Type</span>
-            <select name="coverage_type">
-              <option value="" selected>Select</option>
+            <select name="coverage_type" required>
+              <option value="" selected>Select coverage</option>
               <option value="Single player focus">Single player focus</option>
               <option value="Full team coverage">Full team coverage</option>
               <option value="Other">Other</option>
@@ -710,7 +711,7 @@
         </div>
         <label class="quick-booking-message form-field">
           <span class="field-label">Notes</span>
-          <textarea name="notes" rows="4" placeholder="Share game details, number of games, and anything important."></textarea>
+          <textarea name="notes" rows="4" placeholder="Share game details, number of games (3+ for tournament rates), player name / jersey number, and anything important."></textarea>
         </label>
         <div class="quick-booking-actions">
           <button class="btn btn-primary" type="submit">Submit</button>
@@ -745,7 +746,7 @@
     </div>
   </div>
 
-  <script src="./script.js?v=20260925a"></script>
+  <script src="./script.js?v=20261002a"></script>
 </body>
 </html>
 

@@ -1424,7 +1424,21 @@ if (filterButtons.length > 0) {
 }
 
 if (quickBookingForm) {
+  const coverageTypeSelect = quickBookingForm.querySelector('select[name="coverage_type"]');
   const updateQuickBookingDateUI = () => {
+    if (packageSelect && coverageTypeSelect) {
+      const isPlayer = packageSelect.value === 'Individual Player';
+      const isTeam = packageSelect.value === 'Single Game';
+      for (const option of coverageTypeSelect.options) {
+        option.disabled = (isPlayer && option.value !== 'Single player focus') ||
+          (isTeam && option.value !== 'Full team coverage') ||
+          (packageSelect.value === 'Tournament Package' && option.value === 'Other');
+      }
+      if (isPlayer) coverageTypeSelect.value = 'Single player focus';
+      else if (isTeam) coverageTypeSelect.value = 'Full team coverage';
+      else coverageTypeSelect.value = '';
+    }
+
     if (!packageSelect || !endDateField || !endDateInput) {
       return;
     }
