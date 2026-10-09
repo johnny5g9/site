@@ -2186,3 +2186,9 @@ h2 {
     transform: none !important;
   }
 }
+
+/* Keep the arena's previous name secondary to its current name. */
+.arena-former-name {
+  font-size: max(0.75em, 0.75rem);
+  font-weight: 400;
+}

@@ -120,6 +120,23 @@
             {
               "@type": "Place",
               "name": "Raleigh-Durham-Chapel Hill, NC"
+            },
+            {
+              "@type": "Place",
+              "name": "Lane Arena / WCC",
+              "alternateName": "Invisalign Arena"
+            },
+            {
+              "@type": "Place",
+              "name": "Polar Ice Wake Forest"
+            },
+            {
+              "@type": "Place",
+              "name": "Polar Ice Garner"
+            },
+            {
+              "@type": "Place",
+              "name": "Iceplex"
             }
           ],
           "offers": [
@@ -356,7 +373,7 @@
           </article>
           <article>
             <h3>Triangle Rink Focus</h3>
-            <p>Frequent coverage at WCC (Invisalign Arena), Polar Ice Wake Forest, Polar Ice Garner, and Iceplex.</p>
+            <p>Frequent coverage at Lane Arena / WCC <small class="arena-former-name">(Formally Invisalign Arena)</small>, Polar Ice Wake Forest, Polar Ice Garner, and Iceplex.</p>
           </article>
           <article>
             <h3>Travel Availability</h3>
@@ -699,14 +716,15 @@
           </label>
           <label class="form-field form-field-wide">
             <span class="field-label">Rink / Location</span>
-            <select name="rink" required>
+            <select name="rink" required aria-describedby="lane-arena-note">
               <option value="" selected disabled>(Select)</option>
-              <option value="WCC (Invisalign Arena)">WCC (Invisalign Arena)</option>
+              <option value="Lane Arena / WCC (Formally Invisalign Arena)">Lane Arena / WCC</option>
               <option value="Polar Ice Wake Forest">Polar Ice Wake Forest</option>
               <option value="Polar Ice Garner">Polar Ice Garner</option>
               <option value="Iceplex">Iceplex</option>
               <option value="Other">Other</option>
             </select>
+            <span id="lane-arena-note" class="booking-response-time">Lane Arena / WCC <small class="arena-former-name">(Formally Invisalign Arena)</small></span>
           </label>
         </div>
         <label class="quick-booking-message form-field">
